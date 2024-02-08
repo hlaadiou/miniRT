@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:35:57 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/08 17:47:16 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/08 17:54:10 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,7 @@ t_vector	cross_product(t_vector vec1, t_vector vec2)
 }
 
 /* DOT PRODUCT  (vec1 . vec2) */
-t_vector	dot_product(t_vector vec1, t_vector vec2)
+double	dot_product(t_vector vec1, t_vector vec2)
 {
-	t_vector	dot;
-
-	dot.x = (vec1.y * vec2.z) - (vec1.z * vec2.y);
-	dot.y = (vec1.z * vec2.x) - (vec1.x * vec2.z);
-	dot.z = (vec1.x * vec2.y) - (vec1.y * vec2.x);
-	return (dot);
+	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
 }
