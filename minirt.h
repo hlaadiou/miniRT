@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:38:27 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/09 15:54:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/09 16:13:19 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_rt
 
 int open_tests(char **av);
 void	ambient_lightning(char *line,t_rt **rt);
+void camera(char *line, t_rt **rt);
 
 
 

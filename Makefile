@@ -6,15 +6,15 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/08 16:42:15 by azgaoua           #+#    #+#              #
-#    Updated: 2024/02/09 15:55:04 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/02/09 16:13:04 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
-OBJS =  ambient_lightning.o open_tests.o main.o
+OBJS = camera.o ambient_lightning.o open_tests.o main.o
 
-FILES = ambient_lightning.c open_tests.c main.c
+FILES = camera.c ambient_lightning.c open_tests.c main.c
 
 CC = cc
 
