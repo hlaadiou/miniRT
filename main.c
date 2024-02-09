@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 16:31:15 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/09 15:53:56 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/09 16:01:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void parser(char *av, t_rt **rt)
 		// 	plane(line, rt);
 		// else if (line[0] == 'c' && line[1] == 'y' && line[2] == ' ')
 		// 	cylinder(line, rt);
-		printf("%s", line);
+		
+		// printf("%s", line);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -56,7 +57,12 @@ int	main(int ac, char **av)
 	}
 	else
 	{
+		rt = malloc(sizeof(t_rt));
 		parser(av[1], &rt);
+		printf("%d ", rt->A->ambient_l_r);
+		printf("%d,", rt->A->RGB[0]);
+		printf("%d,", rt->A->RGB[1]);
+		printf("%d\n", rt->A->RGB[2]);
 	}
 	return (0);
 }
