@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_tests.c                                       :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:33:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/08 21:18:05 by azgaoua          ###   ########.fr       */
+/*   Created: 2022/11/01 11:12:53 by azgaoua           #+#    #+#             */
+/*   Updated: 2024/02/08 17:33:15 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int open_tests(char **av)
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	int fd;
+	size_t	i;
 
-	fd = open(av[1], O_RDONLY);
-
-	if (fd == -1)
-		return (perror("file not found"), 1);
-	
-	close(fd);
-	return (0);
+	if (!s1 || !set)
+		return (0);
+	while (*s1 && ft_strchr(set, *s1))
+		s1++;
+	i = ft_strlen(s1);
+	while (i && ft_strchr(set, s1[i]))
+		i--;
+	return (ft_substr(s1, 0, i + 1));
 }

@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_tests.c                                       :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:33:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/08 21:18:05 by azgaoua          ###   ########.fr       */
+/*   Created: 2022/11/12 18:57:35 by azgaoua           #+#    #+#             */
+/*   Updated: 2022/11/17 16:13:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int open_tests(char **av)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int fd;
+	char				*str;
+	unsigned int		j;
 
-	fd = open(av[1], O_RDONLY);
-
-	if (fd == -1)
-		return (perror("file not found"), 1);
-	
-	close(fd);
-	return (0);
+	if (!s || !f)
+		return (0);
+	j = ft_strlen(s) + 1;
+	str = malloc(j);
+	if (!str)
+		return (NULL);
+	j = 0;
+	while (j < ft_strlen(s))
+	{
+		str[j] = (*f)(j, (char)s[j]);
+		j++;
+	}
+	str[j] = '\0';
+	return (str);
 }

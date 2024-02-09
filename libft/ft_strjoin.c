@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_tests.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:33:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/08 21:18:05 by azgaoua          ###   ########.fr       */
+/*   Created: 2022/10/31 21:56:10 by azgaoua           #+#    #+#             */
+/*   Updated: 2022/11/16 23:40:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int open_tests(char **av)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int fd;
+	char	*s;
+	int		i;
+	int		len;
 
-	fd = open(av[1], O_RDONLY);
-
-	if (fd == -1)
-		return (perror("file not found"), 1);
-	
-	close(fd);
-	return (0);
+	if (!s1 || !s2)
+		return (0);
+	len = ft_strlen(s2) + ft_strlen(s1);
+	s = malloc(len + 1);
+	if (!s)
+		return (0);
+	i = 0;
+	while (s1[i])
+		i++;
+	ft_memmove(s, s1, i);
+	ft_memmove((s + i), s2, ft_strlen(s2));
+	s[len] = '\0';
+	return (s);
 }

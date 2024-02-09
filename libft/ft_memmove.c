@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_tests.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:33:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/08 21:18:05 by azgaoua          ###   ########.fr       */
+/*   Created: 2022/10/18 16:01:48 by azgaoua           #+#    #+#             */
+/*   Updated: 2022/11/17 15:55:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int open_tests(char **av)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	int fd;
+	char	*d;
+	char	*s;
 
-	fd = open(av[1], O_RDONLY);
-
-	if (fd == -1)
-		return (perror("file not found"), 1);
-	
-	close(fd);
-	return (0);
+	d = (char *)dst;
+	s = (char *)src;
+	if (d == 0 && s == 0)
+		return (0);
+	if (s < d)
+	{
+		while (len--)
+			d[len] = s[len];
+	}
+	else
+		d = ft_memcpy(d, s, len);
+	return (d);
 }

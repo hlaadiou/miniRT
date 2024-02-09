@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_tests.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azgaoua <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:33:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/08 21:18:05 by azgaoua          ###   ########.fr       */
+/*   Created: 2022/11/16 11:23:25 by azgaoua           #+#    #+#             */
+/*   Updated: 2022/11/16 11:30:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "minirt.h"
-
-int open_tests(char **av)
+t_list	*ft_lstnew(void *content)
 {
-	int fd;
+	t_list	*new;
 
-	fd = open(av[1], O_RDONLY);
-
-	if (fd == -1)
-		return (perror("file not found"), 1);
-	
-	close(fd);
-	return (0);
+	new = malloc(sizeof(t_list));
+	if (!new)
+		return (0);
+	new -> content = content;
+	new -> next = NULL;
+	return (new);
 }

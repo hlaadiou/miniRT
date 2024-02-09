@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_tests.c                                       :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: azgaoua <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/08 16:33:39 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/08 21:18:05 by azgaoua          ###   ########.fr       */
+/*   Created: 2022/10/20 14:13:23 by azgaoua           #+#    #+#             */
+/*   Updated: 2022/10/21 03:50:37 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "minirt.h"
-
-int open_tests(char **av)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	int fd;
+	size_t			i;
+	unsigned char	h;
+	unsigned char	*str;
 
-	fd = open(av[1], O_RDONLY);
-
-	if (fd == -1)
-		return (perror("file not found"), 1);
-	
-	close(fd);
+	i = 0;
+	h = (unsigned char )c;
+	str = (unsigned char *)s;
+	while (i < n)
+	{
+		if (str[i] == h)
+			return ((void *)s + i);
+		i++;
+	}
 	return (0);
 }
