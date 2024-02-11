@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:35:57 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/08 17:54:10 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:09:15 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt_mathematics.h"
+#include "includes/rt_mathematics.h"
 
 /* ADDITION  (vec1 + vec2) */
 t_vector	add_vectors(t_vector vec1, t_vector vec2)
