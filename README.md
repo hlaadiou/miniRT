@@ -14,7 +14,7 @@
 
 ## البدء
 
-1. استنسخ هذا المستودع: `git clone https://github.com/your-username/raytracing-masterpiece.git`
+1. استنسخ هذا المستودع: `git clone https://github.com/hlaadiou/miniRT.git`
 2. بناء المشروع: `make`
 4. تأمل بإعجاب الصور الجميلة.
 
