@@ -6,16 +6,16 @@
 #    By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/02/11 17:05:25 by hlaadiou         ###   ########.fr        #
+#    Updated: 2024/02/12 14:52:32 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	miniRT
-SRCS		=	$(shell find ./sources -iname "*.c")
+#SRCS		=	$(shell find ./sources -iname "*.c")
+SRCS		=	mlxTest.c
 OBJS		=	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
-HEADERS		=	-I ./includes -I $(LIBMLX)/include
-LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 CFLAGS		=	-Wall -Werror -Wextra -Ofast
 CC			=	cc
 RM			=	rm -rf
@@ -27,10 +27,10 @@ libmlx:
 			@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 %.o:		%.c
-			$(CC) $(CFLAGS) -c $< -o $@ $(HEADERS)
+			$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS)
-			$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+			$(CC) $(OBJS) $(LIBS) -o $(NAME)
 
 clean:
 			$(RM) $(OBJS)
