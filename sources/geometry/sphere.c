@@ -3,12 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:38 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/11 17:08:14 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:01:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/geometry.h"
+#include "../includes/geometry.h"
 

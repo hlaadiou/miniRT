@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:35:57 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/11 17:09:15 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:01:23 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/rt_mathematics.h"
+#include "../includes/rt_mathematics.h"
 
 /* ADDITION  (vec1 + vec2) */
 t_vector	add_vectors(t_vector vec1, t_vector vec2)
