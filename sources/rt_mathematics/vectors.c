@@ -6,39 +6,53 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:35:57 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/11 17:09:15 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/16 18:43:15 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/rt_mathematics.h"
+#include "../../includes/rt_mathematics.h"
 
-/* ADDITION  (vec1 + vec2) */
-t_vector	add_vectors(t_vector vec1, t_vector vec2)
+/* GENERATES A TUPLE WITH A 0 W-COMPONENT */
+t_vector	_vector(float x, float y, float z)
 {
-	t_vector	sum;
+	t_tuple	vec;
 
-	sum.x = vec1.x + vec2.x;
-	sum.y = vec1.y + vec2.y;
-	sum.z = vec1.z + vec2.z;
-	return (sum);
-}
-
-/* MULTIPLICATION BY SCALAR (a * vec2) */
-t_vector	multiply_vector_scalar(double scalar, t_vector vec)
-{
-	vec.x = scalar * vec.x;
-	vec.y = scalar * vec.y;
-	vec.z = scalar * vec.z;
+	vec.x = x;
+	vec.y = y;
+	vec.z = z;
+	vec.w = 0;
 	return (vec);
 }
 
-/* SUBSTRACTION  (vec1 - vec2) */
-t_vector	substract_vectors(t_vector vec1, t_vector vec2)
+/* SQUARED MODULUS */
+float	squared_magnitude(t_vector vec)
 {
-	t_vector	diff;
+	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z + vec.w * vec.w);
+}
 
-	diff = add_vectors(vec1, multiply_vector_scalar(-1, vec2));
-	return (diff);
+/* MODULUS */
+float	vec_magnitude(t_vector vec)
+{
+	return (sqrt(squared_magnitude(vec)));
+}
+
+/* UNIT VECTOR OF AN ARBITRARY VEC */
+t_vector	vec_normalize(t_vector vec)
+{
+	float		modulus;
+	t_vector	unit_vec;
+
+	modulus = vec_magnitude(vec);
+	if (!modulus)
+	{
+		printf("U cannot normalize a vector of modulus 0\n");
+		exit(EXIT_FAILURE);
+	}
+	unit_vec.x = vec.x / modulus;
+	unit_vec.y = vec.y / modulus;
+	unit_vec.z = vec.z / modulus;
+	unit_vec.w = vec.w / modulus;
+	return (unit_vec);
 }
 
 /* CROSS PRODUCT  (vec1 x vec2) */
@@ -49,11 +63,12 @@ t_vector	cross_product(t_vector vec1, t_vector vec2)
 	cross.x = (vec1.y * vec2.z) - (vec1.z * vec2.y);
 	cross.y = (vec1.z * vec2.x) - (vec1.x * vec2.z);
 	cross.z = (vec1.x * vec2.y) - (vec1.y * vec2.x);
+	cross.w = 0;
 	return (cross);
 }
 
 /* DOT PRODUCT  (vec1 . vec2) */
-double	dot_product(t_vector vec1, t_vector vec2)
+float	dot_product(t_vector vec1, t_vector vec2)
 {
-	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
+	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z + vec1.w * vec2.w);
 }
