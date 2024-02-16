@@ -1,6 +1,8 @@
 {
 	"cmake.configureOnOpen": false,
 	"cSpell.words": [
-		"bresenham"
+		"bresenham",
+		"cofactor",
+		"submatrix"
 	]
 }
