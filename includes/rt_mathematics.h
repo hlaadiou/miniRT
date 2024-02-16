@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_mathematics.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/08 16:45:52 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/16 14:43:43 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 /*
  * STRUCTURES
  */
+
+typedef struct s_matrix
+{
+	float	**mtx;
+	int		size;
+}	t_matrix;
 
 typedef struct s_vector
 {

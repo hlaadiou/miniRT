@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/16 13:11:56 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/16 15:26:01 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,108 +14,158 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-float	**mtx_multiply(float A[4][4], float B[4][4])
+t_matrix	*mtx_create(int size)
 {
-	float	**C;
-	int		i;
-	int		j;
-	int		k;
+	t_matrix	*mtx;
+	int			i;
 
-	C = (float **)malloc(8 * 4);
+	mtx = (t_matrix	*)malloc(sizeof(t_matrix));
+	mtx->size = size;
+	mtx->mtx= (float **)malloc(sizeof(float *) * size);
 	i = -1;
-	while (++i < 4)
-		C[i] = (float *)malloc(4 * 4);
-	i = -1;
-	while (++i < 4)
-	{
-		j = -1;
-		while (++j < 4)
-		{
-			C[i][j] = 0;
-			k = -1;
-			while (++k < 4)
-				C[i][j] += A[i][k] * B[k][j];
-		}
-	}
-	return (C);
+	while (++i < size)
+		mtx->mtx[i] = (float *)malloc(sizeof(float) * size);
+	return (mtx);
 }
 
-
-float **mtx_transpose(float  A[4][4])
+t_matrix	*identity_mtx(int size)
 {
-	float **C;
+	t_matrix	*a;
+	int			i;
+	int			j;
+
+	i = 0;
+	a = mtx_create(size);
+	while(i < size)
+	{
+		j = 0;
+		while(j < size)
+		{
+			if (i == j)
+				a->mtx[i][j] = 1;
+			else
+				a->mtx[i][j] = 0;
+			j++;
+		}
+		i++;
+	}
+	return (a);
+}
+
+t_matrix	*mtx_multiply(t_matrix *a,t_matrix *b)
+{
+	t_matrix	*c;
+	int			i;
+	int			j;
+	int			k;
+
+	c = mtx_create(a->size);
+	i = -1;
+	while (++i < a->size)
+	{
+		j = -1;
+		while (++j < a->size)
+		{
+			c->mtx[i][j] = 0;
+			k = -1;
+			while (++k < a->size)
+				c->mtx[i][j] += a->mtx[i][k] * b->mtx[k][j];
+		}
+	}
+	return (c);
+}
+
+float	mtx_determinant(t_matrix a)
+{
+	float	dtr;
+
+	dtr = 0;
+	return (dtr);
+}
+
+t_matrix *mtx_transpose(t_matrix  *a)
+{
+	t_matrix *c;
 	int	k;
 	int	r;
-	int	c;
+	int	col;
 
 	r = -1;
-	C = (float **)malloc(32);
-	k = -1;
-	while (++k < 4)
-		C[k] = (float *)malloc(16);
+	c = mtx_create(a->size);
 	while (++r < 4)
 	{
-		c = -1;
-		while (++c < 4)
-			C[c][r] = A[r][c];
+		col = -1;
+		while (++col < c->size)
+			c->mtx[col][r] = a->mtx[r][col];
 	}
-	return (C);
+	return (c);
 }
 
 int main()
 {
-	float	A[4][4];
-	float	B[4][4];
-	
-	A[0][0] = 1;
-	A[0][1] = 2;
-	A[0][2] = 3;
-	A[0][3] = 4;
-	A[1][0] = 5;
-	A[1][1] = 6;
-	A[1][2] = 7;
-	A[1][3] = 8;
-	A[2][0] = 9;
-	A[2][1] = 8;
-	A[2][2] = 7;
-	A[2][3] = 6;
-	A[3][0] = 5;
-	A[3][1] = 4;
-	A[3][2] = 3;
-	A[3][3] = 2;
-	B[0][0] = -2;
-	B[0][1] = 1;
-	B[0][2] = 2;
-	B[0][3] = 3;
-	B[1][0] = 3;
-	B[1][1] = 2;
-	B[1][2] = 1;
-	B[1][3] = -1;
-	B[2][0] = 4;
-	B[2][1] = 3;
-	B[2][2] = 6;
-	B[2][3] = 5;
-	B[3][0] = 1;
-	B[3][1] = 2;
-	B[3][2] = 7;
-	B[3][3] = 8;
+	t_matrix *A;
+	t_matrix *B;
+
+	A = mtx_create(4);
+	B = mtx_create(4);
+	A->mtx[0][0] = 1;
+	A->mtx[0][1] = 2;
+	A->mtx[0][2] = 3;
+	A->mtx[0][3] = 4;
+	A->mtx[1][0] = 5;
+	A->mtx[1][1] = 6;
+	A->mtx[1][2] = 7;
+	A->mtx[1][3] = 8;
+	A->mtx[2][0] = 9;
+	A->mtx[2][1] = 8;
+	A->mtx[2][2] = 7;
+	A->mtx[2][3] = 6;
+	A->mtx[3][0] = 5;
+	A->mtx[3][1] = 4;
+	A->mtx[3][2] = 3;
+	A->mtx[3][3] = 2;
+	B->mtx[0][0] = -2;
+	B->mtx[0][1] = 1;
+	B->mtx[0][2] = 2;
+	B->mtx[0][3] = 3;
+	B->mtx[1][0] = 3;
+	B->mtx[1][1] = 2;
+	B->mtx[1][2] = 1;
+	B->mtx[1][3] = -1;
+	B->mtx[2][0] = 4;
+	B->mtx[2][1] = 3;
+	B->mtx[2][2] = 6;
+	B->mtx[2][3] = 5;
+	B->mtx[3][0] = 1;
+	B->mtx[3][1] = 2;
+	B->mtx[3][2] = 7;
+	B->mtx[3][3] = 8;
+	printf("**************************************************\n");
+	t_matrix *c = mtx_multiply(A, B);
+	for (int i = 0; i < c->size; i++)
+	{
+		printf(" |");
+		for (int j = 0; j < c->size; j++)
+			printf("%.2f |", c->mtx[i][j]);
+		printf("\n");
+	}
+	printf("**************************************************\n");
+	t_matrix *a = identity_mtx(4);
+	for (int i = 0; i < a->size; i++)
+	{
+		printf(" |");
+		for (int j = 0; j < a->size; j++)
+			printf("%.2f |", a->mtx[i][j]);
+		printf("\n");
+	}
 	// printf("**************************************************\n");
-	// float **C = mtx_multiply(A, B);
+	// t_matrix *C = mtx_transpose(A);
 	// for (int i = 0; i < 4; i++)
 	// {
 	// 	printf(" |");
-	// 	for (int j = 0; j < 4; j++)
-	// 		printf("%.2f |", C[i][j]);
+	// 	for (int j = 0; j < C->size; j++)
+	// 		printf("%.2f |", C->mtx[i][j]);
 	// 	printf("\n");
 	// }
-	printf("**************************************************\n");
-	float **C = mtx_transpose(A);
-	for (int i = 0; i < 4; i++)
-	{
-		printf(" |");
-		for (int j = 0; j < 4; j++)
-			printf("%.2f |", C[i][j]);
-		printf("\n");
-	}
 	return 0;
 }
