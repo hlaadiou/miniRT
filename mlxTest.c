@@ -6,15 +6,17 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 19:42:41 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/12 15:35:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 13:41:30 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// -----------------------------------------------------------------------------
-// Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
-// See README in the root project for more information.
-// -----------------------------------------------------------------------------
+#include <stdio.h>
+#include <stdlib.h>
+#include "lib/MLX42/include/MLX42/MLX42.h"
 
+
+/*
+ *
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -97,5 +99,29 @@ int32_t main(void)
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
+}
+
+*/
+
+# define WIDTH 1080
+# define HEIGHT 1080
+
+void	error_mlx(void)
+{
+	printf("%s\n", mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
+}
+
+int32_t	main(void)
+{
+	mlx_t	*mlx;
+	
+	mlx = mlx_init(WIDTH, HEIGHT, "miniRT", false);
+	if (!mlx)
+		error_mlx();
+
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (0);
 }
 
