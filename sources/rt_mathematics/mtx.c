@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 16:02:52 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 16:23:26 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ float cofactor(t_matrix *a, int r, int c)
 t_matrix *mtx_transpose(t_matrix  *a)
 {
 	t_matrix *c;
-	int	k;
 	int	r;
 	int	col;
 
