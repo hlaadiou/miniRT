@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/17 15:46:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 16:19:46 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,9 @@ t_matrix	*mtx_multiply(t_matrix *a,t_matrix *b);
 t_matrix	*submatrix(t_matrix *a, int r, int c);
 t_matrix 	*mtx_transpose(t_matrix  *a);
 t_matrix	*inverse(t_matrix *a);
+
+float		dot_product(t_vector vec1, t_vector vec2);
+t_tuple		extract_tuple_mtx(int row, t_matrix *m);
+t_tuple 	mtx_tuple_prod(t_matrix *mtx, t_tuple tup);
 
 #endif

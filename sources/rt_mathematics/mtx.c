@@ -6,13 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 13:31:32 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 16:22:40 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/rt_mathematics.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 t_matrix	*mtx_create(int size)
 {
@@ -163,7 +161,6 @@ float cofactor(t_matrix *a, int r, int c)
 t_matrix *mtx_transpose(t_matrix  *a)
 {
 	t_matrix *c;
-	int	k;
 	int	r;
 	int	col;
 
@@ -182,7 +179,7 @@ t_matrix *mtx_transpose(t_matrix  *a)
 // {
 // 	t_matrix *A;
 // 	t_matrix *B;
-
+//
 // 	A = mtx_create(4);
 // 	B = mtx_create(4);
 // 	/*
@@ -191,23 +188,23 @@ t_matrix *mtx_transpose(t_matrix  *a)
 // 	| -4 | 9 | 6 | 4 |
 // 	| -7 | 6 | 6 | 2 |
 // 	*/
-// 	A->mtx[0][0] = 9;
-// 	A->mtx[0][1] = 3;
-// 	A->mtx[0][2] = 0;
-// 	A->mtx[0][3] = 9;
-// 	A->mtx[1][0] = -5;
-// 	A->mtx[1][1] = -2;
-// 	A->mtx[1][2] = -6;
-// 	A->mtx[1][3] = -3;
-// 	A->mtx[2][0] = -4;
-// 	A->mtx[2][1] = 9;
-// 	A->mtx[2][2] = 6;
-// 	A->mtx[2][3] = 4;
-// 	A->mtx[3][0] = -7;
-// 	A->mtx[3][1] = 6;
-// 	A->mtx[3][2] = 6;
-// 	A->mtx[3][3] = 2;
-// 	B->mtx[0][0] = -2;
+// 	A->mtx[0][0] = 1;
+// 	A->mtx[0][1] = 2;
+// 	A->mtx[0][2] = 3;
+// 	A->mtx[0][3] = 4;
+// 	A->mtx[1][0] = 2;
+// 	A->mtx[1][1] = 4;
+// 	A->mtx[1][2] = 4;
+// 	A->mtx[1][3] = 2;
+// 	A->mtx[2][0] = 8;
+// 	A->mtx[2][1] = 6;
+// 	A->mtx[2][2] = 4;
+// 	A->mtx[2][3] = 1;
+// 	A->mtx[3][0] = 0;
+// 	A->mtx[3][1] = 0;
+// 	A->mtx[3][2] = 0;
+// 	A->mtx[3][3] = 1;
+// 	B->mtx[0][0] = 2;
 // 	B->mtx[0][1] = 1;
 // 	B->mtx[0][2] = 2;
 // 	B->mtx[0][3] = 3;
@@ -223,7 +220,13 @@ t_matrix *mtx_transpose(t_matrix  *a)
 // 	B->mtx[3][1] = 2;
 // 	B->mtx[3][2] = 7;
 // 	B->mtx[3][3] = 8;
+//
+//	t_tuple	tup = {1, 2, 3, 1};
+//	t_tuple prod = mtx_tuple_prod(A, tup);
+//	printf ("%.2f %.2f %.2f %.2f\n", prod.x, prod.y, prod.z, prod.w);
 // 	printf("**************************************************\n");
+//
+// }
 // 	// t_matrix *c = mtx_multiply(A, B);
 // 	// for (int i = 0; i < c->size; i++)
 // 	// {
