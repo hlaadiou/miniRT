@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 18:14:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 19:24:35 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,59 +197,63 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 	return (1);
 }
 
-int main()
-{
-	t_matrix *A;
-	t_matrix *B;
+// int main()
+// {
+// 	t_matrix *A;
+// 	t_matrix *B;
 
-	A = mtx_create(4);
-	B = mtx_create(4);
-	/*
-	| 9 | 3 | 0 | 9 |
-	| -5 | -2 | -6 | -3 |
-	| -4 | 9 | 6 | 4 |
-	| -7 | 6 | 6 | 2 |
-	*/
-	A->mtx[0][0] = 1;
-	A->mtx[0][1] = 2;
-	A->mtx[0][2] = 3;
-	A->mtx[0][3] = 4;
-	A->mtx[1][0] = 2;
-	A->mtx[1][1] = 4;
-	A->mtx[1][2] = 4;
-	A->mtx[1][3] = 2;
-	A->mtx[2][0] = 8;
-	A->mtx[2][1] = 6;
-	A->mtx[2][2] = 4;
-	A->mtx[2][3] = 1;
-	A->mtx[3][0] = 0;
-	A->mtx[3][1] = 0;
-	A->mtx[3][2] = 0;
-	A->mtx[3][3] = 1;
-	B->mtx[0][0] = 2;
-	B->mtx[0][1] = 1;
-	B->mtx[0][2] = 2;
-	B->mtx[0][3] = 3;
-	B->mtx[1][0] = 3;
-	B->mtx[1][1] = 2;
-	B->mtx[1][2] = 1;
-	B->mtx[1][3] = -1;
-	B->mtx[2][0] = 4;
-	B->mtx[2][1] = 3;
-	B->mtx[2][2] = 6;
-	B->mtx[2][3] = 5;
-	B->mtx[3][0] = 1;
-	B->mtx[3][1] = 2;
-	B->mtx[3][2] = 7;
-	B->mtx[3][3] = 8;
+// 	A = mtx_create(4);
+// 	B = mtx_create(4);
+// 	/*
+// 	| 9 | 3 | 0 | 9 |
+// 	| -5 | -2 | -6 | -3 |
+// 	| -4 | 9 | 6 | 4 |
+// 	| -7 | 6 | 6 | 2 |
+// 	*/
+// 	A->mtx[0][0] = 1;
+// 	A->mtx[0][1] = 2;
+// 	A->mtx[0][2] = 3;
+// 	A->mtx[0][3] = 4;
+// 	A->mtx[1][0] = 2;
+// 	A->mtx[1][1] = 4;
+// 	A->mtx[1][2] = 4;
+// 	A->mtx[1][3] = 2;
+// 	A->mtx[2][0] = 8;
+// 	A->mtx[2][1] = 6;
+// 	A->mtx[2][2] = 4;
+// 	A->mtx[2][3] = 1;
+// 	A->mtx[3][0] = 0;
+// 	A->mtx[3][1] = 0;
+// 	A->mtx[3][2] = 0;
+// 	A->mtx[3][3] = 1;
+// 	B->mtx[0][0] = 2;
+// 	B->mtx[0][1] = 1;
+// 	B->mtx[0][2] = 2;
+// 	B->mtx[0][3] = 3;
+// 	B->mtx[1][0] = 3;
+// 	B->mtx[1][1] = 2;
+// 	B->mtx[1][2] = 1;
+// 	B->mtx[1][3] = -1;
+// 	B->mtx[2][0] = 4;
+// 	B->mtx[2][1] = 3;
+// 	B->mtx[2][2] = 6;
+// 	B->mtx[2][3] = 5;
+// 	B->mtx[3][0] = 1;
+// 	B->mtx[3][1] = 2;
+// 	B->mtx[3][2] = 7;
+// 	B->mtx[3][3] = 8;
 
-	t_matrix *transform = translation(5, -3, 2);
-	t_point	tup = {-3, 4, 5};
-	t_tuple prod = mtx_tuple_prod(transform, tup);
-	printf ("%.2f %.2f %.2f %.2f\n", prod.x, prod.y, prod.z, prod.w);
-	printf("**************************************************\n");
+// 	t_matrix *transform_a = rotation_x(M_PI_2);
+// 	t_matrix *transform_b = scaling_mtx(5, 5, 5);
+// 	t_matrix *transform_c = translation(10, 5, 7);
 
-}
+// 	// transform = inverse(transform);
+// 	t_point	tup = _point(1, 0, 1);
+// 	t_tuple prod = mtx_tuple_prod(mtx_multiply(mtx_multiply(transform_c, transform_b), transform_a), tup);
+// 	printf ("%.2f %.2f %.2f %.2f\n", prod.x, prod.y, prod.z, prod.w);
+// 	printf("**************************************************\n");
+
+// }
 // 	// t_matrix *c = mtx_multiply(A, B);
 // 	// for (int i = 0; i < c->size; i++)
 // 	// {

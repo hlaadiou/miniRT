@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:28:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 15:48:29 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/17 18:31:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ t_matrix	*rotation_z(float r)
 	a->mtx[0][0] = cos(r);
 	a->mtx[0][1] = sin(r) * (-1);
 	a->mtx[1][0] = sin(r);
-	a->mtx[1][0] = cos(r);
+	a->mtx[1][1] = cos(r);
 	return (a);
 }
