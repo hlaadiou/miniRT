@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/17 13:44:23 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 15:46:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_matrix
 	float	**mtx;
 	int		size;
 }	t_matrix;
+
 typedef struct s_tuple
 {
 	float	x;
