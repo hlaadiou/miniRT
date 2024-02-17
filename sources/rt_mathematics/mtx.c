@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 16:23:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 16:27:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 // {
 // 	t_matrix *A;
 // 	t_matrix *B;
-
+//
 // 	A = mtx_create(4);
 // 	B = mtx_create(4);
 // 	/*
@@ -210,23 +210,23 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 // 	| -4 | 9 | 6 | 4 |
 // 	| -7 | 6 | 6 | 2 |
 // 	*/
-// 	A->mtx[0][0] = 9;
-// 	A->mtx[0][1] = 3;
-// 	A->mtx[0][2] = 0;
-// 	A->mtx[0][3] = 9;
-// 	A->mtx[1][0] = -5;
-// 	A->mtx[1][1] = -2;
-// 	A->mtx[1][2] = -6;
-// 	A->mtx[1][3] = -3;
-// 	A->mtx[2][0] = -4;
-// 	A->mtx[2][1] = 9;
-// 	A->mtx[2][2] = 6;
-// 	A->mtx[2][3] = 4;
-// 	A->mtx[3][0] = -7;
-// 	A->mtx[3][1] = 6;
-// 	A->mtx[3][2] = 6;
-// 	A->mtx[3][3] = 2;
-// 	B->mtx[0][0] = -2;
+// 	A->mtx[0][0] = 1;
+// 	A->mtx[0][1] = 2;
+// 	A->mtx[0][2] = 3;
+// 	A->mtx[0][3] = 4;
+// 	A->mtx[1][0] = 2;
+// 	A->mtx[1][1] = 4;
+// 	A->mtx[1][2] = 4;
+// 	A->mtx[1][3] = 2;
+// 	A->mtx[2][0] = 8;
+// 	A->mtx[2][1] = 6;
+// 	A->mtx[2][2] = 4;
+// 	A->mtx[2][3] = 1;
+// 	A->mtx[3][0] = 0;
+// 	A->mtx[3][1] = 0;
+// 	A->mtx[3][2] = 0;
+// 	A->mtx[3][3] = 1;
+// 	B->mtx[0][0] = 2;
 // 	B->mtx[0][1] = 1;
 // 	B->mtx[0][2] = 2;
 // 	B->mtx[0][3] = 3;
@@ -248,7 +248,13 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 // 	printf ("| %d |\n", mtx_compare(A, B));
 // 	printf ("| %d |\n", mtx_compare(B, A));
 // }
+//
+//	t_tuple	tup = {1, 2, 3, 1};
+//	t_tuple prod = mtx_tuple_prod(A, tup);
+//	printf ("%.2f %.2f %.2f %.2f\n", prod.x, prod.y, prod.z, prod.w);
 // 	printf("**************************************************\n");
+//
+// }
 // 	// t_matrix *c = mtx_multiply(A, B);
 // 	// for (int i = 0; i < c->size; i++)
 // 	// {
