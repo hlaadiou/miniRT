@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+         #
+#    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/02/12 14:52:32 by hlaadiou         ###   ########.fr        #
+#    Updated: 2024/02/12 15:36:22 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	miniRT
 #SRCS		=	$(shell find ./sources -iname "*.c")
-SRCS		=	mlxTest.c
+SRCS		=	my_main.c
 OBJS		=	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:35:57 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/16 18:43:15 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/17 13:41:17 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt_mathematics.h"
+#include "../includes/rt_mathematics.h"
 
 /* GENERATES A TUPLE WITH A 0 W-COMPONENT */
 t_vector	_vector(float x, float y, float z)
