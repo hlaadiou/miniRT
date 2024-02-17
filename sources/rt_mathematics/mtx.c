@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 16:27:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 16:38:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,64 +197,59 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 	return (1);
 }
 
-// int main()
-// {
-// 	t_matrix *A;
-// 	t_matrix *B;
-//
-// 	A = mtx_create(4);
-// 	B = mtx_create(4);
-// 	/*
-// 	| 9 | 3 | 0 | 9 |
-// 	| -5 | -2 | -6 | -3 |
-// 	| -4 | 9 | 6 | 4 |
-// 	| -7 | 6 | 6 | 2 |
-// 	*/
-// 	A->mtx[0][0] = 1;
-// 	A->mtx[0][1] = 2;
-// 	A->mtx[0][2] = 3;
-// 	A->mtx[0][3] = 4;
-// 	A->mtx[1][0] = 2;
-// 	A->mtx[1][1] = 4;
-// 	A->mtx[1][2] = 4;
-// 	A->mtx[1][3] = 2;
-// 	A->mtx[2][0] = 8;
-// 	A->mtx[2][1] = 6;
-// 	A->mtx[2][2] = 4;
-// 	A->mtx[2][3] = 1;
-// 	A->mtx[3][0] = 0;
-// 	A->mtx[3][1] = 0;
-// 	A->mtx[3][2] = 0;
-// 	A->mtx[3][3] = 1;
-// 	B->mtx[0][0] = 2;
-// 	B->mtx[0][1] = 1;
-// 	B->mtx[0][2] = 2;
-// 	B->mtx[0][3] = 3;
-// 	B->mtx[1][0] = 3;
-// 	B->mtx[1][1] = 2;
-// 	B->mtx[1][2] = 1;
-// 	B->mtx[1][3] = -1;
-// 	B->mtx[2][0] = 4;
-// 	B->mtx[2][1] = 3;
-// 	B->mtx[2][2] = 6;
-// 	B->mtx[2][3] = 5;
-// 	B->mtx[3][0] = 1;
-// 	B->mtx[3][1] = 2;
-// 	B->mtx[3][2] = 7;
-// 	B->mtx[3][3] = 8;
+int main()
+{
+	t_matrix *A;
+	t_matrix *B;
 
-// 	printf ("| %d |\n", mtx_compare(A, A));
-// 	printf ("| %d |\n", mtx_compare(B, B));
-// 	printf ("| %d |\n", mtx_compare(A, B));
-// 	printf ("| %d |\n", mtx_compare(B, A));
-// }
-//
-//	t_tuple	tup = {1, 2, 3, 1};
-//	t_tuple prod = mtx_tuple_prod(A, tup);
-//	printf ("%.2f %.2f %.2f %.2f\n", prod.x, prod.y, prod.z, prod.w);
-// 	printf("**************************************************\n");
-//
-// }
+	A = mtx_create(4);
+	B = mtx_create(4);
+	/*
+	| 9 | 3 | 0 | 9 |
+	| -5 | -2 | -6 | -3 |
+	| -4 | 9 | 6 | 4 |
+	| -7 | 6 | 6 | 2 |
+	*/
+	A->mtx[0][0] = 1;
+	A->mtx[0][1] = 2;
+	A->mtx[0][2] = 3;
+	A->mtx[0][3] = 4;
+	A->mtx[1][0] = 2;
+	A->mtx[1][1] = 4;
+	A->mtx[1][2] = 4;
+	A->mtx[1][3] = 2;
+	A->mtx[2][0] = 8;
+	A->mtx[2][1] = 6;
+	A->mtx[2][2] = 4;
+	A->mtx[2][3] = 1;
+	A->mtx[3][0] = 0;
+	A->mtx[3][1] = 0;
+	A->mtx[3][2] = 0;
+	A->mtx[3][3] = 1;
+	B->mtx[0][0] = 2;
+	B->mtx[0][1] = 1;
+	B->mtx[0][2] = 2;
+	B->mtx[0][3] = 3;
+	B->mtx[1][0] = 3;
+	B->mtx[1][1] = 2;
+	B->mtx[1][2] = 1;
+	B->mtx[1][3] = -1;
+	B->mtx[2][0] = 4;
+	B->mtx[2][1] = 3;
+	B->mtx[2][2] = 6;
+	B->mtx[2][3] = 5;
+	B->mtx[3][0] = 1;
+	B->mtx[3][1] = 2;
+	B->mtx[3][2] = 7;
+	B->mtx[3][3] = 8;
+
+	t_matrix *transform = translation(5, -3, 2);
+	t_point	tup = {-3, 4, 5};
+	t_tuple prod = mtx_tuple_prod(transform, tup);
+	printf ("%.2f %.2f %.2f %.2f\n", prod.x, prod.y, prod.z, prod.w);
+	printf("**************************************************\n");
+
+}
 // 	// t_matrix *c = mtx_multiply(A, B);
 // 	// for (int i = 0; i < c->size; i++)
 // 	// {
