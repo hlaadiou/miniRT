@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 16:22:40 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:27:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,28 @@ t_matrix *mtx_transpose(t_matrix  *a)
 	return (c);
 }
 
+int	mtx_compare(t_matrix *a, t_matrix *b)
+{
+	unsigned int row;
+	unsigned int col;
+	
+	row = 0;
+	if (a->size != b->size)
+		return (0);
+	while (row < a->size)
+	{
+		col = 0;
+		while (col < a->size)
+		{
+			if (compare_f(a->mtx[row][col],b->mtx[row][col]) == 0)
+				return (0);
+			col++;
+		}
+		row++;
+	}
+	return (1);
+}
+
 // int main()
 // {
 // 	t_matrix *A;
@@ -220,6 +242,12 @@ t_matrix *mtx_transpose(t_matrix  *a)
 // 	B->mtx[3][1] = 2;
 // 	B->mtx[3][2] = 7;
 // 	B->mtx[3][3] = 8;
+
+// 	printf ("| %d |\n", mtx_compare(A, A));
+// 	printf ("| %d |\n", mtx_compare(B, B));
+// 	printf ("| %d |\n", mtx_compare(A, B));
+// 	printf ("| %d |\n", mtx_compare(B, A));
+// }
 //
 //	t_tuple	tup = {1, 2, 3, 1};
 //	t_tuple prod = mtx_tuple_prod(A, tup);

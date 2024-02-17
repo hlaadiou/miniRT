@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/17 16:19:46 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/17 16:27:19 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int			compare_f(float a, float b);
 t_point		_point(float x, float y, float z);
 t_vector	_vector(float x, float y, float z);
 
+int			mtx_compare(t_matrix *a, t_matrix *b);
 float 		cofactor(t_matrix *a, int r, int c);
 float		minor(t_matrix *a, int r, int c);
 float		mtx_determinant(t_matrix *a);
@@ -55,6 +56,13 @@ t_matrix	*mtx_multiply(t_matrix *a,t_matrix *b);
 t_matrix	*submatrix(t_matrix *a, int r, int c);
 t_matrix 	*mtx_transpose(t_matrix  *a);
 t_matrix	*inverse(t_matrix *a);
+t_matrix	*rotation_x(float r);
+t_matrix	*rotation_y(float r);
+t_matrix	*rotation_z(float r);
+t_matrix	*shearing(float x_y, float x_z, float y_x, \
+				float y_z, float z_x, float z_y);
+t_matrix 	*translation(float x, float y, float z);
+				
 
 float		dot_product(t_vector vec1, t_vector vec2);
 t_tuple		extract_tuple_mtx(int row, t_matrix *m);
