@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   MLX42.h                                            :+:    :+:            */
+/*   MLX42.h                                            :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: W2Wizard <main@w2wizard.dev>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/28 02:29:06 by W2Wizard      #+#    #+#                 */
-/*   Updated: 2023/03/30 16:23:19 by ntamayo-      ########   odam.nl         */
+/*   Updated: 2024/02/13 12:01:45 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -883,7 +883,7 @@ void mlx_delete_image(mlx_t* mlx, mlx_image_t* image);
 /**
  * Allows you to resize an image, a new pixel buffer is allocated
  * to fit & the previous data is scaled to fit the new size.
- * 
+ * NOT the pointer! It will become invalid!
  * @param[in] img The image to resize.
  * @param[in] nwidth The new width.
  * @param[in] nheight The new height.
