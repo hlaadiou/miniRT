@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:28:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/18 15:36:32 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/18 16:10:05 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_matrix	*rotation_x(float r)
 {
 	t_matrix *a;
 
-	a = identity_mtx(4);
+	a = _identity(4);
 	a->mtx[1][1] = cos(r);
 	a->mtx[2][2] = cos(r);
 	a->mtx[2][1] = sin(r);
@@ -28,7 +28,7 @@ t_matrix	*rotation_x(float r)
 t_matrix	*rotation_y(float r)
 {
 	t_matrix *a;
-	a = identity_mtx(4);
+	a = _identity(4);
 	a->mtx[0][0] = cos(r);
 	a->mtx[0][2] = sin(r);
 	a->mtx[2][0] = sin(r) * (-1);
@@ -40,7 +40,7 @@ t_matrix	*rotation_z(float r)
 {
 	t_matrix *a;
 
-	a = identity_mtx(4);
+	a = _identity(4);
 	a->mtx[0][0] = cos(r);
 	a->mtx[0][1] = sin(r) * (-1);
 	a->mtx[1][0] = sin(r);

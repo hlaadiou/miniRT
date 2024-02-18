@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:42:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 14:59:45 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/18 16:10:05 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_matrix	*shearing(float x_y, float x_z, float y_x, float y_z, float z_x, float 
 {
 	t_matrix	*a;
 
-	a = identity_mtx(4);
+	a = _identity(4);
 	a->mtx[0][1] = x_y;
 	a->mtx[0][2] = x_z;
 	a->mtx[1][0] = y_x;

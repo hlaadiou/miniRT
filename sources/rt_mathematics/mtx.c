@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mtx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/18 15:36:11 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/18 16:10:05 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/rt_mathematics.h"
 
-t_matrix	*mtx_create(int size)
+t_matrix	*_mtx(int size)
 {
 	t_matrix	*mtx;
 	int			i;
@@ -34,7 +34,7 @@ t_matrix	*submatrix(t_matrix *a, int r, int c)
 	int			row;
 	int			col;
 
-	sub = mtx_create(a->size - 1);
+	sub = _mtx(a->size - 1);
 	i = -1;
 	row = 0;
 	while (++i < a->size)
@@ -56,14 +56,14 @@ t_matrix	*submatrix(t_matrix *a, int r, int c)
 }
 
 
-t_matrix	*identity_mtx(int size)
+t_matrix	*_identity(int size)
 {
 	t_matrix	*a;
 	int			i;
 	int			j;
 
 	i = 0;
-	a = mtx_create(size);
+	a = _mtx(size);
 	while(i < size)
 	{
 		j = 0;
@@ -87,7 +87,7 @@ t_matrix	*mtx_multiply(t_matrix *a,t_matrix *b)
 	int			j;
 	int			k;
 
-	c = mtx_create(a->size);
+	c = _mtx(a->size);
 	i = -1;
 	while (++i < a->size)
 	{
@@ -133,7 +133,7 @@ t_matrix	*inverse(t_matrix *a)
 	if (mtx_determinant(a) == 0)
 		return (NULL);
 	row = 0;
-	b = mtx_create(a->size);
+	b = _mtx(a->size);
 	while (row < a->size)
 	{
 		col = 0;
@@ -165,7 +165,7 @@ t_matrix *mtx_transpose(t_matrix  *a)
 	int	col;
 
 	r = -1;
-	c = mtx_create(a->size);
+	c = _mtx(a->size);
 	while (++r < 4)
 	{
 		col = -1;
@@ -202,8 +202,8 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 // 	t_matrix *A;
 // 	t_matrix *B;
 
-// 	A = mtx_create(4);
-// 	B = mtx_create(4);
+// 	A = _mtx(4);
+// 	B = _mtx(4);
 // 	/*
 // 	| 9 | 3 | 0 | 9 |
 // 	| -5 | -2 | -6 | -3 |
@@ -263,7 +263,7 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 // 	// 	printf("\n");
 // 	// }
 // 	// printf("**************************************************\n");
-// 	// t_matrix *a = identity_mtx(4);
+// 	// t_matrix *a = _identity(4);
 // 	for (int i = 0; i < B->size; i++)
 // 	{
 // 		printf(" |");
@@ -290,7 +290,7 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 // */
 
 // 	// printf("**************************************************\n");
-// 	// t_matrix *C = mtx_create(3);
+// 	// t_matrix *C = _mtx(3);
 // 	// C->mtx[0][0] = 3;
 // 	// C->mtx[0][1] = 5;
 // 	// C->mtx[0][2] = 0;
