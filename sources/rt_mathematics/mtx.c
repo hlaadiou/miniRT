@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 16:29:01 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/17 19:24:35 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 // {
 // 	t_matrix *A;
 // 	t_matrix *B;
-//
+
 // 	A = mtx_create(4);
 // 	B = mtx_create(4);
 // 	/*
@@ -243,17 +243,16 @@ int	mtx_compare(t_matrix *a, t_matrix *b)
 // 	B->mtx[3][2] = 7;
 // 	B->mtx[3][3] = 8;
 
-// 	printf ("| %d |\n", mtx_compare(A, A));
-// 	printf ("| %d |\n", mtx_compare(B, B));
-// 	printf ("| %d |\n", mtx_compare(A, B));
-// 	printf ("| %d |\n", mtx_compare(B, A));
-// }
-//
-//	t_tuple	tup = {1, 2, 3, 1};
-//	t_tuple prod = mtx_tuple_prod(A, tup);
-//	printf ("%.2f %.2f %.2f %.2f\n", prod.x, prod.y, prod.z, prod.w);
+// 	t_matrix *transform_a = rotation_x(M_PI_2);
+// 	t_matrix *transform_b = scaling_mtx(5, 5, 5);
+// 	t_matrix *transform_c = translation(10, 5, 7);
+
+// 	// transform = inverse(transform);
+// 	t_point	tup = _point(1, 0, 1);
+// 	t_tuple prod = mtx_tuple_prod(mtx_multiply(mtx_multiply(transform_c, transform_b), transform_a), tup);
+// 	printf ("%.2f %.2f %.2f %.2f\n", prod.x, prod.y, prod.z, prod.w);
 // 	printf("**************************************************\n");
-//
+
 // }
 // 	// t_matrix *c = mtx_multiply(A, B);
 // 	// for (int i = 0; i < c->size; i++)

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/17 16:27:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/17 18:20:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ t_matrix 	*translation(float x, float y, float z);
 float		dot_product(t_vector vec1, t_vector vec2);
 t_tuple		extract_tuple_mtx(int row, t_matrix *m);
 t_tuple 	mtx_tuple_prod(t_matrix *mtx, t_tuple tup);
+t_matrix	*scaling_mtx(float x, float y, float z);
 
 #endif
