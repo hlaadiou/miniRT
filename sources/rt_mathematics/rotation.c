@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:28:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/17 18:31:21 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/18 15:36:32 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/rt_mathematics.h"
 
-// RADIANS
+// r(RADIANS)
 t_matrix	*rotation_x(float r)
 {
 	t_matrix *a;
