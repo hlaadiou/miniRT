@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_mathematics.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/17 18:20:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/18 15:37:39 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 
 /*
- * STRUCTURES
+ * USER DEFINED DATA TYPES
  */
 
 typedef struct s_matrix
@@ -62,11 +62,18 @@ t_matrix	*rotation_z(float r);
 t_matrix	*shearing(float x_y, float x_z, float y_x, \
 				float y_z, float z_x, float z_y);
 t_matrix 	*translation(float x, float y, float z);
+t_matrix	*scaling_mtx(float x, float y, float z);
 				
 
 float		dot_product(t_vector vec1, t_vector vec2);
 t_tuple		extract_tuple_mtx(int row, t_matrix *m);
 t_tuple 	mtx_tuple_prod(t_matrix *mtx, t_tuple tup);
-t_matrix	*scaling_mtx(float x, float y, float z);
+
+
+int			compare_tuples(t_tuple tup1, t_tuple tup2);
+t_tuple		add_tuples(t_tuple tup1, t_tuple tup2);
+t_tuple		substract_tuples(t_tuple tup1, t_tuple tup2);
+t_tuple		multiply_tuple_scalar(float scalar, t_tuple tup);
+
 
 #endif
