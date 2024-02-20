@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:26:14 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/20 18:04:33 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:46:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,13 @@ t_point	_position(t_ray *ray, float t)
 	return (add_tuples(ray->org, multiply_tuple_scalar(t, ray->dir)));
 }
 
-t_quadratic	discriminant(t_ray *ray, t_sphere *sp)
+/* We assume that the obj is a SPHERE */
+t_quadratic	discriminant_sp(t_ray *ray, t_object *sp)
 {
 	t_vector	sp_to_ray;
 	t_quadratic	quad;
 
-	sp_to_ray = substract_tuples(ray->org, sp->org);
+	sp_to_ray = subtract_tuples(ray->org, sp->sp->org);
 	quad.a = dot_product(ray->dir, ray->dir);
 	quad.b = 2 * dot_product(ray->dir, sp_to_ray);
 	quad.c = dot_product(sp_to_ray, sp_to_ray) - 1;
@@ -61,13 +62,14 @@ t_quadratic	discriminant(t_ray *ray, t_sphere *sp)
 	return (quad);
 }
 
-t_inter	**intersect(t_ray *ray, t_sphere *sp)
+/* We assume that the obj is a SPHERE */
+t_inter	**intersect_sp(t_ray *ray, t_object *sp)
 {
 	t_inter			**inter;
 	t_quadratic		quad;
 	t_roots			i;
 
-	quad = discriminant(ray, sp);
+	quad = discriminant_sp(ray, sp);
 	if (quad.delta < 0)
 		i = (t_roots){0.0, 0.0, 0};
 	else
@@ -80,14 +82,17 @@ t_inter	**intersect(t_ray *ray, t_sphere *sp)
 	return (inter);
 }
 
-/*
-int	main(void)
-{
-	t_ray ray = _ray(_point(0, 0, 5), _vector(0, 0, 1));
-	t_sphere sp = _sphere(_point(0, 0, 0), 1.0);
-	t_intersection inter = intersect(ray, sp);
+// int	main(void)
+// {
+// 	t_ray *ray = _ray(_point(0, 0, 0), _vector(0, 0, 1));
+// 	t_object *sp = _sphere(_point(0, 0, 0), 1.0);
+// 	t_lst_inter *inter = NULL;
 
-	printf("%.2f, %.2f, %d\n", inter.t1, inter.t2, inter.counter);
-}
-*/
-
+// 	_intersections(&inter, intersect_sp(ray, sp));
+// 	while (inter)
+// 	{
+// 		printf("%.2f  || %.2f\n", inter->inter->t, inter->inter->obj->sp->radius);
+// 		inter = inter->next;
+// 	}
+// 	return (0);
+// }
