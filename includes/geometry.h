@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/19 18:48:52 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/20 17:28:53 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include "rt_mathematics.h"
 
-typedef enum e_objects
+typedef enum e_types
 {
 	SPHERE,
-	PLAN,
+	PLANE,
 	CYLINDER
-}	t_objects;
+}	t_types;
 
 /*
  * USER DEFINED DATA TYPES
@@ -48,11 +48,12 @@ typedef struct s_quadratic
 }	t_quadratic;
 
 typedef struct s_sphere t_sphere;
+typedef struct s_object	t_object;
 
 typedef struct s_inter
 {
 	float		t;
-	void		*obj;
+	t_object	*obj;
 }	t_inter;
 
 typedef struct s_lst_inter
@@ -70,18 +71,26 @@ typedef struct s_sphere
 {
 	t_point		org;
 	float		radius;
-	t_objects	type;
+	t_types		type;
 }	t_sphere;
 
 typedef struct s_cylinder
 {
-	t_objects	type;
+	t_types	type;
 }	t_cylinder;
 
 typedef struct s_plane
 {
-	t_objects	type;
+	t_types	type;
 }	t_plane;
+
+typedef struct s_object
+{
+	t_types		type;
+	t_sphere	*sp;
+	t_cylinder	*cy;
+	t_plane		*pl;
+}	t_object;
 
 /*
  * FUNCTIONS PROTOTYPES
