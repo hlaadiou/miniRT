@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/19 18:18:34 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:16:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_tuple 	mtx_tuple_prod(t_matrix *mtx, t_tuple tup);
 
 int			compare_tuples(t_tuple tup1, t_tuple tup2);
 t_tuple		add_tuples(t_tuple tup1, t_tuple tup2);
-t_tuple		substract_tuples(t_tuple tup1, t_tuple tup2);
+t_tuple		subtract_tuples(t_tuple tup1, t_tuple tup2);
 t_tuple		multiply_tuple_scalar(float scalar, t_tuple tup);
 
 

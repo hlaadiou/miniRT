@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuples.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:32:21 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/16 18:42:58 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:18:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_tuple	add_tuples(t_tuple tup1, t_tuple tup2)
 	return (sum);
 }
 
-t_tuple	substract_tuples(t_tuple tup1, t_tuple tup2)
+t_tuple	subtract_tuples(t_tuple tup1, t_tuple tup2)
 {
 	t_tuple	diff;
 

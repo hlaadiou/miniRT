@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   geometry.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/20 17:28:53 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/20 18:27:10 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,12 @@ typedef struct s_object
 
 t_ray			*_ray(t_point org, t_vector vec);
 t_point			_position(t_ray *ray, float t);
-t_sphere		*_sphere(t_point o, float radius);
-t_quadratic		discriminant(t_ray *ray, t_sphere *sp);
-t_inter			**intersect(t_ray *ray, t_sphere *sp);
+t_object		*_sphere(t_point o, float radius);
+t_quadratic		discriminant_sp(t_ray *ray, t_object *sp);
+t_inter			**intersect_sp(t_ray *ray, t_object *sp);
+t_object		*_obj(void *obj, t_types type);
 int				_intersections(t_lst_inter **lst, t_inter **i);
+void			set_obj(t_object *obj, t_inter *inter);
 t_lst_inter		*lst_last(t_lst_inter *inters);
 
 #endif
