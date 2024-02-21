@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/18 16:10:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/21 19:22:50 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ t_matrix *mtx_transpose(t_matrix  *a)
 	return (c);
 }
 
+/*  return 1 if the (mtx_a) and (mtx_b) are the same and 0 other ways */
 int	mtx_compare(t_matrix *a, t_matrix *b)
 {
 	unsigned int row;

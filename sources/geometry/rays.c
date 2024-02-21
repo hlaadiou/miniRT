@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:26:14 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/21 18:00:38 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:23:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ t_inter	**intersect_sp(t_ray *ray, t_object *sp)
 	t_inter			**inter;
 	t_quadratic		quad;
 	t_roots			r;
-
-	quad = discriminant_sp(ray, sp);
+	
+	quad = discriminant_sp(transform(ray, inverse(sp->transform)), sp); /* change the  discriminant_sp(^ray, sp) by discriminant_sp(^ray2, sp) */
 	if (quad.delta < 0)
 		r = (t_roots){0.0, 0.0, 0};
 	else
@@ -80,29 +80,29 @@ t_inter	**intersect_sp(t_ray *ray, t_object *sp)
 		r.t2 = ((-1 * quad.b) + sqrt(quad.delta)) / (2 * quad.a);
 		r.counter = 2;
 	}
-	inter = _intersection(r, sp); // returns an array of two inters, or NULL
+	inter = _intersection(r, sp); /* returns an array of two inters, or NULL */
 	return (inter);
 }
 
- int	main(void)
- {
- 	t_ray *ray = _ray(_point(0, 0, -5), _vector(0, 0, 1));
- 	t_object *sp = _sphere(_point(0, 0, 0), 1.0);
- 	t_lst_inter *inter = NULL;
- 	t_lst_inter *tmp = NULL;
+//  int	main(void)
+//  {
+//  	t_ray *ray = _ray(_point(0, 0, -5), _vector(0, 0, 1));
+//  	t_object *sp = _sphere(_point(0, 0, 0), 1.0);
+//  	t_lst_inter *inter = NULL;
+//  	t_lst_inter *tmp = NULL;
 
- 	_intersections(&inter, intersect_sp(ray, sp));
-	if (!inter)
-	{
-		printf("NO INTERSECTIONS\n");
-		return (1);
-	}
-	tmp = inter;
- 	while (inter)
- 	{
- 		printf("%.2f\n", inter->inter->t);
- 		inter = inter->next;
- 	}
-	hit(tmp) ? printf("HIT: %.2f\n", hit(tmp)->t) : printf("INTERSECTIONS ARE BEHIND CAMERA\n");
- 	return (0);
- }
+//  	_intersections(&inter, intersect_sp(ray, sp));
+// 	if (!inter)
+// 	{
+// 		printf("NO INTERSECTIONS\n");
+// 		return (1);
+// 	}
+// 	tmp = inter;
+//  	while (inter)
+//  	{
+//  		printf("%.2f\n", inter->inter->t);
+//  		inter = inter->next;
+//  	}
+// 	hit(tmp) ? printf("HIT: %.2f\n", hit(tmp)->t) : printf("INTERSECTIONS ARE BEHIND CAMERA\n");
+//  	return (0);
+//  }

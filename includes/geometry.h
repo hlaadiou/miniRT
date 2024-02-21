@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/21 18:04:56 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:28:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_object
 	t_sphere	*sp;
 	t_cylinder	*cy;
 	t_plane		*pl;
+	t_matrix	*transform;
 }	t_object;
 
 /*
@@ -105,8 +106,11 @@ t_inter			**intersect_sp(t_ray *ray, t_object *sp);
 t_object		*_obj(void *obj, t_types type);
 int				_intersections(t_lst_inter **lst, t_inter **i);
 t_inter 		**_intersection(t_roots roots, t_object *obj);
-void			set_obj(t_object *obj, t_inter *inter);
 t_lst_inter		*lst_last(t_lst_inter *inters);
 t_inter			*hit(t_lst_inter *lst);
+t_ray		*transform(t_ray *ray, t_matrix *a);
+t_ray		*transform(t_ray *ray, t_matrix *a);
+
+
 
 #endif
