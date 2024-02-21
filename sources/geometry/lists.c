@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:55:46 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/19 18:18:11 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/21 17:51:08 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ int	_intersections(t_lst_inter **lst, t_inter **i)
 	if (!i)
 		return (-1);
 	if (inter_list_add(lst, i[0]))
-		return (1);
+		return (free(i[0]), free(i[1]), free(i), 1);
 	if (inter_list_add(lst, i[1]))
-		return (1);
+		return (free(i[1]), free(i), 1);
+	free(i);
 	return (0);
 }
 
