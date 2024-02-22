@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/13 16:34:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/22 20:19:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 #include <math.h>
 #include "lib/MLX42/include/MLX42/MLX42.h"
 #include "includes/rt_mathematics.h"
+#include "includes/geometry.h"
 
-#define WIDTH 1024
-#define HEIGHT 1024
+#define WIDTH  1000
+#define HEIGHT 1000
 
 static mlx_image_t* image;
 
@@ -74,12 +75,11 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 void ft_randomize(void* param)
 {
 	(void)param;
+
 	// for (uint32_t i = 0; i < image->width; ++i)
 	// {
 	// 	for (uint32_t y = 0; y < 1; ++y)
 	// 	{
-	// 		// uint32_t color = ft_pixel(0x00FF, 0x00FF, \
-	// 		// 						0x00FF, 0x00FF);
 	// ft_bresenham(0, 1080, 0, 0 + 100);
 	// ft_bresenham(0, 1080, 0, 0 + 200);
 	// ft_bresenham(0, 1080, 0, 0 + 300);
@@ -89,10 +89,9 @@ void ft_randomize(void* param)
 	// ft_bresenham(0, 1080, 0, 0 + 700);
 	// ft_bresenham(0, 1080, 0, 0 + 800);
 	// ft_bresenham(0, 1080, 0, 0 + 900);
+	// mlx_put_pixel(image, 50, 50, 0x00FF00FF);
 	// draw a plane that starts at 0, 0, 0 and ends at 0, 0, -10
-	ft_draw_plane(0, 500, 250, 524, 0x00FF00FF);
 	// ft_draw_plane(0, 0, -10, 0, 1, 0, 0x00FF00FF);
-	// 		// mlx_put_pixel(image, i, y, color);
 	// 	}
 	// }
 }
@@ -123,7 +122,7 @@ int32_t main(void)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (!(image = mlx_new_image(mlx, 1024, 1024)))
+	if (!(image = mlx_new_image(mlx, WIDTH, HEIGHT)))
 	{
 		mlx_close_window(mlx);
 		puts(mlx_strerror(mlx_errno));
@@ -136,9 +135,44 @@ int32_t main(void)
 		return(EXIT_FAILURE);
 	}
 	
-	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	uint32_t color = ft_pixel(0x00FF, 0x0000, \
+							0x0000, 0x00FF);
+	t_ray		*r = NULL;
+	t_inter		**xs = NULL;
+	t_point 	ray_origin = _point(0, 0, -5);
+	t_point 	position = _point(0, 0, 0);
+	float		wall_size = 7;
+	t_object 	*shape = _sphere(_point(0, 0, 0), 1);
+	float	 	world_x = 0;
+	float	 	world_y = 0;
+	float half = wall_size / 2;
+	int x;
+	int y;
 
+
+	for (y = 0; y < HEIGHT; y++)
+	{
+		world_y = half - ((float)((float)7/(float )(HEIGHT) * y));
+		for (x = 0; x < WIDTH; x++)
+		{
+			world_x = -half + ((float)((float)7/(float )(HEIGHT) * x));
+			position = _point(world_x, world_y, 10);
+			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
+			xs = intersect_sp(r, shape);
+			if (xs && (xs[0]->t > 0 || xs[1]->t > 0))
+				mlx_put_pixel(image, x, y, color);
+			free(r);
+			free(xs);
+		}
+		printf("progress = -----------------> ( %.2f %%) <----------------- \r", \
+				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
+		fflush(stdout);
+	}
+	mlx_loop_hook(mlx, ft_hook, mlx);
+	system("clear");
+	fflush(stdout);
+	printf("DONE !!\r");
+	fflush(stdout); 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
