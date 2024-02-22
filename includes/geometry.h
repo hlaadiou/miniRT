@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/21 20:28:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/22 16:33:26 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_inter 		**_intersection(t_roots roots, t_object *obj);
 t_lst_inter		*lst_last(t_lst_inter *inters);
 t_inter			*hit(t_lst_inter *lst);
 t_ray		*transform(t_ray *ray, t_matrix *a);
-t_ray		*transform(t_ray *ray, t_matrix *a);
+t_vector	vec_normalize(t_vector vec);
 
 
 
