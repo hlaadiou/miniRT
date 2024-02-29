@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/24 16:43:03 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/29 19:21:56 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_tuple
 
 typedef t_tuple t_point;
 typedef t_tuple t_vector;
+
+typedef struct s_object t_object;
 
 /* FUNCTIONS PROTOTYPES */
 
@@ -76,5 +78,7 @@ t_tuple		add_tuples(t_tuple tup1, t_tuple tup2);
 t_tuple		subtract_tuples(t_tuple tup1, t_tuple tup2);
 t_tuple		multiply_tuple_scalar(float scalar, t_tuple tup);
 
+t_vector 	normal_at(t_object *sp, t_point pnt);
+t_vector	reflect(t_vector a, t_vector n);
 
 #endif
