@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   phong.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 19:46:16 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/29 20:42:05 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * d : diffuse component
  * s : specular component
  * ph : phong coefficient (shininess)
- * */
+*/
 
 t_phong	_phong(t_object *obj, t_point px, t_light light, t_point cam)
 {
@@ -35,11 +35,41 @@ t_specs	_specs(float a, float d, float s, float ph)
 	return ((t_specs){a, d, s, ph});
 }
 
+t_color	multiply_color_scalar(float scalar, t_color tup)
+{
+	t_color	res;
+
+	res.r = scalar * tup.r;
+	res.g = scalar * tup.g;
+	res.b = scalar * tup.b;
+	return (res);
+}
+
+
 t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
 {
 	t_phong		ph;
 	t_color		px_color;
+	t_color		ambient;
+	t_color		diffuse;
+	t_color		specular;
+	float		light_dot_normal;
+	// float		ambient;
 
 	ph = _phong(obj, px, light, cam);
-	px_color = schur_product();
+	px_color = schur_product(light.color, obj->specs.specular);
+	ambient = multiply_color_scalar(obj->specs.ambient, px_color);
+	light_dot_normal = dot_product(ph.l, ph.n);
+	if (light_dot_normal < 0)
+	{
+		diffuse = _color(0, 0, 0);
+		specular = _color(0, 0, 0);
+	}
+	else
+	{
+		diffuse;
+		
+		
+	}
+
 }
