@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/22 20:19:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/02/25 16:42:43 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,81 +19,14 @@
 #include "includes/rt_mathematics.h"
 #include "includes/geometry.h"
 
-#define WIDTH  1000
-#define HEIGHT 1000
+#define WIDTH  200
+#define HEIGHT 200
 
 static mlx_image_t* image;
-
-void	ft_bresenham(int32_t  cordnt_x, int32_t  cordnt_x0, int32_t  cordnt_y, int  cordnt_y0)
-{
-	float	e_x;
-	float	e_y;
-	int		maxi;
-
-	e_x = cordnt_x0 - cordnt_x;
-	e_y = cordnt_y0 - cordnt_y;
-	maxi = fmax(fabsf(e_x), fabsf(e_y));
-	e_x /= maxi;
-	e_y /= maxi;
-	while (((int )(cordnt_x - cordnt_x0) || (int )(cordnt_y - cordnt_y0)) \
-	&& cordnt_x <= 1920 && cordnt_y <= 1080 && cordnt_x >= 0 && cordnt_y >= 0)
-	{
-		cordnt_x += e_x;
-		cordnt_y += e_y;
-		mlx_put_pixel(image, cordnt_x, cordnt_y, 0x00FF00FF);
-	}
-}
-// -----------------------------------------------------------------------------
-
-void ft_draw_plane(int32_t x, int32_t y, int32_t width, int32_t height, uint32_t color)
-{
-	for (int32_t i = 0; i < width / 2; ++i)
-	{
-		color += 2;
-		color = color % 0x00FFFFFF;
-		for (int32_t j = 0; j < height; ++j)
-			mlx_put_pixel(image, x + i, y + j, color);
-	}
-	color =  0x00FF00FF;
-	for (int32_t i = width / 2; i < width; ++i)
-	{
-		color -= 2;
-		color = color % 0xFFFFFFFF;
-		for (int32_t j = 0; j < height; ++j)
-			mlx_put_pixel(image, x + i, y + j, color);
-	}
-	
-}
-
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
     return (r << 24 | g << 16 | b << 8 | a);
-}
-
-
-void ft_randomize(void* param)
-{
-	(void)param;
-
-	// for (uint32_t i = 0; i < image->width; ++i)
-	// {
-	// 	for (uint32_t y = 0; y < 1; ++y)
-	// 	{
-	// ft_bresenham(0, 1080, 0, 0 + 100);
-	// ft_bresenham(0, 1080, 0, 0 + 200);
-	// ft_bresenham(0, 1080, 0, 0 + 300);
-	// ft_bresenham(0, 1080, 0, 0 + 400);
-	// ft_bresenham(0, 1080, 0, 0 + 500);
-	// ft_bresenham(0, 1080, 0, 0 + 600);
-	// ft_bresenham(0, 1080, 0, 0 + 700);
-	// ft_bresenham(0, 1080, 0, 0 + 800);
-	// ft_bresenham(0, 1080, 0, 0 + 900);
-	// mlx_put_pixel(image, 50, 50, 0x00FF00FF);
-	// draw a plane that starts at 0, 0, 0 and ends at 0, 0, -10
-	// ft_draw_plane(0, 0, -10, 0, 1, 0, 0x00FF00FF);
-	// 	}
-	// }
 }
 
 void ft_hook(void* param)
@@ -141,8 +74,8 @@ int32_t main(void)
 	t_inter		**xs = NULL;
 	t_point 	ray_origin = _point(0, 0, -5);
 	t_point 	position = _point(0, 0, 0);
-	float		wall_size = 7;
-	t_object 	*shape = _sphere(_point(0, 0, 0), 1);
+	float		wall_size = 10;
+	t_object 	*shape = _sphere(_point(0, 0, 0), 2);
 	float	 	world_x = 0;
 	float	 	world_y = 0;
 	float half = wall_size / 2;
@@ -152,10 +85,10 @@ int32_t main(void)
 
 	for (y = 0; y < HEIGHT; y++)
 	{
-		world_y = half - ((float)((float)7/(float )(HEIGHT) * y));
+		world_y = half - ((float)((float)wall_size/(float )(HEIGHT) * y));
 		for (x = 0; x < WIDTH; x++)
 		{
-			world_x = -half + ((float)((float)7/(float )(HEIGHT) * x));
+			world_x = -half + ((float)((float)wall_size/(float )(WIDTH) * x));
 			position = _point(world_x, world_y, 10);
 			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
 			xs = intersect_sp(r, shape);

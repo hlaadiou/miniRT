@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shearing.c                                         :+:      :+:    :+:   */
+/*   reflect.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/17 14:42:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/23 21:05:55 by azgaoua          ###   ########.fr       */
+/*   Created: 2024/02/23 11:41:07 by azgaoua           #+#    #+#             */
+/*   Updated: 2024/02/23 16:20:51 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/geometry.h"
 #include "../../includes/rt_mathematics.h"
 
-/*
-	6 parameters to much ...!!
-*/
-
-t_matrix	*shearing(float x_y, float x_z, float y_x, float y_z, float z_x, float z_y)
+t_vector	reflect(t_vector a, t_vector n)
 {
-	t_matrix	*a;
-
-	a = _identity(4);
-	a->mtx[0][1] = x_y;
-	a->mtx[0][2] = x_z;
-	a->mtx[1][0] = y_x;
-	a->mtx[1][2] = y_z;
-	a->mtx[2][0] = z_x;
-	a->mtx[2][1] = z_y;
-	return (a);
+	return (subtract_tuples(a, \
+			multiply_tuple_scalar((2 * dot_product(a, n)), n)));
 }
+
+// int main(void)
+// {
+// 	t_vector v = _vector(0, -1, 0);
+// 	t_vector n = _vector(sqrt(2)/2, sqrt(2)/2, 0);
+// 	t_vector r = reflect(v, n);
+
+// 	printf("r (%.2f, %.2f, %.2f)\n", r.x, r.y, r.z);
+// 	return 0;
+// }
