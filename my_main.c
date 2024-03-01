@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/01 16:08:43 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:53:45 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,10 @@ int32_t main(void)
 	
 	t_ray		*r = NULL;
 	t_inter		**xs = NULL;
-	t_point 	ray_origin = _point(0, 0, -10);
+	t_point 	ray_origin = _point(0, 0, -5);
 	t_point 	position = _point(0, 0, 0);
 	float		wall_size = 10;
 	t_object 	*shape = _sphere(_point(0, 0, 0), 2);
-	// t_color		obj_clr = _color(1.0, 0.2, 1.0);
 	t_light		light = _light(_point(-10, 10, -10), 1.0, _color(1.0, 1.0, 1.0));
 	t_point		point;
 	float	 	world_x = 0;
@@ -93,9 +92,9 @@ int32_t main(void)
 				else if (xs[1]->t > 0)
 					point = _position(r, xs[1]->t);
 				t_color c = illuminate(shape, point, light, ray_origin);
-				// c = schur_product(c, _color(1, 1, 0));
-				c = _color255(c.r, c.g, c.b);
-				//c.g >= 255 ? printf("(%.2f, %.2f, %.2f)\n", c.r, c.g, c.b) : printf("");
+				c = multiply_color_scalar(0.5, c);
+				c = _color255(c);
+				c.b >= 255 ? printf("(%.2f, %.2f, %.2f)\n", c.r, c.g, c.b) : printf("");
 				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
 										(int)(c.b), 0x00FF);
 				mlx_put_pixel(image, x, y, color);
