@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:53:36 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 16:06:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:45:41 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ t_color	_color(float r, float g, float b)
 }
 
 /* 0 <= r,g,b <= 255 */
-t_color	_color255(float r, float g, float b)
+t_color	_color255(t_color c)
 {
-	t_color	c;
+	t_color	color;
 
-	c.r = r * 255;
-	c.g = g * 255;
-	c.b = b * 255;
-	return (c);
+	color.r = c.r * 255;
+	color.g = c.g * 255;
+	color.b = c.b * 255;
+	return (color);
 }

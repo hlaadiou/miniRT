@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 16:07:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:39:16 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
 	float		reflect_dot_eye;
 	float		factor;
 
-	px_color = schur_product(_color(0.0, 0.0, 1.0), light.color);
+	px_color = schur_product(_color(1.0, 0.0, 0.0), light.color);
 	ph = _phong(obj, px, light, cam);
 	ambient = multiply_color_scalar(obj->specs.ambient, px_color);
 	light_dot_normal = dot_product(ph.l, ph.n);
@@ -77,8 +77,7 @@ t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
 			specular = multiply_color_scalar(factor * obj->specs.specular, light.color);
 		}
 	}
-	// printf("%.2f | %.2f | %.2f \n", ambient.r + diffuse.r + specular.r * 1, ambient.g + diffuse.g + specular.g * 1, ambient.b + diffuse.b + specular.b * 1);
 	return (_color((ambient.r + diffuse.r + specular.r * 1), \
 					ambient.g + diffuse.g + specular.g * 1,	\
-				 	ambient.b + diffuse.b + specular.b * 0));
+				 	ambient.b + diffuse.b + specular.b * 1));
 }
