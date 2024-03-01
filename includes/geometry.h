@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 19:17:33 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/29 19:53:23 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ t_inter			*hit(t_lst_inter *lst);
 t_ray			*transform(t_ray *ray, t_matrix *a);
 t_vector		vec_normalize(t_vector vec);
 void			set_transform(t_object **obj, t_matrix *mtx);
+t_color			schur_product(t_color col1, t_color col2);
 
 
 
