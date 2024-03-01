@@ -6,12 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:59:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/29 19:20:52 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:56:28 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt_mathematics.h"
-#include "../../includes/geometry.h"
+#include "../../includes/miniRT.h"
 
 t_vector normal_at(t_object *sp, t_point pnt)
 {
@@ -27,12 +26,3 @@ t_vector normal_at(t_object *sp, t_point pnt)
 
 }
 
-// int main ()
-// {
-// 	t_object *s = _sphere(_point(0, 0, 0), 1);
-// 	set_transform(&s, mtx_multiply(scaling_mtx(1, 0.5, 1) , rotation_z((3.14)/5)));
-// 	t_vector n = normal_at(s, _point(0, sqrt(2) / 2, (-1) * (sqrt(2) / 2)));
-
-// 	printf("n = (%.2f, %.2f, %.2f)", n.x, n.y, n.z);
-// 	return (0);
-// }

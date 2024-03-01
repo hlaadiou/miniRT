@@ -6,18 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/01 16:01:58 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:08:43 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <math.h>
-#include "lib/MLX42/include/MLX42/MLX42.h"
-#include "includes/rt_mathematics.h"
-#include "includes/geometry.h"
+#include "includes/miniRT.h"
 
 #define WIDTH  350
 #define HEIGHT 350

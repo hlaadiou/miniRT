@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 22:51:25 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:06:36 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "lighting.h"
 # include "rt_mathematics.h"
+# include "lighting.h"
 
 typedef enum e_types
 {
@@ -48,8 +49,9 @@ typedef struct s_quadratic
 	float	delta;
 }	t_quadratic;
 
-typedef struct s_sphere t_sphere;
+typedef struct s_sphere	t_sphere;
 typedef struct s_object	t_object;
+typedef struct s_color	t_color;
 
 typedef struct s_inter
 {
@@ -103,6 +105,7 @@ typedef struct s_object
 	t_matrix	*transform;
 	t_specs		specs;
 }	t_object;
+
 
 /*
  * FUNCTIONS PROTOTYPES *

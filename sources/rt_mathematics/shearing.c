@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:42:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/23 21:05:55 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 10:57:59 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt_mathematics.h"
+#include "../../includes/miniRT.h"
 
 /*
-	6 parameters to much ...!!
+	6 parameters too much ...!!
 */
 
 t_matrix	*shearing(float x_y, float x_z, float y_x, float y_z, float z_x, float z_y)

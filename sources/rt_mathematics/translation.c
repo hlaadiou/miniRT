@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:21:00 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/18 16:10:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 10:58:38 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt_mathematics.h"
+#include "../../includes/miniRT.h"
 
 t_matrix *translation(float x, float y, float z)
 {

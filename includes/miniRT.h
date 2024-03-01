@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hits.c                                             :+:      :+:    :+:   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 11:01:26 by hlaadiou         ###   ########.fr       */
+/*   Created: 2024/03/01 10:15:01 by hlaadiou          #+#    #+#             */
+/*   Updated: 2024/03/01 11:17:04 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
+#ifndef MINIRT_H
+# define MINIRT_H
 
-/* RETURNS THE LOWEST NONNEGATIVE INTERSECTION
-** !! WARNING !! WE ASSUME THAT THE HIT WILL BE 'IF ANY' IN THE BEGINNING OF THE LIST
-** THIS COULD NOT BE THE CASE! */
-t_inter	*hit(t_lst_inter *lst)
-{
-	if (!lst)
-		return (NULL);
-	while (lst)
-	{
-		if (lst->inter && lst->inter->t >= 0)
-			return (lst->inter);
-		lst = lst->next;
-	}
-	return (NULL);
-}
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+
+# include "../lib/MLX42/include/MLX42/MLX42.h"
+# include "rt_mathematics.h"
+# include "geometry.h"
+# include "lighting.h"
+
+
+#endif

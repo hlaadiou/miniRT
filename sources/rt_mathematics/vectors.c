@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:35:57 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/25 21:49:52 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 10:59:12 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt_mathematics.h"
+#include "../../includes/miniRT.h"
 
 /* GENERATES A TUPLE WITH A 0 W-COMPONENT */
 t_vector	_vector(float x, float y, float z)

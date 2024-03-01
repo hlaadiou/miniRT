@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:53:36 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 21:54:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 16:06:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lighting.h"
+#include "../../includes/miniRT.h"
 
 /* 0 <= r,g,b <= 1 */
 t_color	_color(float r, float g, float b)
