@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/21 17:40:54 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:01:26 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/geometry.h"
+#include "../../includes/miniRT.h"
 
 /* RETURNS THE LOWEST NONNEGATIVE INTERSECTION
 ** !! WARNING !! WE ASSUME THAT THE HIT WILL BE 'IF ANY' IN THE BEGINNING OF THE LIST

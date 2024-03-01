@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/15 18:32:21 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/20 18:18:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 10:59:02 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt_mathematics.h"
+#include "../../includes/miniRT.h"
 
 int	compare_tuples(t_tuple tup1, t_tuple tup2)
 {

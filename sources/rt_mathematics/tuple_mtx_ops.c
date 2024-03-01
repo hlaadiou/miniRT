@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:51:56 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/17 18:09:14 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:58:52 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt_mathematics.h"
+#include "../../includes/miniRT.h"
 
 t_tuple	extract_tuple_mtx(int row, t_matrix *m)
 {

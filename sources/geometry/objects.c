@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:46:44 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 18:28:30 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:01:47 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lighting.h"
+#include "../../includes/miniRT.h"
 
 /* generates an object type from sphere/cylinder/plan */
 t_object	*_obj(void *obj, t_types type)

@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:55:46 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/21 17:51:08 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:01:37 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/geometry.h"
+#include "../../includes/miniRT.h"
 
 t_lst_inter	*new_intersection(t_inter *inter)
 {

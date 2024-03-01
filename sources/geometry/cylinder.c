@@ -6,8 +6,8 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/18 11:27:30 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 11:00:19 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/geometry.h"
+#include "../../includes/miniRT.h"

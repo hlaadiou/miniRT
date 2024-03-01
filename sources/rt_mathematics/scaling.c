@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:39:06 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/18 16:10:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 10:57:41 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/rt_mathematics.h"
+#include "../../includes/miniRT.h"
 
 t_matrix	*scaling_mtx(float x, float y, float z)
 {

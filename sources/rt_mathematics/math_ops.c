@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:28:43 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 19:40:02 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:31:00 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lighting.h"
+#include "../../includes/miniRT.h"
 
 // Returns 1 if a and b are "equal", 0 otherwise
 int	compare_f(float a, float b)

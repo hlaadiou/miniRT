@@ -1,14 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fong.c                                             :+:      :+:    :+:   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 05:47:33 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/02/28 05:50:52 by azgaoua          ###   ########.fr       */
+/*   Created: 2024/03/01 10:15:01 by hlaadiou          #+#    #+#             */
+/*   Updated: 2024/03/01 11:02:41 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rt_mathematics.h"
+#ifndef MINIRT_H
+# define MINIRT_H
 
+# include "rt_mathematics.h"
+# include "geometry.h"
+# include "lighting.h"
+
+
+#endif

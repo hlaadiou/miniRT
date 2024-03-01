@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 19:53:23 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 10:17:42 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ typedef struct s_object
 	t_matrix	*transform;
 	t_specs		specs;
 }	t_object;
+
+typedef struct s_color	t_color;
 
 /*
  * FUNCTIONS PROTOTYPES *

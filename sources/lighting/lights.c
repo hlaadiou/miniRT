@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:06:10 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 18:09:56 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 10:59:42 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lighting.h"
+#include "../../includes/miniRT.h"
 
 t_light	_light(t_point pos, float br, t_color c)
 {

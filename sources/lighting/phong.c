@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 20:42:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/01 10:59:56 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/lighting.h"
+#include "../../includes/miniRT.h"
 
 /*
  * a : ambient component
