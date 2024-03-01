@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 10:59:56 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:00:19 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,9 @@ t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
 	t_color		diffuse;
 	t_color		specular;
 	float		light_dot_normal;
-	// float		ambient;
 
 	ph = _phong(obj, px, light, cam);
-	px_color = schur_product(light.color, obj->specs.specular);
+	px_color = schur_product(light.color, );
 	ambient = multiply_color_scalar(obj->specs.ambient, px_color);
 	light_dot_normal = dot_product(ph.l, ph.n);
 	if (light_dot_normal < 0)
