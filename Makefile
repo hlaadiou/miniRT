@@ -33,7 +33,9 @@ SRCS		=	my_main.c \
 				sources/rt_mathematics/translation.c \
 				sources/rt_mathematics/tuple_mtx_ops.c \
 				sources/rt_mathematics/tuples.c \
-				sources/rt_mathematics/vectors.c
+				sources/rt_mathematics/vectors.c \
+				sources/rt_mathematics/normalize.c \
+				sources/rt_mathematics/reflect.c 
 OBJS		=	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
