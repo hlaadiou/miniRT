@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:42:22 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/02/29 19:43:59 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/02/29 23:39:51 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIGHTING_H
 
 # include "geometry.h"
+# include "rt_mathematics.h"
 
 /* 0 <= r,g,b <= 1 */
 typedef struct s_color
@@ -43,5 +44,11 @@ typedef struct s_phong
 t_specs		_specs(float r, float g, float b, float ph);
 t_light		_light(t_point pos, float br, t_color c);
 t_color		_color(float r, float g, float b);
+t_phong		_phong(t_object *obj, t_point px, t_light light, t_point cam);
+t_color		illuminate(t_object *obj, t_point px, t_light light, t_point cam);
+t_color			schur_product(t_color col1, t_color col2);
+t_color			_color255(float r, float g, float b);
+
+
 
 #endif

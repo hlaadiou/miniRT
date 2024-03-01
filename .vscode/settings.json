@@ -4,5 +4,10 @@
 		"bresenham",
 		"cofactor",
 		"submatrix"
-	]
+	],
+	"files.associations": {
+		"lighting.h": "c",
+		"rt_mathematics.h": "c",
+		"geometry.h": "c"
+	}
 }

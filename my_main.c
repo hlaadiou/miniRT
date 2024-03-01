@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/01 11:16:26 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/01 16:08:43 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-#define WIDTH  200
-#define HEIGHT 200
+#define WIDTH  350
+#define HEIGHT 350
 
 static mlx_image_t* image;
 
@@ -61,17 +61,18 @@ int32_t main(void)
 		return(EXIT_FAILURE);
 	}
 	
-	uint32_t color = ft_pixel(0x00FF, 0x0000, \
-							0x0000, 0x00FF);
 	t_ray		*r = NULL;
 	t_inter		**xs = NULL;
-	t_point 	ray_origin = _point(0, 0, -5);
+	t_point 	ray_origin = _point(0, 0, -10);
 	t_point 	position = _point(0, 0, 0);
 	float		wall_size = 10;
 	t_object 	*shape = _sphere(_point(0, 0, 0), 2);
+	// t_color		obj_clr = _color(1.0, 0.2, 1.0);
+	t_light		light = _light(_point(-10, 10, -10), 1.0, _color(1.0, 1.0, 1.0));
+	t_point		point;
 	float	 	world_x = 0;
 	float	 	world_y = 0;
-	float half = wall_size / 2;
+	float 		half = wall_size / 2;
 	int x;
 	int y;
 
@@ -86,7 +87,22 @@ int32_t main(void)
 			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
 			xs = intersect_sp(r, shape);
 			if (xs && (xs[0]->t > 0 || xs[1]->t > 0))
+			{
+				if (xs[0]->t > 0)
+					point = _position(r, xs[0]->t);
+				else if (xs[1]->t > 0)
+					point = _position(r, xs[1]->t);
+				t_color c = illuminate(shape, point, light, ray_origin);
+				// c = schur_product(c, _color(1, 1, 0));
+				c = _color255(c.r, c.g, c.b);
+				//c.g >= 255 ? printf("(%.2f, %.2f, %.2f)\n", c.r, c.g, c.b) : printf("");
+				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
+										(int)(c.b), 0x00FF);
 				mlx_put_pixel(image, x, y, color);
+			}
+			else
+				mlx_put_pixel(image, x, y, 0);
+
 			free(r);
 			free(xs);
 		}
