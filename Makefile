@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/03/01 16:16:37 by hlaadiou         ###   ########.fr        #
+#    Updated: 2024/03/01 16:58:17 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,7 @@ SRCS		=	my_main.c \
 				sources/rt_mathematics/translation.c \
 				sources/rt_mathematics/tuple_mtx_ops.c \
 				sources/rt_mathematics/tuples.c \
-				sources/rt_mathematics/vectors.c \
-				sources/rt_mathematics/normalize.c \
-				sources/rt_mathematics/reflect.c 
+				sources/rt_mathematics/vectors.c
 OBJS		=	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
