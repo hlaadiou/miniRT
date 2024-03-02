@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/01 16:53:45 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/02 15:47:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-#define WIDTH  350
-#define HEIGHT 350
+#define WIDTH  500
+#define HEIGHT 500
 
 static mlx_image_t* image;
 
@@ -28,14 +28,14 @@ void ft_hook(void* param)
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		image->instances[0].y -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		image->instances[0].y += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		image->instances[0].x -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		image->instances[0].x += 5;
+	//if (mlx_is_key_down(mlx, MLX_KEY_UP))
+	//	image->instances[0].y -= 5;
+	//if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+	//	image->instances[0].y += 5;
+	//if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	//	image->instances[0].x -= 5;
+	//if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+	//	image->instances[0].x += 5;
 }
 
 int32_t main(void)
@@ -43,7 +43,7 @@ int32_t main(void)
 	mlx_t* mlx;
 
 	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
@@ -92,15 +92,16 @@ int32_t main(void)
 				else if (xs[1]->t > 0)
 					point = _position(r, xs[1]->t);
 				t_color c = illuminate(shape, point, light, ray_origin);
-				c = multiply_color_scalar(0.5, c);
+				float ratio = 0.57;
+				c = multiply_color_scalar(ratio, c);
 				c = _color255(c);
-				c.b >= 255 ? printf("(%.2f, %.2f, %.2f)\n", c.r, c.g, c.b) : printf("");
+				// c.b >= 255 ? printf("(%.2f, %.2f, %.2f)\n", c.r, c.g, c.b) : printf("");
 				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
 										(int)(c.b), 0x00FF);
 				mlx_put_pixel(image, x, y, color);
 			}
 			else
-				mlx_put_pixel(image, x, y, 0);
+				mlx_put_pixel(image, x, y, 0x000000FF);
 
 			free(r);
 			free(xs);
