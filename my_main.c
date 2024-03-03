@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/02 15:47:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/03 18:46:50 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-#define WIDTH  500
-#define HEIGHT 500
+#define WIDTH  200
+#define HEIGHT 200
 
 static mlx_image_t* image;
 
@@ -43,7 +43,7 @@ int32_t main(void)
 	mlx_t* mlx;
 
 	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false)))
+	if (!(mlx = mlx_init(WIDTH, HEIGHT, "miniRT", false)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
@@ -60,13 +60,12 @@ int32_t main(void)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	
 	t_ray		*r = NULL;
 	t_inter		**xs = NULL;
 	t_point 	ray_origin = _point(0, 0, -5);
 	t_point 	position = _point(0, 0, 0);
 	float		wall_size = 10;
-	t_object 	*shape = _sphere(_point(0, 0, 0), 2);
+	t_object 	*shape = _sphere(_point(0, 0, 0), 2, _color(1.0, 0.2, 1));
 	t_light		light = _light(_point(-10, 10, -10), 1.0, _color(1.0, 1.0, 1.0));
 	t_point		point;
 	float	 	world_x = 0;
@@ -95,7 +94,6 @@ int32_t main(void)
 				float ratio = 0.57;
 				c = multiply_color_scalar(ratio, c);
 				c = _color255(c);
-				// c.b >= 255 ? printf("(%.2f, %.2f, %.2f)\n", c.r, c.g, c.b) : printf("");
 				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
 										(int)(c.b), 0x00FF);
 				mlx_put_pixel(image, x, y, color);

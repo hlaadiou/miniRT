@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:42:22 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 16:44:48 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:04:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ typedef struct s_phong
 	t_vector	l;
 	t_vector	r;
 	t_vector	e;
+	t_color		px_color;
+	t_color		ambient;
+	t_color		diffuse;
+	t_color		specular;
 }	t_phong;
 
 t_specs		_specs(float r, float g, float b, float ph);

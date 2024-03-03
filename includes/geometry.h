@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 16:06:36 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/03 19:10:06 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ typedef struct s_object
 	t_plane		*pl;
 	t_matrix	*transform;
 	t_specs		specs;
+	t_color		color;
 }	t_object;
-
 
 /*
  * FUNCTIONS PROTOTYPES *
@@ -113,10 +113,10 @@ typedef struct s_object
 
 t_ray			*_ray(t_point org, t_vector vec);
 t_point			_position(t_ray *ray, float t);
-t_object		*_sphere(t_point o, float radius);
+t_object		*_sphere(t_point o, float radius, t_color c);
 t_quadratic		discriminant_sp(t_ray *ray, t_object *sp);
 t_inter			**intersect_sp(t_ray *ray, t_object *sp);
-t_object		*_obj(void *obj, t_types type);
+t_object		*_obj(void *obj, t_types type, t_color c);
 int				_intersections(t_lst_inter **lst, t_inter **i);
 t_inter 		**_intersection(t_roots roots, t_object *obj);
 t_lst_inter		*lst_last(t_lst_inter *inters);
