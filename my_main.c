@@ -6,16 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/03 18:46:50 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/05 16:18:17 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-#define WIDTH  200
-#define HEIGHT 200
-
-static mlx_image_t* image;
+# define WIDTH  200
+# define HEIGHT 200
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
@@ -28,44 +26,54 @@ void ft_hook(void* param)
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
-	//if (mlx_is_key_down(mlx, MLX_KEY_UP))
-	//	image->instances[0].y -= 5;
-	//if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-	//	image->instances[0].y += 5;
-	//if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-	//	image->instances[0].x -= 5;
-	//if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-	//	image->instances[0].x += 5;
+}
+
+int ft_mlx(mlx_t **mlx, mlx_image_t **image)
+{
+	if (!((*mlx) = mlx_init(WIDTH, HEIGHT, "miniRT", false)))
+	{
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
+	if (!((*image) = mlx_new_image((*mlx), WIDTH, HEIGHT)))
+	{
+		mlx_close_window(*mlx);
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
+	if (mlx_image_to_window((*mlx), (*image), 0, 0) == -1)
+	{
+		mlx_close_window(*mlx);
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+float normalizeColor(float colorValue) {
+    if (colorValue < 0.0f) {
+        return 0.0f;
+    } else if (colorValue > 1.0f) {
+        return 1.0f;
+    } else {
+        return colorValue;
+    }
 }
 
 int32_t main(void)
 {
-	mlx_t* mlx;
+	mlx_image_t		*image;
+	mlx_t			*mlx;
 
 	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "miniRT", false)))
-	{
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (!(image = mlx_new_image(mlx, WIDTH, HEIGHT)))
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
+	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 	t_ray		*r = NULL;
 	t_inter		**xs = NULL;
 	t_point 	ray_origin = _point(0, 0, -5);
-	t_point 	position = _point(0, 0, 0);
-	float		wall_size = 10;
-	t_object 	*shape = _sphere(_point(0, 0, 0), 2, _color(1.0, 0.2, 1));
+	t_point 	position = _point(0, 0, 0); 
+	float		wall_size = 7;
+	t_object 	*shape = _sphere(_point(0, 0, 0), 1, _color(1.0, 0.2, 1.0));
 	t_light		light = _light(_point(-10, 10, -10), 1.0, _color(1.0, 1.0, 1.0));
 	t_point		point;
 	float	 	world_x = 0;
@@ -91,8 +99,11 @@ int32_t main(void)
 				else if (xs[1]->t > 0)
 					point = _position(r, xs[1]->t);
 				t_color c = illuminate(shape, point, light, ray_origin);
-				float ratio = 0.57;
-				c = multiply_color_scalar(ratio, c);
+				// float ratio = 0.57;
+				// c = multiply_color_scalar(ratio, c);
+				c.r = normalizeColor(c.r);
+				c.g = normalizeColor(c.g);
+				c.b = normalizeColor(c.b);
 				c = _color255(c);
 				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
 										(int)(c.b), 0x00FF);

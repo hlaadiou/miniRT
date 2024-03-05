@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:15:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 11:17:04 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/04 22:46:06 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@
 # include "rt_mathematics.h"
 # include "geometry.h"
 # include "lighting.h"
+
+
+typedef struct		s_rt
+{
+	/*----------- to do 
+	
+    *
+
+	to do -----------*/
+}					t_rt;
 
 
 #endif
