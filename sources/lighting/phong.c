@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/04 22:33:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/06 21:45:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,6 @@ t_color	rtn_phong(t_color a, t_color d, t_color s)
 	res.r = (a.r) + (d.r) + (s.r);
 	res.g = (a.g) + (d.g) + (s.g);
 	res.b = (a.b) + (d.b) + (s.b);
-	// if (res.r >= 0.9 || res.g >= 0.9 || res.b >= 0.9)
-	// {
-	// 	res.r = (a.r + d.r + (s.r) * 0.1) ;
-	// 	res.g = (a.g + d.g + (s.g) * 1);
-	// 	res.b = (a.b + d.b + (s.b) * 1);
-	// }
 	return (res);
 }
 
@@ -87,5 +81,6 @@ t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
 									obj->specs.specular, light.color);
 		}
 	}
+	// return (rtn_phong(ph.ambient, ph.diffuse, ph.specular));
 	return (rtn_phong(ph.ambient, ph.diffuse, ph.specular));
 }

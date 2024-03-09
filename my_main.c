@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/05 16:18:17 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/08 18:02:48 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-# define WIDTH  200
-# define HEIGHT 200
+# define WIDTH  1000
+# define HEIGHT 1000
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
@@ -50,14 +50,15 @@ int ft_mlx(mlx_t **mlx, mlx_image_t **image)
 	return (EXIT_SUCCESS);
 }
 
-float normalizeColor(float colorValue) {
-    if (colorValue < 0.0f) {
-        return 0.0f;
-    } else if (colorValue > 1.0f) {
-        return 1.0f;
-    } else {
-        return colorValue;
+t_color normalizeColor(t_color colorValue) {
+	float max_val = fmax(colorValue.r, fmax(colorValue.g, colorValue.b));
+	if (max_val > 1.0f) {
+        colorValue.r = colorValue.r / max_val;
+		colorValue.g = colorValue.g / max_val;
+		colorValue.b = colorValue.b / max_val;
+		return (colorValue);
     }
+	return colorValue;
 }
 
 int32_t main(void)
@@ -65,7 +66,6 @@ int32_t main(void)
 	mlx_image_t		*image;
 	mlx_t			*mlx;
 
-	// Gotta error check this stuff
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	t_ray		*r = NULL;
@@ -73,7 +73,7 @@ int32_t main(void)
 	t_point 	ray_origin = _point(0, 0, -5);
 	t_point 	position = _point(0, 0, 0); 
 	float		wall_size = 7;
-	t_object 	*shape = _sphere(_point(0, 0, 0), 1, _color(1.0, 0.2, 1.0));
+	t_object 	*shape = _sphere(_point(0, 0, 0), 1, _color(1.0, 0.0, 0.0));
 	t_light		light = _light(_point(-10, 10, -10), 1.0, _color(1.0, 1.0, 1.0));
 	t_point		point;
 	float	 	world_x = 0;
@@ -81,7 +81,6 @@ int32_t main(void)
 	float 		half = wall_size / 2;
 	int x;
 	int y;
-
 
 	for (y = 0; y < HEIGHT; y++)
 	{
@@ -99,11 +98,7 @@ int32_t main(void)
 				else if (xs[1]->t > 0)
 					point = _position(r, xs[1]->t);
 				t_color c = illuminate(shape, point, light, ray_origin);
-				// float ratio = 0.57;
-				// c = multiply_color_scalar(ratio, c);
-				c.r = normalizeColor(c.r);
-				c.g = normalizeColor(c.g);
-				c.b = normalizeColor(c.b);
+				c = normalizeColor(c);
 				c = _color255(c);
 				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
 										(int)(c.b), 0x00FF);
