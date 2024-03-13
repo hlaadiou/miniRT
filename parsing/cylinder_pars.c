@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   cylinder_pars.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 12:18:14 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/11 16:54:18 by azgaoua          ###   ########.fr       */
+/*   Created: 2024/03/13 11:46:18 by azgaoua           #+#    #+#             */
+/*   Updated: 2024/03/13 12:12:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../pars.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	cylinder_pars(char *line, t_pars **pars)
 {
-	unsigned int	j;
+	t_pars	*new;
+	char	**tab;
 
-	if (!s)
-		return ;
-	j = 0;
-	while (s[j])
-	{
-		ft_putchar_fd(s[j], fd);
-		j++;
-	}
+	tab = str_split(line, " \t\r\f\n\v");
+	if (ft_tab_size(tab) != 6)
+		exit(0);
+	new = ft_lstnew(tab[0], tab, 6);
+	ft_lstadd_back(pars, new);
 }
