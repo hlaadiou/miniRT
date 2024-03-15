@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/13 12:20:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/15 01:34:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ t_pars	*ft_lstnew(char *content, char **elms, int flag);
 void	plane_pars(char *line, t_pars **pars);
 void	cylinder_pars(char *line, t_pars **pars);
 void	free_tab(char	**tab);
+int		ft_lstsize(t_pars *lst);
 
 #endif

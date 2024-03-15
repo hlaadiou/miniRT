@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 08:06:59 by azgaoua           #+#    #+#              #
-#    Updated: 2024/03/11 14:41:02 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/03/15 01:31:06 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS = get_next_line_utils.c	\
 		ft_putstr_fd.c		\
 		ft_putendl_fd.c		\
 		ft_putnbr_fd.c		\
+		ft_lstsize.c
 
 OBJS = $(SRCS:.c=.o) 
 OBJ_BNS = $(bns_src:.c=.o)
