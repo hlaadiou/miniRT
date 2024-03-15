@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/15 01:35:35 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/15 01:39:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	main(int ac, char **av)
 		ft_pars(av[1], &pars);
 	else
 		return (printf("bad extension\n"), 1);
-	if (ft_lstsize(pars) < 4)
+	if (ft_lstsize(pars) < 4 && pars)
 		return (printf("Error\nwrong number of identifiers\n"), 1);
 	print_lst(pars);
 }
