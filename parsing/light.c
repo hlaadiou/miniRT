@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 09:20:07 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/13 12:10:47 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/16 23:06:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,15 @@ void	ft_lstadd_back(t_pars **lst, t_pars *new)
 
 void	ft_light(char *line, t_pars **pars)
 {
-		t_pars	*new;
+	t_pars	*new;
 	char	**tab;
 
 	tab = str_split(line, " \t\r\f\n\v");
 	if (ft_tab_size(tab) != 4)
+	{
+		ft_putstr_fd("Error: wrong number of specific informations\n", 2);
 		exit(0);
+	}
 	new = ft_lstnew(tab[0], tab, 3);
 	ft_lstadd_back(pars, new);
-	// free_tab(tab);
 }

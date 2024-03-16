@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 09:54:55 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/13 12:10:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/16 23:06:49 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ void	ft_pars_spher(char *line, t_pars **pars)
 
 	tab = str_split(line, " \t\r\f\n\v");
 	if (ft_tab_size(tab) != 4)
+	{
+		ft_putstr_fd("Error: wrong number of specific informations\n", 2);
 		exit(0);
+	}
 	new = ft_lstnew(tab[0], tab, 4);
 	ft_lstadd_back(pars, new);
-	// free_tab(tab);
 }
