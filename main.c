@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:11:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/16 23:26:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ int	ft_pars_loop(char *line, t_pars **pars)
 	return (0);
 }
 
+void	ft_free_struct(t_pars **pars)
+{
+	while ((*pars) != NULL)
+	{
+		free_tab((*pars)->elements);
+		free((*pars));
+		(*pars) = (*pars)->next;
+	}
+}
+
 void	ft_pars(char *av, t_pars **pars)
 {
 	int		fd;
@@ -49,17 +59,17 @@ void	ft_pars(char *av, t_pars **pars)
 		{
 			if (ft_pars_loop(line, pars) == 1)
 			{
-				while ((*pars) != NULL)
-				{
-					free_tab((*pars)->elements);
-					free((*pars));
-					(*pars) = (*pars)->next;
-				}
+				ft_free_struct(pars);
 				break ;
 			}
 			free(line);
 			line = get_next_line(fd);
 		}
+	}
+	else
+	{
+		ft_putstr_fd("Error: cannot open file\n", 2);
+		exit(0);
 	}
 	close(fd);
 	return ;
@@ -91,7 +101,9 @@ int	main(int ac, char **av)
 	t_pars	*pars;
 
 	pars = NULL;
-	if (ac == 2 && ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3) == 0 \
+	if (ac != 2)
+		return (ft_putstr_fd("Error: wrong number of arguments\n", 2), 0);
+	else if (ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3) == 0 \
 		&& ft_strlen(av[1]) > 3)
 		ft_pars(av[1], &pars);
 	else
