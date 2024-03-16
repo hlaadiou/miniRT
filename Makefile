@@ -6,64 +6,66 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 20:19:42 by azgaoua           #+#    #+#              #
-#    Updated: 2024/03/11 15:57:26 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/03/13 11:54:23 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
-OBJS = main.o parsing/ambient_lightning.o
 
-libobj = 	./libft/get_next_line_utils.c	\
-			./libft/get_next_line.c		\
-			./libft/ft_strdup.c			\
-			./libft/ft_substr.c 		\
-			./libft/ft_split.c			\
-			./libft/ft_memset.c			\
-			./libft/ft_bzero.c			\
-			./libft/ft_memcpy.c			\
-			./libft/ft_memmove.c 		\
-			./libft/ft_memchr.c			\
-			./libft/ft_memcmp.c			\
-			./libft/ft_strlen.c			\
-			./libft/ft_isalpha.c 		\
-			./libft/ft_isdigit.c		\
-			./libft/ft_isalnum.c		\
-			./libft/ft_isascii.c		\
-			./libft/ft_isprint.c		\
-			./libft/ft_toupper.c		\
-			./libft/ft_tolower.c		\
-			./libft/ft_strchr.c			\
-			./libft/ft_strrchr.c		\
-			./libft/ft_strncmp.c		\
-			./libft/ft_strlcpy.c		\
-			./libft/ft_strlcat.c		\
-			./libft/ft_strnstr.c		\
-			./libft/ft_atoi.c			\
-			./libft/ft_strjoin.c		\
-			./libft/ft_strtrim.c		\
-			./libft/ft_itoa.c			\
-			./libft/ft_strmapi.c		\
-			./libft/ft_striteri.c		\
-			./libft/ft_putchar_fd.c		\
-			./libft/ft_putstr_fd.c		\
-			./libft/ft_putendl_fd.c		\
-			./libft/ft_putnbr_fd.c		\
+libobj = 	./libft/get_next_line_utils.o	\
+			./libft/get_next_line.o		\
+			./libft/ft_strdup.o			\
+			./libft/ft_substr.o 		\
+			./libft/ft_split.o			\
+			./libft/ft_memset.o			\
+			./libft/ft_bzero.o			\
+			./libft/ft_memcpy.o			\
+			./libft/ft_memmove.o 		\
+			./libft/ft_memchr.o			\
+			./libft/ft_memcmp.o			\
+			./libft/ft_strlen.o			\
+			./libft/ft_isalpha.o 		\
+			./libft/ft_isdigit.o		\
+			./libft/ft_isalnum.o		\
+			./libft/ft_isascii.o		\
+			./libft/ft_isprint.o		\
+			./libft/ft_toupper.o		\
+			./libft/ft_tolower.o		\
+			./libft/ft_strchr.o			\
+			./libft/ft_strrchr.o		\
+			./libft/ft_strncmp.o		\
+			./libft/ft_strlcpy.o		\
+			./libft/ft_strlcat.o		\
+			./libft/ft_strnstr.o		\
+			./libft/ft_atoi.o			\
+			./libft/ft_strjoin.o		\
+			./libft/ft_strtrim.o		\
+			./libft/ft_itoa.o			\
+			./libft/ft_strmapi.o		\
+			./libft/ft_striteri.o		\
+			./libft/ft_putchar_fd.o		\
+			./libft/ft_putstr_fd.o		\
+			./libft/ft_putendl_fd.o		\
+			./libft/ft_putnbr_fd.o		\
 
-FILES = main.c parsing/ambient_lightning.c
+FILES = main.c parsing/ambient_lightning.c parsing/camera.c parsing/light.c \
+		parsing/sphere_pars.c parsing/plane_pars.c parsing/cylinder_pars.c
+
+OBJS = $(FILES:.c=.o) 
 
 CC = cc
 
 RM = rm -rf
 
-FLGS = -Wall -Wextra -Werror -fsanitize=address -g3
+FLGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 all :  $(NAME)
 
-%.o: %.c pars.h ./libft/libft.h $(libobj)
+%.o: %.c pars.h ./libft/libft.h 
 	@$(CC) $(FLGS) -c $< -o $@
 
-$(NAME) :  $(OBJS)
+$(NAME) :  $(OBJS) $(libobj)
 	@echo "------>making the miniRT<------"
 	@make -C ./libft
 	@$(CC) $(FLGS) $(OBJS) libft/libft.a -o $(NAME)
@@ -77,6 +79,6 @@ clean:
 fclean:  clean
 	@echo "		+ that --> $(NAME) libft/libft.a"
 	@make fclean -C ./libft
-	@$(RM) $(NAME) libft/libft.a
+	@$(RM) $(NAME)
 
 re: fclean all

@@ -6,15 +6,15 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:48:55 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/11 16:01:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/15 01:31:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_lstsize(t_tokens *lst)
+int	ft_lstsize(t_pars *lst)
 {
-	t_list	*j;
+	t_pars	*j;
 	int		i;
 
 	if (!lst)
