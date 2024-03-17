@@ -6,12 +6,13 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/15 01:34:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/16 23:07:23 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
