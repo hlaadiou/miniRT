@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:26:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/17 02:05:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (ft_putstr_fd("Error: wrong number of arguments\n", 2), 0);
 	else if (ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3) == 0 \
-		&& ft_strlen(av[1]) > 3)
+		&& av[1][0] != '.')
 		ft_pars(av[1], &pars);
 	else
 		return (ft_putstr_fd("Error: bad file name\n", 2), 0);
