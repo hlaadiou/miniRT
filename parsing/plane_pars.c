@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:52:59 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:06:41 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/18 01:35:55 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pars.h"
+#include "pars.h"
 
 void	plane_pars(char *line, t_pars **pars)
 {

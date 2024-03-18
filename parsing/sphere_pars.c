@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 09:54:55 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:06:49 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/18 01:36:01 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pars.h"
+#include "pars.h"
 
 void	ft_pars_spher(char *line, t_pars **pars)
 {

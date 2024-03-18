@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:52:17 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:05:30 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/18 01:35:36 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pars.h"
+#include "pars.h"
 
 int	count_words(char *str, char *seps)
 {

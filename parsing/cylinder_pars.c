@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 11:46:18 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:06:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/18 01:35:29 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pars.h"
+#include "pars.h"
 
 void	cylinder_pars(char *line, t_pars **pars)
 {

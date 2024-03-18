@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 20:19:42 by azgaoua           #+#    #+#              #
-#    Updated: 2024/03/13 11:54:23 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/03/18 01:48:03 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ libobj = 	./libft/get_next_line_utils.o	\
 			./libft/ft_putendl_fd.o		\
 			./libft/ft_putnbr_fd.o		\
 
-FILES = main.c parsing/ambient_lightning.c parsing/camera.c parsing/light.c \
+FILES = parsing/main.c parsing/ambient_lightning.c parsing/camera.c parsing/light.c \
 		parsing/sphere_pars.c parsing/plane_pars.c parsing/cylinder_pars.c
 
 OBJS = $(FILES:.c=.o) 
@@ -62,7 +62,7 @@ FLGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 
 all :  $(NAME)
 
-%.o: %.c pars.h ./libft/libft.h 
+%.o: %.c parsing/pars.h ./libft/libft.h 
 	@$(CC) $(FLGS) -c $< -o $@
 
 $(NAME) :  $(OBJS) $(libobj)

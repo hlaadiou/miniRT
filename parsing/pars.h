@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:09:47 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/18 01:34:16 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARS_H
 # define PARS_H
 
-# include "libft/libft.h"
+# include "../libft/libft.h"
 
 # include <libc.h>
 
@@ -30,7 +30,7 @@ int		ft_tab_size(char	**tab);
 void	ft_ambient(char	*line, t_pars **pars);
 void	ft_camera(char *line, t_pars **pars);
 void	ft_light(char *line, t_pars **pars);
-void	ft_lstadd_back(t_pars **lst, t_pars *new);
+void	ft_lstadd_back(t_pars **lst, t_pars *n);
 void	ft_pars_spher(char *line, t_pars **pars);
 t_pars	*ft_lstnew(char *content, char **elms, int flag);
 void	plane_pars(char *line, t_pars **pars);
