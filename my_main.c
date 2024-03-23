@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/22 02:44:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/23 02:09:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ int32_t main(void)
 				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
 		fflush(stdout);
 	}
-	// light = _light(_point(0, 2, -3), 1.0, _color(1.0, 1.0, 1.0));
 	ray_origin = _point(0, 0, -80);
 	position = _point(0, 0, 0); 
 	wall_size = 7;
@@ -145,9 +144,6 @@ int32_t main(void)
 										(int)(c.b), 0x00FF);
 				mlx_put_pixel(image, x, y, color);
 			}
-			// else
-			// 	mlx_put_pixel(image, x, y, 0x000000FF);
-
 			free(r);
 			free(xs);
 		}
@@ -155,7 +151,6 @@ int32_t main(void)
 				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
 		fflush(stdout);
 	}
-	// light = _light(_point(0, -2, -3), 1.0, _color(1.0, 1.0, 1.0));
 	ray_origin = _point(0, 0, -80);
 	position = _point(0, 0, 0); 
 	shape = _sphere(_point(0, 0, 0), 1, _color(0.0, 1.0, 0.0));
@@ -186,9 +181,6 @@ int32_t main(void)
 										(int)(c.b), 0x00FF);
 				mlx_put_pixel(image, x, y, color);
 			}
-			// else
-			// 	mlx_put_pixel(image, x, y, 0x000000FF);
-
 			free(r);
 			free(xs);
 		}
