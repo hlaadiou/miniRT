@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/06 21:45:31 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/18 02:17:17 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
 									obj->specs.specular, light.color);
 		}
 	}
-	// return (rtn_phong(ph.ambient, ph.diffuse, ph.specular));
 	return (rtn_phong(ph.ambient, ph.diffuse, ph.specular));
 }
