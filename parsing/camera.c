@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:52:17 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:05:30 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/24 17:43:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	count_words(char *str, char *seps)
 	count = 0;
 	while (str[i])
 	{
-		while (str[i] && strchr(seps, str[i]))
+		while (str[i] && ft_strchr(seps, str[i]))
 			i++;
-		while (str[i] &&!strchr(seps, str[i]))
+		while (str[i] &&!ft_strchr(seps, str[i]))
 			i++;
-		while (str[i] && strchr(seps, str[i]))
+		while (str[i] && ft_strchr(seps, str[i]))
 			i++;
 		count++;
 	}
@@ -50,14 +50,14 @@ char	**str_split(char *str, char *seps)
 	tab = (char **)malloc(sizeof(char *) * (count_words(str, seps) + 1));
 	while (str[i] && j < count_words(str, seps))
 	{
-		while (str[i] && strchr(seps, str[i]))
+		while (str[i] && ft_strchr(seps, str[i]))
 			i++;
 		len = i;
-		while (str[len] && !strchr(seps, str[len]))
+		while (str[len] && !ft_strchr(seps, str[len]))
 			len++;
 		tab[j] = (char *)malloc(len - i + 1);
 		len = i;
-		while (str[i] && !strchr(seps, str[i]))
+		while (str[i] && !ft_strchr(seps, str[i]))
 		{
 			tab[j][i - len] = str[i];
 			i++;
