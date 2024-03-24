@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 09:20:07 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/18 01:35:20 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/23 03:30:39 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_pars	*ft_lstnew(char *content, char **elms, int flag)
 {
 	t_pars	*new;
 
-	new = malloc(sizeof(t_pars));
+	new = (t_pars *)malloc(sizeof(t_pars));
 	if (!new)
 		return (0);
 	new -> identifier = content;
@@ -52,7 +52,7 @@ void	ft_light(char *line, t_pars **pars)
 	if (ft_tab_size(tab) != 4)
 	{
 		ft_putstr_fd("Error: wrong number of specific informations\n", 2);
-		exit(0);
+		exit(1);
 	}
 	new = ft_lstnew(tab[0], tab, 3);
 	ft_lstadd_back(pars, new);

@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 20:19:42 by azgaoua           #+#    #+#              #
-#    Updated: 2024/03/18 01:48:03 by hlaadiou         ###   ########.fr        #
+#    Updated: 2024/03/24 01:13:21 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,16 @@ libobj = 	./libft/get_next_line_utils.o	\
 			./libft/ft_putendl_fd.o		\
 			./libft/ft_putnbr_fd.o		\
 
-FILES = parsing/main.c parsing/ambient_lightning.c parsing/camera.c parsing/light.c \
-		parsing/sphere_pars.c parsing/plane_pars.c parsing/cylinder_pars.c
+FILES = parsing/main.c \
+		parsing/ambient_lightning.c \
+		parsing/camera.c \
+		parsing/light.c \
+		parsing/sphere_pars.c \
+		parsing/plane_pars.c \
+		parsing/cylinder_pars.c \
+		parsing/check_elements.c \
+		parsing/data_validation.c \
+		#parsing/parser.c
 
 OBJS = $(FILES:.c=.o) 
 

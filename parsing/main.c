@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/17 02:05:29 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/23 03:29:14 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int	ft_pars_loop(char *line, t_pars **pars)
 				ft_strchr(" \t\r", line[2]) != NULL)
 		cylinder_pars(line, pars);
 	else
-		return (ft_putstr_fd("Error: wrong identifier\n", 2), 1);
+	{
+		ft_putstr_fd("Error\nWrong identifier\n", 2);
+		exit(1);
+	}
 	return (0);
 }
 
@@ -68,8 +71,8 @@ void	ft_pars(char *av, t_pars **pars)
 	}
 	else
 	{
-		ft_putstr_fd("Error: cannot open file\n", 2);
-		exit(0);
+		ft_putstr_fd("Error\nCannot open file\n", 2);
+		exit(1);
 	}
 	close(fd);
 	return ;
@@ -102,13 +105,15 @@ int	main(int ac, char **av)
 
 	pars = NULL;
 	if (ac != 2)
-		return (ft_putstr_fd("Error: wrong number of arguments\n", 2), 0);
+		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
 	else if (ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3) == 0 \
 		&& av[1][0] != '.')
 		ft_pars(av[1], &pars);
 	else
-		return (ft_putstr_fd("Error: bad file name\n", 2), 0);
+		return (ft_putstr_fd("Error\nBad file name\n", 2), 1);
 	if ((ft_lstsize(pars) < 4 && pars))
-		return (ft_putstr_fd("Error: wrong number of identifiers\n", 2), 0);
+		return (ft_putstr_fd("Error\nWrong number of identifiers\n", 2), 1);
 	print_lst(pars);
+	if (!check_required_elements(pars))
+		return (1);
 }

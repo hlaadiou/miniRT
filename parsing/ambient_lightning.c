@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:25:08 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/18 01:35:43 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/24 15:12:31 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	free_tab(char	**tab)
 		free(tab[i]);
 		i++;
 	}
-	free(tab[i]);
+	free(tab);
 }
 
 void	ft_ambient(char	*line, t_pars **pars)
@@ -44,7 +44,7 @@ void	ft_ambient(char	*line, t_pars **pars)
 	if (ft_tab_size(tab) != 3)
 	{
 		ft_putstr_fd("Error: wrong number of specific informations\n", 2);
-		exit(0);
+		exit(1);
 	}
 	new = ft_lstnew(tab[0], tab, 1);
 	ft_lstadd_back(pars, new);
