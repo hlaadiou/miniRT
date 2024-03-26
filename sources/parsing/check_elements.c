@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 17:34:52 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/23 17:55:58 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/26 09:39:12 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pars.h"
+#include "../../includes/pars.h"
 
 int	check_al(t_pars *conf)
 {

@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:25:08 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/24 15:12:31 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:34:25 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pars.h"
+#include "../../includes/pars.h"
 
 int	ft_tab_size(char	**tab)
 {

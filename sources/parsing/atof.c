@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 18:20:27 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/23 21:48:08 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:34:36 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pars.h"
+#include "../../includes/pars.h"
 
 int	ft_check_sign(char *str, float *sign, int index)
 {

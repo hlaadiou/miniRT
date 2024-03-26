@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/23 03:29:14 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/26 10:31:29 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pars.h"
+#include "../../includes/pars.h"
 
 int	ft_pars_loop(char *line, t_pars **pars)
 {
@@ -102,6 +102,7 @@ void	print_lst(t_pars *pars)
 int	main(int ac, char **av)
 {
 	t_pars	*pars;
+	t_scene	*scene;
 
 	pars = NULL;
 	if (ac != 2)
@@ -113,7 +114,6 @@ int	main(int ac, char **av)
 		return (ft_putstr_fd("Error\nBad file name\n", 2), 1);
 	if ((ft_lstsize(pars) < 4 && pars))
 		return (ft_putstr_fd("Error\nWrong number of identifiers\n", 2), 1);
-	print_lst(pars);
-	if (!check_required_elements(pars))
-		return (1);
+	scene = parse_scene(pars);
+	return (0);
 }

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cylinder_pars.c                                    :+:      :+:    :+:   */
+/*   sphere_pars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/13 11:46:18 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/23 03:30:08 by hlaadiou         ###   ########.fr       */
+/*   Created: 2024/03/12 09:54:55 by azgaoua           #+#    #+#             */
+/*   Updated: 2024/03/25 20:40:40 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pars.h"
+#include "../../includes/pars.h"
 
-void	cylinder_pars(char *line, t_pars **pars)
+void	ft_pars_spher(char *line, t_pars **pars)
 {
 	t_pars	*new;
 	char	**tab;
 
 	tab = str_split(line, " \t\r\f\n\v");
-	if (ft_tab_size(tab) != 6)
+	if (ft_tab_size(tab) != 4)
 	{
-		ft_putstr_fd("Error\nWrong number of specific informations\n", 2);
-		exit(1);
+		ft_putstr_fd("Error\nwrong number of specific informations\n", 2);
+		exit(0);
 	}
-	new = ft_lstnew(tab[0], tab, 6);
+	new = ft_lstnew(tab[0], tab, 4);
 	ft_lstadd_back(pars, new);
 }

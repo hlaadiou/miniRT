@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/18 01:34:51 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/25 20:19:41 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
+
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
-# include "../parsing/pars.h"
+# include "../../includes/pars.h"
 
 typedef struct s_list
 {

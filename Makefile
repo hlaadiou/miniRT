@@ -6,87 +6,117 @@
 #    By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/10 20:19:42 by azgaoua           #+#    #+#              #
-#    Updated: 2024/03/25 00:05:42 by hlaadiou         ###   ########.fr        #
+#    Updated: 2024/03/26 10:32:47 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = miniRT
+NAME 		= miniRT
 
+libobj 		= ./lib/libft/get_next_line_utils.o	\
+			./lib/libft/get_next_line.o		\
+			./lib/libft/ft_strdup.o			\
+			./lib/libft/ft_substr.o 		\
+			./lib/libft/ft_split.o			\
+			./lib/libft/ft_memset.o			\
+			./lib/libft/ft_bzero.o			\
+			./lib/libft/ft_memcpy.o			\
+			./lib/libft/ft_memmove.o 		\
+			./lib/libft/ft_memchr.o			\
+			./lib/libft/ft_memcmp.o			\
+			./lib/libft/ft_strlen.o			\
+			./lib/libft/ft_isalpha.o 		\
+			./lib/libft/ft_isdigit.o		\
+			./lib/libft/ft_isalnum.o		\
+			./lib/libft/ft_isascii.o		\
+			./lib/libft/ft_isprint.o		\
+			./lib/libft/ft_toupper.o		\
+			./lib/libft/ft_tolower.o		\
+			./lib/libft/ft_strchr.o			\
+			./lib/libft/ft_strrchr.o		\
+			./lib/libft/ft_strncmp.o		\
+			./lib/libft/ft_strlcpy.o		\
+			./lib/libft/ft_strlcat.o		\
+			./lib/libft/ft_strnstr.o		\
+			./lib/libft/ft_atoi.o			\
+			./lib/libft/ft_strjoin.o		\
+			./lib/libft/ft_strtrim.o		\
+			./lib/libft/ft_itoa.o			\
+			./lib/libft/ft_strmapi.o		\
+			./lib/libft/ft_striteri.o		\
+			./lib/libft/ft_putchar_fd.o		\
+			./lib/libft/ft_putstr_fd.o		\
+			./lib/libft/ft_putendl_fd.o		\
+			./lib/libft/ft_putnbr_fd.o
 
-libobj = 	./libft/get_next_line_utils.o	\
-			./libft/get_next_line.o		\
-			./libft/ft_strdup.o			\
-			./libft/ft_substr.o 		\
-			./libft/ft_split.o			\
-			./libft/ft_memset.o			\
-			./libft/ft_bzero.o			\
-			./libft/ft_memcpy.o			\
-			./libft/ft_memmove.o 		\
-			./libft/ft_memchr.o			\
-			./libft/ft_memcmp.o			\
-			./libft/ft_strlen.o			\
-			./libft/ft_isalpha.o 		\
-			./libft/ft_isdigit.o		\
-			./libft/ft_isalnum.o		\
-			./libft/ft_isascii.o		\
-			./libft/ft_isprint.o		\
-			./libft/ft_toupper.o		\
-			./libft/ft_tolower.o		\
-			./libft/ft_strchr.o			\
-			./libft/ft_strrchr.o		\
-			./libft/ft_strncmp.o		\
-			./libft/ft_strlcpy.o		\
-			./libft/ft_strlcat.o		\
-			./libft/ft_strnstr.o		\
-			./libft/ft_atoi.o			\
-			./libft/ft_strjoin.o		\
-			./libft/ft_strtrim.o		\
-			./libft/ft_itoa.o			\
-			./libft/ft_strmapi.o		\
-			./libft/ft_striteri.o		\
-			./libft/ft_putchar_fd.o		\
-			./libft/ft_putstr_fd.o		\
-			./libft/ft_putendl_fd.o		\
-			./libft/ft_putnbr_fd.o		\
+SRCS		= sources/parsing/main.c \
+			sources/parsing/ambient_lightning.c \
+			sources/parsing/camera.c \
+			sources/parsing/light.c \
+			sources/parsing/sphere_pars.c \
+			sources/parsing/plane_pars.c \
+			sources/parsing/cylinder_pars.c \
+			sources/parsing/check_elements.c \
+			sources/parsing/data_validation.c \
+			sources/parsing/data_getters.c \
+			sources/parsing/atof.c \
+			sources/parsing/object_list.c \
+			sources/parsing/parser.c
+			#my_main.c \
+			#sources/geometry/cylinder.c \
+			#sources/geometry/hits.c \
+			#sources/geometry/lists.c \
+			#sources/geometry/objects.c \
+			#sources/geometry/plane.c \
+			#sources/geometry/rays.c \
+			#sources/geometry/sphere.c \
+			#sources/lighting/colors.c \
+			#sources/lighting/lights.c \
+			#sources/lighting/phong.c \
+			#sources/rt_mathematics/math_ops.c \
+			#sources/rt_mathematics/mtx.c \
+			#sources/rt_mathematics/points.c \
+			#sources/rt_mathematics/rotation.c \
+			#sources/rt_mathematics/scaling.c \
+			#sources/rt_mathematics/shearing.c \
+			#sources/rt_mathematics/transformation.c \
+			#sources/rt_mathematics/translation.c \
+			#sources/rt_mathematics/tuple_mtx_ops.c \
+			#sources/rt_mathematics/tuples.c \
+			#sources/rt_mathematics/vectors.c \
+			#sources/rt_mathematics/normalize.c \
+			#sources/rt_mathematics/reflect.c
 
-FILES = parsing/main.c \
-		parsing/ambient_lightning.c \
-		parsing/camera.c \
-		parsing/light.c \
-		parsing/sphere_pars.c \
-		parsing/plane_pars.c \
-		parsing/cylinder_pars.c \
-		parsing/check_elements.c \
-		parsing/data_validation.c \
-		#parsing/parser.c
+OBJS 		= 	$(SRCS.c=.o) 
+LIBMLX		=	./lib/MLX42
+LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" lib/libft/libft.a
+CFLAGS		=	-Wall -Werror -Wextra -Ofast
+CC			=	cc
+RM			=	rm -rf
 
-OBJS = $(FILES:.c=.o) 
+all :		libmlx libft $(NAME)
 
-CC = cc
+libmlx:
+			@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-RM = rm -rf
+libft:
+			@make -C ./lib/libft
 
-FLGS = -Wall -Wextra -Werror #-fsanitize=address -g3
+%.o: 		%.c #headers go here
+			@$(CC) $(CFLAGS) -c $< -o $@
 
-all :  $(NAME)
-
-%.o: %.c parsing/pars.h ./libft/libft.h 
-	@$(CC) $(FLGS) -c $< -o $@
-
-$(NAME) :  $(OBJS) $(libobj)
-	@echo "------>making the miniRT<------"
-	@make -C ./libft
-	@$(CC) $(FLGS) $(OBJS) libft/libft.a -o $(NAME)
-	@echo "--------->miniRT Done<---------"
+$(NAME) :	$(OBJS) $(libobj)
+			@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 clean:
-	@echo " clean all this FILES if exist: $(OBJS)"
-	@make clean -C ./libft
-	@$(RM) $(OBJS)
+			@make clean -C ./lib/libft
+			@$(RM) $(OBJS)
+			@$(RM) $(LIBMLX)/build
 
-fclean:  clean
-	@echo "		+ that --> $(NAME) libft/libft.a"
-	@make fclean -C ./libft
-	@$(RM) $(NAME)
+fclean:		clean
+			@make fclean -C ./lib/libft
+			@$(RM) $(NAME)
 
-re: fclean all
+re:			fclean all
+
+.PHONY:		all clean fclean re libmlx
+

@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:15:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 11:17:04 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/26 06:44:25 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "rt_mathematics.h"
 # include "geometry.h"
 # include "lighting.h"
+# include "pars.h"
 
 
 #endif

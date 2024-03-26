@@ -6,11 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:17:40 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/24 16:43:39 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/25 21:25:55 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pars.h"
+#include "../../includes/pars.h"
 
 /* counts the number of the chars in argument
 while ignoring the leading zeros */

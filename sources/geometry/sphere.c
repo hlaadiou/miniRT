@@ -6,13 +6,13 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:38 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 16:06:52 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/26 06:19:09 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_object	*_sphere(t_point o, float radius)
+t_object	*_sphere(t_point o, float radius, t_rgb255 *c)
 {
 	t_sphere	*sp;
 
@@ -20,5 +20,5 @@ t_object	*_sphere(t_point o, float radius)
 	if (!sp)
 		return (NULL);
 	*sp = (t_sphere){o, radius, SPHERE}; 
-	return (_obj(sp, SPHERE));
+	return (_obj(sp, c, SPHERE));
 }
