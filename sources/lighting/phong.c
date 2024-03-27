@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 02:57:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 03:04:52 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_phong	_phong(t_object *obj, t_point px, t_light light, t_point cam)
 {
 	t_phong	phong;
 
-	phong.px_color = schur_product(obj->color, light.color);
+	phong.px_color = schur_product(*obj->color, light.color);
 	phong.ambient = multiply_color_scalar(obj->specs.ambient, phong.px_color);
 	phong.diffuse = _color(0, 0, 0);
 	phong.specular = _color(0, 0, 0);

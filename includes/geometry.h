@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 02:56:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 03:05:43 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ typedef struct s_object
 	t_plane		*pl;
 	t_matrix	*transform;
 	t_specs		specs;
-	t_color		*color;
+	t_rgb255	*color;
 }	t_object;
 
 /*

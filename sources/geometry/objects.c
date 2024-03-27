@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:46:44 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 02:55:21 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 03:02:55 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_object	*_obj(void *obj, t_rgb255 *c, t_types type)
 {
 	t_object	*o;
 
+	(void )c;
 	if (!obj)
 		return (NULL);
 	o = (t_object*)malloc(sizeof(t_object));

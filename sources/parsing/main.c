@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/27 00:19:28 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 02:59:30 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ void print_lstobj(t_obj_lst *lst)
 			printf("Sphere\n\n");
 			printf("Center: %.2f %.2f %.2f\n", tmp->obj->sp->org.x, tmp->obj->sp->org.y, tmp->obj->sp->org.z);
 			printf("Radius: %.2f\n", tmp->obj->sp->radius);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
 		}
 		else if (tmp->obj->type == PLANE)
 		{
 			printf("Plane\n\n");
 			printf("Point: %.2f %.2f %.2f\n", tmp->obj->pl->pt.x, tmp->obj->pl->pt.y, tmp->obj->pl->pt.z);
 			printf("Vector: %.2f %.2f %.2f\n", tmp->obj->pl->vec.x, tmp->obj->pl->vec.y, tmp->obj->pl->vec.z);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
 		}
 		else if (tmp->obj->type == CYLINDER)
 		{
@@ -127,7 +127,7 @@ void print_lstobj(t_obj_lst *lst)
 			printf("Axis: %.2f %.2f %.2f\n", tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, tmp->obj->cy->axis.z);
 			printf("Diameter: %.2f\n", tmp->obj->cy->diameter);
 			printf("Height: %.2f\n", tmp->obj->cy->height);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
 		}
 		tmp = tmp->next;
 	}
