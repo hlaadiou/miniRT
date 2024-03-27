@@ -6,16 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 03:05:43 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 07:07:57 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GEOMETRY_H
 # define GEOMETRY_H
 
-# include "lighting.h"
 # include "rt_mathematics.h"
-# include "lighting.h"
 
 typedef struct s_rgb255 t_rgb255;
 
