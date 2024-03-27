@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:25:08 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/25 20:34:25 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/27 02:29:10 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_tab_size(char	**tab)
 	int	i;
 
 	i = 0;
-	while (tab[i] != NULL)
+	while (tab && tab[i] != NULL)
 		i++;
 	return (i);
 }
@@ -27,7 +27,7 @@ void	free_tab(char	**tab)
 	int	i;
 
 	i = 0;
-	while (tab[i] != NULL)
+	while (tab && tab[i] != NULL)
 	{
 		free(tab[i]);
 		i++;

@@ -6,11 +6,29 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 00:02:01 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 02:27:56 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pars.h"
+
+int	multiple_sep(char *str, char c)
+{
+	int	i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (str && str[i])
+	{
+		if (str[i] == c)
+			count++;
+		i++;
+	}
+	if (count != 2)
+		return (1);
+	return (0);
+}
 
 t_tuple	*parse_coordinates(char *str)
 {
@@ -20,6 +38,8 @@ t_tuple	*parse_coordinates(char *str)
 
 	i = -1;
 	coords = NULL;
+	if (multiple_sep(str, ','))
+		return (NULL);
 	strs = ft_split(str, ',');
 	while (strs[++i])
 		if (!valid_float(strs[i]))
@@ -39,6 +59,8 @@ t_rgb255	*parse_color(char *str)
 	t_rgb255	*rgb;
 
 	rgb = NULL;
+	if (multiple_sep(str, ','))
+		return (NULL);
 	strs = ft_split(str, ',');
 	if (ft_tab_size(strs) != 3 || !isnumber(strs) || !is_int(strs))
 		return (free_tab(strs), NULL);
