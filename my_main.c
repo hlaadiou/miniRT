@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/01 16:53:45 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/26 21:56:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,3 +118,4 @@ int32_t main(void)
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
 }
+

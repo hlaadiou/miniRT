@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:17:40 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/25 21:25:55 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/26 23:34:25 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	is_int(char **str)
 	{
 		if (ft_real_len(str[i]) >= 12)
 			return (0);
-		else if (ft_atoi(str[i]) <= 0 || ft_atoi(str[i]) > INT_MAX)
+		else if (ft_atoi(str[i]) < 0 || ft_atoi(str[i]) > INT_MAX)
 			return (0);
 		else
 			i++;
