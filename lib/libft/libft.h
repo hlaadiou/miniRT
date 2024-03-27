@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/16 23:07:23 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/25 20:19:41 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
+
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
-# include "../pars.h"
+# include "../../includes/pars.h"
 
 typedef struct s_list
 {
@@ -74,7 +75,7 @@ char							*ft_strnstr(const char *haystack,
 									const char *needle, size_t len);
 size_t							lignes(const char *s, char c);
 char							**ft_split(char const *s, char c);
-void							ft_lstadd_front(t_list **lst, t_list *new);
+void							ft_lstadd_front(t_list **lst, t_list *n);
 char							*get_next_line(int fd);
 char							*rdwr_and_search(int fd, char *helper);
 char							*ft_strjoin_gnl(char *s1, char *s2);

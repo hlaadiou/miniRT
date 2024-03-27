@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/03 19:10:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 02:41:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "lighting.h"
 # include "rt_mathematics.h"
 # include "lighting.h"
+
+typedef struct s_rgb255 t_rgb255;
 
 typedef enum e_types
 {
@@ -79,12 +81,18 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
-	t_types	type;
+	t_point		center;
+	t_vector	axis;
+	float		diameter;
+	float		height;
+	t_types		type;
 }	t_cylinder;
 
 typedef struct s_plane
 {
-	t_types	type;
+	t_point		pt;
+	t_vector	vec;
+	t_types		type;
 }	t_plane;
 
 typedef struct s_specs
@@ -104,7 +112,7 @@ typedef struct s_object
 	t_plane		*pl;
 	t_matrix	*transform;
 	t_specs		specs;
-	t_color		color;
+	t_rgb255	*color;
 }	t_object;
 
 /*
@@ -113,10 +121,12 @@ typedef struct s_object
 
 t_ray			*_ray(t_point org, t_vector vec);
 t_point			_position(t_ray *ray, float t);
-t_object		*_sphere(t_point o, float radius, t_color c);
+t_object		*_sphere(t_point o, float radius, t_rgb255 *c);
+t_object    	*_plane(t_point pt, t_vector vec, t_rgb255 *c);
+t_object    	*_cylinder(t_point pt, t_vector axis, float d, float h, t_rgb255 *c);
 t_quadratic		discriminant_sp(t_ray *ray, t_object *sp);
 t_inter			**intersect_sp(t_ray *ray, t_object *sp);
-t_object		*_obj(void *obj, t_types type, t_color c);
+t_object		*_obj(void *obj, t_rgb255 *color, t_types type);
 int				_intersections(t_lst_inter **lst, t_inter **i);
 t_inter 		**_intersection(t_roots roots, t_object *obj);
 t_lst_inter		*lst_last(t_lst_inter *inters);
@@ -124,7 +134,7 @@ t_inter			*hit(t_lst_inter *lst);
 t_ray			*transform(t_ray *ray, t_matrix *a);
 t_vector		vec_normalize(t_vector vec);
 void			set_transform(t_object **obj, t_matrix *mtx);
-t_vector normal_at(t_object *sp, t_point pnt);
+t_vector 		normal_at(t_object *sp, t_point pnt);
 
 
 #endif

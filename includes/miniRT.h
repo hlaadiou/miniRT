@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:15:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/04 22:46:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 02:41:49 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "rt_mathematics.h"
 # include "geometry.h"
 # include "lighting.h"
+# include "pars.h"
 
 
 typedef struct		s_rt

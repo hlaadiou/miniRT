@@ -6,11 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:52:17 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/24 17:43:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 02:43:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pars.h"
+#include "../../includes/pars.h"
 
 int	count_words(char *str, char *seps)
 {
@@ -23,7 +23,7 @@ int	count_words(char *str, char *seps)
 	{
 		while (str[i] && ft_strchr(seps, str[i]))
 			i++;
-		while (str[i] &&!ft_strchr(seps, str[i]))
+		while (str[i] && !ft_strchr(seps, str[i]))
 			i++;
 		while (str[i] && ft_strchr(seps, str[i]))
 			i++;
@@ -76,8 +76,8 @@ void	ft_camera(char *line, t_pars **pars)
 	tab = str_split(line, " \t\r\f\n\v");
 	if (ft_tab_size(tab) != 4)
 	{
-		ft_putstr_fd("Error: wrong number of specific informations\n", 2);
-		exit(0);
+		ft_putstr_fd("Error\nWrong number of specific informations\n", 2);
+		exit(1);
 	}
 	new = ft_lstnew(tab[0], tab, 2);
 	ft_lstadd_back(pars, new);
