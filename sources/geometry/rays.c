@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:26:14 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 11:02:12 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/05 22:14:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_inter	**intersect_sp(t_ray *ray, t_object *sp)
 	t_quadratic		quad;
 	t_roots			r;
 	
-	quad = discriminant_sp(transform(ray, inverse(sp->transform)), sp); /* change the  discriminant_sp(^ray, sp) by discriminant_sp(^ray2, sp) */
+	quad = discriminant_sp(transform(ray, sp->transform), sp); /* change the  discriminant_sp(^ray, sp) by discriminant_sp(^ray2, sp) */
 	if (quad.delta < 0)
 		r = (t_roots){0.0, 0.0, 0};
 	else
