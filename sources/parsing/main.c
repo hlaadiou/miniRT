@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/30 02:22:34 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 03:03:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,58 @@ void print_scene(t_scene *scene)
 	print_lstobj(scene->lst);
 }
 
+void free_f_mtx(float **mtx, int size)
+{
+	while (size)
+	{
+		free(mtx[size - 1]);
+		size--;
+	}
+	free(mtx);
+}
+
+void	free_obj_lst(t_obj_lst *lst)
+{
+	t_obj_lst	*tmp;
+
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		if (tmp->obj->type == SPHERE)
+		{
+			free(tmp->obj->sp);
+		}
+		else if (tmp->obj->type == PLANE)
+		{
+			free(tmp->obj->pl);
+		}
+		else if (tmp->obj->type == CYLINDER)
+		{
+			free(tmp->obj->cy);
+		}
+		free(tmp->obj->color);
+		free_f_mtx(tmp->obj->transform->mtx, tmp->obj->transform->size);
+		free(tmp->obj->transform);
+		free(tmp->obj);
+		free(tmp);
+	}
+}
+
+void free_scene(t_scene *scene)
+{
+	free(scene->ambient->color);
+	free(scene->ambient);
+	free(scene->camera->view_point);
+	free(scene->camera->orientation);
+	free(scene->camera);
+	free(scene->light->color);
+	free(scene->light->light_point);
+	free(scene->light);
+	free_obj_lst(scene->lst);
+	free(scene);
+}
+
 void vv(void)
 {
 	system("leaks miniRT");
@@ -188,7 +240,8 @@ int	main(int ac, char **av)
 	scene = parse_scene(pars);
 	if (!scene)
 		return (1); //free
-	print_scene(scene);
 	ft_free_struct(pars);
+	print_scene(scene);
+	free_scene(scene);
 	return (0);
 }
