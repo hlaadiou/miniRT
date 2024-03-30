@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 02:27:56 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/30 02:50:04 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_rgb255	*parse_color(char *str)
 		|| ft_atoi(strs[2]) < 0 || ft_atoi(strs[2]) > 255)
 		return (free_tab(strs), NULL);
 	*rgb = (t_rgb255){ft_atoi(strs[0]), ft_atoi(strs[1]), ft_atoi(strs[2])};
-	return (rgb);
+	return (free_tab(strs), rgb);
 }
 
 int	check_scene(t_scene *scene)

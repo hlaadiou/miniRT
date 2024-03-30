@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:52:17 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/27 02:43:21 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 00:50:16 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,10 @@ char	**str_split(char *str, char *seps)
 		len = i;
 		while (str[len] && !ft_strchr(seps, str[len]))
 			len++;
-		tab[j] = (char *)malloc(len - i + 1);
 		len = i;
 		while (str[i] && !ft_strchr(seps, str[i]))
-		{
-			tab[j][i - len] = str[i];
 			i++;
-		}
-		tab[j][i - len] = '\0';
+		tab[j] = ft_substr(str, len, i - len);
 		j++;
 	}
 	return (tab[j] = NULL, tab);
@@ -70,7 +66,6 @@ char	**str_split(char *str, char *seps)
 
 void	ft_camera(char *line, t_pars **pars)
 {
-	t_pars	*new;
 	char	**tab;
 
 	tab = str_split(line, " \t\r\f\n\v");
@@ -79,6 +74,5 @@ void	ft_camera(char *line, t_pars **pars)
 		ft_putstr_fd("Error\nWrong number of specific informations\n", 2);
 		exit(1);
 	}
-	new = ft_lstnew(tab[0], tab, 2);
-	ft_lstadd_back(pars, new);
+	ft_lstadd_back(pars, ft_lstnew(tab[0], tab, 2));
 }

@@ -6,16 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 02:41:29 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:54:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GEOMETRY_H
 # define GEOMETRY_H
 
-# include "lighting.h"
 # include "rt_mathematics.h"
-# include "lighting.h"
 
 typedef struct s_rgb255 t_rgb255;
 
@@ -114,6 +112,18 @@ typedef struct s_object
 	t_specs		specs;
 	t_rgb255	*color;
 }	t_object;
+
+typedef struct s_comps
+{
+	float 		t;
+	t_object	*obj;
+	t_point		point;
+	t_vector    normalv;
+	t_vector    eyev;
+	t_tuple		over_point;
+	int 		inside;
+
+}	t_comps;
 
 /*
  * FUNCTIONS PROTOTYPES *

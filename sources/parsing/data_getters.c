@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 00:26:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 02:46:58 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ t_object	*check_sp_data(t_pars *conf)
 	sp = _sphere(*pt, ft_atof(conf->elements[2]), rgb);
 	if (!sp)
 		return (free(pt), free(rgb), NULL);
+	free(pt);
 	return (sp);
 }
 
@@ -176,6 +177,8 @@ t_object	*check_pl_data(t_pars *conf)
 	pl = _plane(*pt, *vec, rgb);
 	if (!pl)
 		return (free(pt), free(vec), free(rgb), NULL);
+	free(pt);
+	free(vec);
 	return (pl);
 }
 
@@ -204,6 +207,8 @@ t_object	*check_cy_data(t_pars *conf)
 	ft_atof(conf->elements[4]), rgb);
 	if (!cy)
 		return (free(pt), free(vec), free(rgb), NULL);
+	free(pt);
+	free(vec);
 	return (cy);
 }
 

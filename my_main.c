@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/27 02:44:01 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 15:38:38 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,140 +61,140 @@ t_color normalizeColor(t_color colorValue) {
 	return colorValue;
 }
 
-// int32_t main(void)
-// {
-// 	mlx_image_t		*image;
-// 	mlx_t			*mlx;
+int32_t main(void)
+{
+	mlx_image_t		*image;
+	mlx_t			*mlx;
 
-// 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
-// 		return (EXIT_FAILURE);
-// 	t_ray		*r = NULL;
-// 	t_inter		**xs = NULL;
-// 	t_point 	ray_origin = _point(0, 0, -80);
-// 	t_point 	position = _point(0, 0, 0); 
-// 	float		wall_size = 7;
-// 	t_object 	*shape = _sphere(_point(0, 0, 0), 1, _color(1, 0.4, 0.09));
-// 	t_light		light = _light(_point(0, 0, -3), 1.0, _color(1.0, 1.0, 1.0));
-// 	t_point		point;
-// 	float	 	world_x = 0;
-// 	float	 	world_y = 0;
-// 	float 		half = wall_size / 2;
-// 	int x;
-// 	int y;
+	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	t_ray		*r = NULL;
+	t_inter		**xs = NULL;
+	t_point 	ray_origin = _point(0, 0, -80);
+	t_point 	position = _point(0, 0, 0); 
+	float		wall_size = 7;
+	t_object 	*shape = _sphere(_point(0, 0, 0), 1, _color(1, 0.4, 0.09));
+	t_light		light = _light(_point(0, 0, -3), 1.0, _color(1.0, 1.0, 1.0));
+	t_point		point;
+	float	 	world_x = 0;
+	float	 	world_y = 0;
+	float 		half = wall_size / 2;
+	int x;
+	int y;
 
-// 	for (y = 0; y < HEIGHT; y++)
-// 	{
-// 		world_y = half - ((float)((float)wall_size/(float )(HEIGHT) * y));
-// 		for (x = 0; x < WIDTH; x++)
-// 		{
-// 			world_x = -half + ((float)((float)wall_size/(float )(WIDTH) * x));
-// 			position = _point(world_x, world_y, 10);
-// 			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
-// 			xs = intersect_sp(r, shape);
-// 			if (xs && (xs[0]->t > 0 || xs[1]->t > 0))
-// 			{
-// 				if (xs[0]->t > 0)
-// 					point = _position(r, xs[0]->t);
-// 				else if (xs[1]->t > 0)
-// 					point = _position(r, xs[1]->t);
-// 				t_color c = illuminate(shape, point, light, ray_origin);
-// 				c = normalizeColor(c);
-// 				c = _color255(c);
-// 				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
-// 										(int)(c.b), 0x00FF);
-// 				mlx_put_pixel(image, x, y, color);
-// 			}
-// 			else
-// 				mlx_put_pixel(image, x, y, 0x000000FF);
+	for (y = 0; y < HEIGHT; y++)
+	{
+		world_y = half - ((float)((float)wall_size/(float )(HEIGHT) * y));
+		for (x = 0; x < WIDTH; x++)
+		{
+			world_x = -half + ((float)((float)wall_size/(float )(WIDTH) * x));
+			position = _point(world_x, world_y, 10);
+			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
+			xs = intersect_sp(r, shape);
+			if (xs && (xs[0]->t > 0 || xs[1]->t > 0))
+			{
+				if (xs[0]->t > 0)
+					point = _position(r, xs[0]->t);
+				else if (xs[1]->t > 0)
+					point = _position(r, xs[1]->t);
+				t_color c = illuminate(shape, point, light, ray_origin);
+				c = normalizeColor(c);
+				c = _color255(c);
+				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
+										(int)(c.b), 0x00FF);
+				mlx_put_pixel(image, x, y, color);
+			}
+			else
+				mlx_put_pixel(image, x, y, 0x000000FF);
 
-// 			free(r);
-// 			free(xs);
-// 		}
-// 		printf("progress = -----------------> ( %.2f %%) <----------------- \r", \
-// 				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
-// 		fflush(stdout);
-// 	}
-// 	ray_origin = _point(0, 0, -80);
-// 	position = _point(0, 0, 0); 
-// 	wall_size = 7;
-//  	shape = _sphere(_point(0, 0, 0), 1, _color(1.0, 0.0, 0.0));
-// 	shape->transform = translation(0, -2, 0);
-//  	world_x = 0;
-//  	world_y = 0;
-// 	half = wall_size / 2;
-// 	for (y = 0; y < HEIGHT; y++)
-// 	{
-// 		world_y = half - ((float)((float)wall_size/(float )(HEIGHT) * y));
-// 		for (x = 0; x < WIDTH; x++)
-// 		{
-// 			world_x = -half + ((float)((float)wall_size/(float )(WIDTH) * x));
-// 			position = _point(world_x, world_y, 10);
-// 			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
-// 			xs = intersect_sp(r, shape);
-// 			if (xs && (xs[0]->t > 0 || xs[1]->t > 0))
-// 			{
-// 				if (xs[0]->t > 0)
-// 					point = _position(r, xs[0]->t);
-// 				else if (xs[1]->t > 0)
-// 					point = _position(r, xs[1]->t);
-// 				t_color c = illuminate(shape, point, light, ray_origin);
-// 				c = normalizeColor(c);
-// 				c = _color255(c);
-// 				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
-// 										(int)(c.b), 0x00FF);
-// 				mlx_put_pixel(image, x, y, color);
-// 			}
-// 			free(r);
-// 			free(xs);
-// 		}
-// 		printf("progress = -----------------> ( %.2f %%) <----------------- \r", \
-// 				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
-// 		fflush(stdout);
-// 	}
-// 	ray_origin = _point(0, 0, -80);
-// 	position = _point(0, 0, 0); 
-// 	shape = _sphere(_point(0, 0, 0), 1, _color(0.0, 1.0, 0.0));
-// 	wall_size = 7;
-// 	shape->transform = translation(0, 2, 0);
-//  	world_x = 0;
-//  	world_y = 0;
-// 	half = wall_size / 2;
-// 	for (y = 0; y < HEIGHT; y++)
-// 	{
-// 		world_y = half - ((float)((float)wall_size/(float )(HEIGHT) * y));
-// 		for (x = 0; x < WIDTH; x++)
-// 		{
-// 			world_x = -half + ((float)((float)wall_size/(float )(WIDTH) * x));
-// 			position = _point(world_x, world_y, 10);
-// 			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
-// 			xs = intersect_sp(r, shape);
-// 			if (xs && (xs[0]->t > 0 || xs[1]->t > 0))
-// 			{
-// 				if (xs[0]->t > 0)
-// 					point = _position(r, xs[0]->t);
-// 				else if (xs[1]->t > 0)
-// 					point = _position(r, xs[1]->t);
-// 				t_color c = illuminate(shape, point, light, ray_origin);
-// 				c = normalizeColor(c);
-// 				c = _color255(c);
-// 				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
-// 										(int)(c.b), 0x00FF);
-// 				mlx_put_pixel(image, x, y, color);
-// 			}
-// 			free(r);
-// 			free(xs);
-// 		}
-// 		printf("progress = -----------------> ( %.2f %%) <----------------- \r", \
-// 				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
-// 		fflush(stdout);
-// 	}
-// 	mlx_loop_hook(mlx, ft_hook, mlx);
-// 	system("clear");
-// 	fflush(stdout);
-// 	printf("DONE !!\r");
-// 	fflush(stdout); 
-// 	mlx_loop(mlx);
-// 	mlx_terminate(mlx);
-// 	return (EXIT_SUCCESS);
-// }
+			free(r);
+			free(xs);
+		}
+		printf("progress = -----------------> ( %.2f %%) <----------------- \r", \
+				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
+		fflush(stdout);
+	}
+	ray_origin = _point(0, 0, -80);
+	position = _point(0, 0, 0); 
+	wall_size = 7;
+ 	shape = _sphere(_point(0, 0, 0), 1, _color(1.0, 0.0, 0.0));
+	shape->transform = translation(0, -2, 0);
+ 	world_x = 0;
+ 	world_y = 0;
+	half = wall_size / 2;
+	for (y = 0; y < HEIGHT; y++)
+	{
+		world_y = half - ((float)((float)wall_size/(float )(HEIGHT) * y));
+		for (x = 0; x < WIDTH; x++)
+		{
+			world_x = -half + ((float)((float)wall_size/(float )(WIDTH) * x));
+			position = _point(world_x, world_y, 10);
+			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
+			xs = intersect_sp(r, shape);
+			if (xs && (xs[0]->t > 0 || xs[1]->t > 0))
+			{
+				if (xs[0]->t > 0)
+					point = _position(r, xs[0]->t);
+				else if (xs[1]->t > 0)
+					point = _position(r, xs[1]->t);
+				t_color c = illuminate(shape, point, light, ray_origin);
+				c = normalizeColor(c);
+				c = _color255(c);
+				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
+										(int)(c.b), 0x00FF);
+				mlx_put_pixel(image, x, y, color);
+			}
+			free(r);
+			free(xs);
+		}
+		printf("progress = -----------------> ( %.2f %%) <----------------- \r", \
+				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
+		fflush(stdout);
+	}
+	ray_origin = _point(0, 0, -80);
+	position = _point(0, 0, 0); 
+	shape = _sphere(_point(0, 0, 0), 1, _color(0.0, 1.0, 0.0));
+	wall_size = 7;
+	shape->transform = translation(0, 2, 0);
+ 	world_x = 0;
+ 	world_y = 0;
+	half = wall_size / 2;
+	for (y = 0; y < HEIGHT; y++)
+	{
+		world_y = half - ((float)((float)wall_size/(float )(HEIGHT) * y));
+		for (x = 0; x < WIDTH; x++)
+		{
+			world_x = -half + ((float)((float)wall_size/(float )(WIDTH) * x));
+			position = _point(world_x, world_y, 10);
+			r = _ray(ray_origin, vec_normalize(subtract_tuples(position, ray_origin)));
+			xs = intersect_sp(r, shape);
+			if (xs && (xs[0]->t > 0 || xs[1]->t > 0))
+			{
+				if (xs[0]->t > 0)
+					point = _position(r, xs[0]->t);
+				else if (xs[1]->t > 0)
+					point = _position(r, xs[1]->t);
+				t_color c = illuminate(shape, point, light, ray_origin);
+				c = normalizeColor(c);
+				c = _color255(c);
+				int32_t color = ft_pixel((int)(c.r), (int)(c.g), \
+										(int)(c.b), 0x00FF);
+				mlx_put_pixel(image, x, y, color);
+			}
+			free(r);
+			free(xs);
+		}
+		printf("progress = -----------------> ( %.2f %%) <----------------- \r", \
+				(float )((float )(x*y)/((float )HEIGHT * ((float )WIDTH - 1))) * 100);
+		fflush(stdout);
+	}
+	mlx_loop_hook(mlx, ft_hook, mlx);
+	system("clear");
+	fflush(stdout);
+	printf("DONE !!\r");
+	fflush(stdout); 
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
+}
 

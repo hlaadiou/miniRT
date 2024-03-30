@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 05:22:26 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/11 16:01:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 00:51:56 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strchr(const char *s, int c)
 	while (0 == 0)
 	{
 		if (s[i] == (char)c)
-			return (ft_substr(s, 0, i));
+			return ((char *)(s + i));
 		if (s[i] == '\0')
 			return (NULL);
 		i++;
