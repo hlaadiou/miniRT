@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/26 10:24:57 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/30 00:42:32 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # include "../lib/libft/libft.h"
 # include "miniRT.h"
 # include <limits.h>
+
+typedef struct s_collector
+{
+	void				*ptr;
+	struct s_collector	*next;
+}	t_collector;
 
 typedef struct s_pars
 {
@@ -94,6 +100,7 @@ void			plane_pars(char *line, t_pars **pars);
 void			cylinder_pars(char *line, t_pars **pars);
 void			free_tab(char	**tab);
 int				ft_lstsize(t_pars *lst);
+void			ft_free_struct(t_pars *pars);
 
 //HLAADIOU
 int 			check_al(t_pars *conf);
@@ -120,5 +127,9 @@ t_light_src 	*get_light_data(t_pars *conf);
 t_obj_lst   	*get_objs_data(t_pars *conf);
 int 			check_scene(t_scene *scene);
 t_scene 		*parse_scene(t_pars *conf);
+t_collector	**ft_collector(void);
+t_collector	*ft_lstnew_clctr(void *lst);
+void	ft_free_collector(t_collector **lst);
+void	ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
 
 #endif

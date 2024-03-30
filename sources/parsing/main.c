@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/27 06:57:45 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 02:22:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,29 @@ int	ft_pars_loop(char *line, t_pars **pars)
 	return (0);
 }
 
-void	ft_free_struct(t_pars **pars)
+void ft_free_tab(char **tab)
 {
-	while ((*pars) != NULL)
+	int	i;
+
+	i = 0;
+	while (tab[i])
 	{
-		free_tab((*pars)->elements);
-		free((*pars));
-		(*pars) = (*pars)->next;
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}
+
+void	ft_free_struct(t_pars *pars)
+{
+	while (pars != NULL)
+	{
+		if (pars->elements)
+			ft_free_tab(pars->elements);
+		// if (pars->identifier)
+		// 	free(pars->identifier);
+		free(pars);
+		pars = pars->next;
 	}
 }
 
@@ -62,7 +78,7 @@ void	ft_pars(char *av, t_pars **pars)
 		{
 			if (ft_pars_loop(line, pars) == 1)
 			{
-				ft_free_struct(pars);
+				close(fd);
 				break ;
 			}
 			free(line);
@@ -149,11 +165,16 @@ void print_scene(t_scene *scene)
 	print_lstobj(scene->lst);
 }
 
+void vv(void)
+{
+	system("leaks miniRT");
+}
 int	main(int ac, char **av)
 {
 	t_pars	*pars;
 	t_scene	*scene;
 
+	atexit(vv);
 	pars = NULL;
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
@@ -168,5 +189,6 @@ int	main(int ac, char **av)
 	if (!scene)
 		return (1); //free
 	print_scene(scene);
+	ft_free_struct(pars);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/03/27 02:42:19 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/03/29 22:34:52 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS		=	sources/parsing/main.c \
 				sources/parsing/atof.c \
 				sources/parsing/object_list.c \
 				sources/parsing/parser.c \
+				sources/parsing/colictor.c \
 				sources/geometry/cylinder.c \
 				sources/geometry/hits.c \
 				sources/geometry/lists.c \
@@ -88,7 +89,7 @@ SRCS		=	sources/parsing/main.c \
 OBJS 		= 	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" lib/libft/libft.a
-CFLAGS		=	-Wall -Werror -Wextra -Ofast -fsanitize=address -g3
+CFLAGS		=	-Wall -Werror -Wextra -Ofast #-fsanitize=address -g3
 CC			=	cc
 RM			=	rm -rf
 

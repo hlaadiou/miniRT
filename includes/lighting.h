@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:42:22 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 08:22:01 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/27 19:55:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_phong
 }	t_phong;
 
 t_specs		_specs(float r, float g, float b, float ph);
-t_light		_light(t_point pos, float br, t_color c);
+t_light		_light(t_point pos, float br, t_rgb255 *c);
 t_rgb255	*_color(float r, float g, float b);
 t_phong		_phong(t_object *obj, t_point px, t_light light, t_point cam);
 t_rgb255	*illuminate(t_object *obj, t_point px, t_light light, t_point cam);
