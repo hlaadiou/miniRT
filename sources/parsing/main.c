@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/30 17:53:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 18:02:55 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,24 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
 	return (comps);
 }
+
+// t_rgb255	*shade_hit(t_world *world, t_comps *comps)
+// {
+// 	t_rgb255	*color;
+// 	t_rgb255	*col;
+// 	t_light		light;
+// 	t_phong		phong;
+
+// 	color = _color(0, 0, 0);
+// 	light = *world->light;
+// 	phong = _phong(comps->obj, comps->over_point, light, world->camera->view_point);
+// 	if (is_shadowed(world, comps->over_point))
+// 		return (color);
+// 	col = illuminate(comps->obj, comps->over_point, light, world->camera->view_point);
+// 	color = rtn_phong(phong.ambient, phong.diffuse, phong.specular);
+// 	color = schur_product(color, col);
+// 	return (color);
+// }
 
 int	main(int ac, char **av)
 {
