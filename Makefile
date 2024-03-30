@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/03/29 22:34:52 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/03/30 15:38:43 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,12 +88,15 @@ SRCS		=	sources/parsing/main.c \
 
 OBJS 		= 	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
-LIBS		=	lib/libft/libft.a
-CFLAGS		=	-Wall -Werror -Wextra -Ofast -fsanitize=address -g3
+LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" lib/libft/libft.a
+CFLAGS		=	-Wall -Werror -Wextra -Ofast #-fsanitize=address -g3
 CC			=	cc
 RM			=	rm -rf
 
-all :		libft $(NAME)
+all :		libmlx libft $(NAME)
+
+libmlx:
+			@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 libft:
 			@make -C ./lib/libft
@@ -102,7 +105,7 @@ libft:
 			@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) :	$(OBJS) $(libobj)
-			@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) -lm
+			@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 clean:
 			@make clean -C ./lib/libft

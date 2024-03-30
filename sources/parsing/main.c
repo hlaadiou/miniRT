@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/30 03:03:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 17:53:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,16 +220,53 @@ void free_scene(t_scene *scene)
 	free(scene);
 }
 
-// void vv(void)
-// {
-// 	system("leaks miniRT");
-// }
+void vv(void)
+{
+	system("leaks miniRT");
+}
+
+t_world	*init_world(t_scene *scene)
+{
+	t_world	*world;
+
+	world = malloc(sizeof(t_world));
+	if (!world)
+		return (NULL);
+	world->light = scene->light;
+	world->obj_lst = scene->lst;
+	return (world);
+}
+
+t_comps *prepare_computations(t_inter *inter, t_ray *ray)
+{
+	t_comps	*comps;
+
+	comps = malloc(sizeof(t_comps));
+	if (!comps)
+		return (NULL);
+	comps->t = inter->t;
+	comps->obj = inter->obj;
+	comps->point = _position(ray, comps->t);
+	comps->eyev = vec_normalize(multiply_tuple_scalar(-1, ray->dir));
+	comps->normalv = normal_at(comps->obj, comps->point);
+	if (dot_product(comps->normalv, comps->eyev) < 0)
+	{
+		comps->inside = 1;
+		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
+	}
+	else
+		comps->inside = 0;
+	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
+	return (comps);
+}
+
 int	main(int ac, char **av)
 {
 	t_pars	*pars;
 	t_scene	*scene;
+	t_world	*world;
 
-	// atexit(vv);
+	atexit(vv);
 	pars = NULL;
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
@@ -244,7 +281,9 @@ int	main(int ac, char **av)
 	if (!scene)
 		return (1); //free
 	print_scene(scene);
+	world = init_world(scene);
 	free_scene(scene);
 	ft_free_struct(pars);
+
 	return (0);
 }
