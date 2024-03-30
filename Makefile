@@ -88,15 +88,12 @@ SRCS		=	sources/parsing/main.c \
 
 OBJS 		= 	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
-LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" lib/libft/libft.a
-CFLAGS		=	-Wall -Werror -Wextra -Ofast #-fsanitize=address -g3
+LIBS		=	lib/libft/libft.a
+CFLAGS		=	-Wall -Werror -Wextra -Ofast -fsanitize=address -g3
 CC			=	cc
 RM			=	rm -rf
 
-all :		libmlx libft $(NAME)
-
-libmlx:
-			@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+all :		libft $(NAME)
 
 libft:
 			@make -C ./lib/libft
@@ -105,7 +102,7 @@ libft:
 			@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME) :	$(OBJS) $(libobj)
-			@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+			@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME) -lm
 
 clean:
 			@make clean -C ./lib/libft

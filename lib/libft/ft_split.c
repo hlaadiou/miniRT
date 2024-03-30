@@ -36,7 +36,7 @@ size_t	lignes(const char *s, char c)
 
 static char	**freeme(char **s, size_t i)
 {
-	while (i >= 0 && s[i] != NULL)
+	while (i > 0 && s[i] != NULL)
 	{
 		free(s[i]);
 		i--;

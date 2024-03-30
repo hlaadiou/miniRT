@@ -45,7 +45,6 @@ void	ft_lstadd_back(t_pars **lst, t_pars *new)
 
 void	ft_light(char *line, t_pars **pars)
 {
-	t_pars	*new;
 	char	**tab;
 
 	tab = str_split(line, " \t\r\f\n\v");
@@ -54,6 +53,5 @@ void	ft_light(char *line, t_pars **pars)
 		ft_putstr_fd("Error\nwrong number of specific informations\n", 2);
 		exit(1);
 	}
-	new = ft_lstnew(tab[0], tab, 3);
-	ft_lstadd_back(pars, new);
+	ft_lstadd_back(pars, ft_lstnew(tab[0], tab, 3));
 }

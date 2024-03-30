@@ -54,14 +54,17 @@ void ft_free_tab(char **tab)
 
 void	ft_free_struct(t_pars *pars)
 {
-	while (pars != NULL)
+	t_pars	*tmp;
+
+	while (pars)
 	{
-		if (pars->elements)
-			ft_free_tab(pars->elements);
+		tmp = pars;
+		pars = pars->next;
+		if (tmp->elements)
+			ft_free_tab(tmp->elements);
 		// if (pars->identifier)
 		// 	free(pars->identifier);
-		free(pars);
-		pars = pars->next;
+		free(tmp);
 	}
 }
 
@@ -217,16 +220,16 @@ void free_scene(t_scene *scene)
 	free(scene);
 }
 
-void vv(void)
-{
-	system("leaks miniRT");
-}
+// void vv(void)
+// {
+// 	system("leaks miniRT");
+// }
 int	main(int ac, char **av)
 {
 	t_pars	*pars;
 	t_scene	*scene;
 
-	atexit(vv);
+	// atexit(vv);
 	pars = NULL;
 	if (ac != 2)
 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
@@ -240,8 +243,8 @@ int	main(int ac, char **av)
 	scene = parse_scene(pars);
 	if (!scene)
 		return (1); //free
-	ft_free_struct(pars);
 	print_scene(scene);
 	free_scene(scene);
+	ft_free_struct(pars);
 	return (0);
 }
