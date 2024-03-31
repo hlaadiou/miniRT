@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 13:58:36 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 20:19:33 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-# define WIDTH  500
-# define HEIGHT 250
+# define WIDTH  400
+# define HEIGHT 200
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
@@ -119,10 +119,11 @@ t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
 {
 	float world_x;
 	float world_y;
+	t_tuple pixel;
 
 	world_x = c.hwidth - (px + 0.5) * c.pixel_size;
 	world_y = c.hheight - (py + 0.5) * c.pixel_size;
-	t_tuple pixel = mtx_tuple_prod(inverse(c.transform), _point(world_x, world_y, -1));
+	pixel = mtx_tuple_prod(inverse(c.transform), _point(world_x, world_y, -1));
 	return (_ray(mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0)), \
 			vec_normalize(subtract_tuples(pixel, \
 			mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0))))));
@@ -186,14 +187,14 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 	}
 	else
 		comps->inside = 0;
-	// comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
+	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
 	return (comps);
 }
 
 t_color color_at(t_world *w, t_ray *r)
 {
 	t_inter **xs = intersect_world(w, r);
-	t_lst_inter *lst = NULL;
+	t_lst_inter *lst = new_intersection(NULL);
 	_intersections(&lst, xs);
 	t_inter *h = hit(lst);
 	if (h == NULL)
@@ -205,7 +206,9 @@ t_color color_at(t_world *w, t_ray *r)
 
 t_color shade_hit(t_world *world, t_comps *copms)
 {
-	return(illuminate(copms->obj, copms->point, world->light, copms->eyev));
+	int shadowed;
+	shadowed = is_shadowed(world, copms->over_point);
+	return(illuminate(copms->obj, copms->over_point, world->light, copms->eyev, shadowed));
 }
 
 void render(t_camera_fn c, t_world *w, mlx_image_t **image)
@@ -261,6 +264,32 @@ void	free_f_mtx(float **mtx, int size)
 	free(mtx);
 }
 
+int	is_shadowed(t_world *w, t_point p)
+{
+	t_vector v;
+	float distance;
+	t_ray *r = NULL;
+	t_inter **xs = NULL;
+	t_inter *h = NULL;
+	t_lst_inter *lst = new_intersection(NULL);
+
+	v = subtract_tuples(w->light.position, p);
+	distance = vec_magnitude(v);
+	r = _ray(p, vec_normalize(v));
+	xs = intersect_world(w, r);
+	_intersections(&lst, xs);
+	h = hit(lst);
+	if (h != NULL && h->t < distance)
+	{
+		// free(r);
+		// free(xs);
+		return (1);
+	}
+	// free(r);
+	// free(xs);
+	return (0);
+}
+
 int main ()
 {
 	t_object *floor = _sphere(_point(0, 0, 0), 1, _color(1, 0.9, 0.9));
@@ -301,8 +330,11 @@ int main ()
 	w->obj_lst->next->next->next->next->next = malloc(sizeof(t_obj_lst));
 	w->obj_lst->next->next->next->next->next->obj = left;
 	w->obj_lst->next->next->next->next->next->next = NULL;
+	// t_point p = _point(-20, 20, -20);
+	// printf("is_shadowed = %d\n", is_shadowed(w, p));
 	t_camera_fn c = camera(WIDTH, HEIGHT, M_PI / 3);
 	c.transform = view_transform(_point(0, 1.5, -5), _point(0, 1, 0), _vector(0, 1, 0));
+
 	mlx_image_t *image;
 	mlx_t *mlx;
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)

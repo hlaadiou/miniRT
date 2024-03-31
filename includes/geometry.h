@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/31 13:48:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 15:51:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct s_comps
 	t_point		point;
 	t_vector    normalv;
 	t_vector    eyev;
-	// t_tuple		over_point;
+	t_tuple		over_point;
 	int 		inside;
 
 }	t_comps;
@@ -145,7 +145,9 @@ t_ray			*transform(t_ray *ray, t_matrix *a);
 t_vector		vec_normalize(t_vector vec);
 void			set_transform(t_object **obj, t_matrix *mtx);
 t_vector 		normal_at(t_object *sp, t_point pnt);
-t_vector	cross_product(t_vector vec1, t_vector vec2);
+t_vector		cross_product(t_vector vec1, t_vector vec2);
+float			vec_magnitude(t_vector vec);
+t_lst_inter		*new_intersection(t_inter *inter);
 
 
 #endif

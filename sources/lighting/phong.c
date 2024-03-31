@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/30 22:59:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 17:44:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_color	rtn_phong(t_color a, t_color d, t_color s)
 	return (res);
 }
 
-t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
+t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam, int in_shadow)
 {
 	t_phong		ph;
 	float		light_dot_normal;
@@ -68,6 +68,8 @@ t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
 	float		factor;
 
 	ph = _phong(obj, px, light, cam);
+	if (in_shadow)
+		return (ph.ambient);
 	light_dot_normal = dot_product(ph.l, ph.n);
 	if (light_dot_normal >= 0)
 	{
