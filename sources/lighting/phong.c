@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 08:21:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 22:59:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,27 @@ t_specs	_specs(float a, float d, float s, float ph)
 	return ((t_specs){a, d, s, ph});
 }
 
-t_rgb255	*multiply_color_scalar(float scalar, t_rgb255 *tup)
+t_color	multiply_color_scalar(float scalar, t_color tup)
 {
-	t_rgb255	*res;
+	t_color	res;
 
-	res = (t_rgb255 *)malloc(sizeof(t_rgb255));
-	res->r = scalar * (*tup).r;
-	res->g = scalar * (*tup).g;
-	res->b = scalar * (*tup).b;
+	res.r = scalar * tup.r;
+	res.g = scalar * tup.g;
+	res.b = scalar * tup.b;
 	return (res);
 }
 
-t_rgb255	*rtn_phong(t_rgb255 *a, t_rgb255 *d, t_rgb255 *s)
+t_color	rtn_phong(t_color a, t_color d, t_color s)
 {
-	t_rgb255	*res;
+	t_color	res;
 
-	res = (t_rgb255 *)malloc(sizeof(t_rgb255));
-	res->r = (*a).r + (*d).r + (*s).r;
-	res->g = (*a).g + (*d).g + (*s).g;
-	res->b = (*a).b + (*d).b + (*s).b;
+	res.r = a.r + d.r + s.r;
+	res.g = a.g + d.g + s.g;
+	res.b = a.b + d.b + s.b;
 	return (res);
 }
 
-t_rgb255	*illuminate(t_object *obj, t_point px, t_light light, t_point cam)
+t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam)
 {
 	t_phong		ph;
 	float		light_dot_normal;

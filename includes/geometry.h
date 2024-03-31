@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/31 07:03:47 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/31 10:34:31 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ t_ray			*transform(t_ray *ray, t_matrix *a);
 t_vector		vec_normalize(t_vector vec);
 void			set_transform(t_object **obj, t_matrix *mtx);
 t_vector 		normal_at(t_object *sp, t_point pnt);
+t_vector	cross_product(t_vector vec1, t_vector vec2);
 
 
 #endif

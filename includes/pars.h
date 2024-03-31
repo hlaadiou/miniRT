@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 06:23:26 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/03/31 10:45:44 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ typedef struct s_camera
 	float		fov;
 }	t_camera;
 
-typedef struct s_light_src
-{
-	t_point		light_point;
-	float		scale;
-	t_color		color;
-}	t_light_src;
+// typedef struct s_light_src
+// {
+// 	t_point		position;
+// 	float		brightness;
+// 	t_color		color;
+// }	t_light_src;
+
+typedef t_light t_light_src;
 
 typedef struct s_obj_lst
 {
@@ -80,19 +82,31 @@ typedef struct s_obj_lst
 	struct s_obj_lst	*prev;
 }	t_obj_lst;
 
+typedef struct		s_world
+{
+	t_light		light;
+	t_obj_lst	*obj_lst;
+}				t_world;
+
+
 typedef struct s_scene
 {
 	t_ambient	ambient;
 	t_camera	camera;
-	t_light_src	light;
+	t_light		light;
 	t_obj_lst	*lst;
 }	t_scene;
 
-typedef struct		s_world
+typedef struct s_camera_fn
 {
-	t_light_src		light;
-	t_obj_lst		*obj_lst;
-}				t_world;
+	float		hsize;
+	float       vsize;
+	float		hwidth;
+	float   	hheight;
+	float		fov;
+	float		pixel_size;
+	t_matrix	*transform;
+}	t_camera_fn;
 
 // AZGAOUA
 char			**str_split(char *str, char *seps);
@@ -117,6 +131,13 @@ t_collector		**ft_collector(void);
 t_collector		*ft_lstnew_clctr(void *lst);
 void			ft_free_collector(t_collector **lst);
 void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
+t_world			*init_world(t_scene *scene);
+t_comps 		*prepare_computations(t_inter *inter, t_ray *ray);
+t_color 		shade_hit(t_world *world, t_comps *copms);
+t_color			color_at(t_world *w, t_ray *r);
+void			render(t_camera_fn c, t_world *w, mlx_image_t **image);
+
+
 
 //HLAADIOU
 int 			check_al(t_pars *conf);

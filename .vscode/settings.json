@@ -4,6 +4,8 @@
 		"azgaoua",
 		"bresenham",
 		"cofactor",
+		"hheight",
+		"hwidth",
 		"lstadd",
 		"PHONG",
 		"submatrix"
@@ -34,6 +36,8 @@
 		"string_view": "c",
 		"vector": "c",
 		"complex": "c",
-		"minirt.h": "c"
+		"minirt.h": "c",
+		"stdlib.h": "c",
+		"mlx42.h": "c"
 	}
 }
