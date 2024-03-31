@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/30 02:46:58 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 23:18:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_ambient	*get_ambient_data(t_pars *conf)
 			if (!amb)
 				return (NULL);
 			amb->scale = ft_atof(conf->elements[1]);
-			amb->color = rgb;
+			// amb->color = rgb;
 			break ;
 		}
 		conf = conf->next;
@@ -70,7 +70,7 @@ t_camera	*check_camera_data(t_pars *conf)
 	if (!cam)
 		return (free(pt), free(vec), NULL);
 	pt->w = 1.0;
-	*cam = (t_camera){pt, vec, ft_atof(conf->elements[3])};
+	// *cam = (t_camera){pt, vec, ft_atof(conf->elements[3])};
 	return (cam);
 }
 
@@ -111,7 +111,7 @@ t_light_src	*check_light_data(t_pars *conf)
 	if (!light)
 		return (free(pt), free(rgb), NULL);
 	pt->w = 1.0;
-	*light = (t_light_src){pt, ft_atof(conf->elements[2]), rgb};
+	// *light = (t_light_src){pt, ft_atof(conf->elements[2]), rgb};
 	return (light);
 }
 
@@ -148,7 +148,7 @@ t_object	*check_sp_data(t_pars *conf)
 	if (!rgb)
 		return (free(pt), NULL);
 	pt->w = 1.0;
-	sp = _sphere(*pt, ft_atof(conf->elements[2]), rgb);
+	// sp = _sphere(*pt, ft_atof(conf->elements[2]), rgb);
 	if (!sp)
 		return (free(pt), free(rgb), NULL);
 	free(pt);
@@ -174,7 +174,7 @@ t_object	*check_pl_data(t_pars *conf)
 	rgb = parse_color(conf->elements[3]);
 	if (!rgb)
 		return (free(pt), free(vec), NULL);
-	pl = _plane(*pt, *vec, rgb);
+	// pl = _plane(*pt, *vec, rgb);
 	if (!pl)
 		return (free(pt), free(vec), free(rgb), NULL);
 	free(pt);
@@ -203,8 +203,8 @@ t_object	*check_cy_data(t_pars *conf)
 	rgb = parse_color(conf->elements[5]);
 	if (!rgb)
 		return (free(pt), free(vec), NULL);
-	cy = _cylinder(*pt, *vec, ft_atof(conf->elements[3]), \
-	ft_atof(conf->elements[4]), rgb);
+	// cy = _cylinder(*pt, *vec, ft_atof(conf->elements[3]), \
+	// ft_atof(conf->elements[4]), rgb);
 	if (!cy)
 		return (free(pt), free(vec), free(rgb), NULL);
 	free(pt);

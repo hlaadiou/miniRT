@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/30 17:54:03 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 07:11:10 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define GEOMETRY_H
 
 # include "rt_mathematics.h"
+#include "lighting.h"
 
 typedef struct s_rgb255 t_rgb255;
 
@@ -51,7 +52,7 @@ typedef struct s_quadratic
 
 typedef struct s_sphere	t_sphere;
 typedef struct s_object	t_object;
-typedef struct s_color	t_color;
+// typedef struct s_color	t_color;
 
 typedef struct s_inter
 {
@@ -110,7 +111,7 @@ typedef struct s_object
 	t_plane		*pl;
 	t_matrix	*transform;
 	t_specs		specs;
-	t_rgb255	*color;
+	t_color		color;
 }	t_object;
 
 typedef struct s_comps
@@ -131,12 +132,12 @@ typedef struct s_comps
 
 t_ray			*_ray(t_point org, t_vector vec);
 t_point			_position(t_ray *ray, float t);
-t_object		*_sphere(t_point o, float radius, t_rgb255 *c);
-t_object    	*_plane(t_point pt, t_vector vec, t_rgb255 *c);
-t_object    	*_cylinder(t_point pt, t_vector axis, float d, float h, t_rgb255 *c);
+t_object		*_sphere(t_point o, float radius, t_color c);
+t_object    	*_plane(t_point pt, t_vector vec, t_color c);
+t_object    	*_cylinder(t_point pt, t_vector axis, float d, float h, t_color c);
 t_quadratic		discriminant_sp(t_ray *ray, t_object *sp);
 t_inter			**intersect_sp(t_ray *ray, t_object *sp);
-t_object		*_obj(void *obj, t_rgb255 *color, t_types type);
+t_object		*_obj(void *obj, t_color color, t_types type);
 int				_intersections(t_lst_inter **lst, t_inter **i);
 t_inter 		**_intersection(t_roots roots, t_object *obj);
 t_lst_inter		*lst_last(t_lst_inter *inters);
@@ -145,6 +146,7 @@ t_ray			*transform(t_ray *ray, t_matrix *a);
 t_vector		vec_normalize(t_vector vec);
 void			set_transform(t_object **obj, t_matrix *mtx);
 t_vector 		normal_at(t_object *sp, t_point pnt);
+t_vector	cross_product(t_vector vec1, t_vector vec2);
 
 
 #endif

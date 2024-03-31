@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/03/30 15:38:43 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/03/31 06:43:18 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ libobj 		= lib/libft/get_next_line_utils.o	\
 			lib/libft/ft_putendl_fd.o		\
 			lib/libft/ft_putnbr_fd.o
 
-SRCS		=	sources/parsing/main.c \
+SRCS		=	my_main.c \
 				sources/parsing/ambient_lightning.c \
 				sources/parsing/camera.c \
 				sources/parsing/light.c \
@@ -57,7 +57,6 @@ SRCS		=	sources/parsing/main.c \
 				sources/parsing/cylinder_pars.c \
 				sources/parsing/check_elements.c \
 				sources/parsing/data_validation.c \
-				sources/parsing/data_getters.c \
 				sources/parsing/atof.c \
 				sources/parsing/object_list.c \
 				sources/parsing/parser.c \
@@ -84,12 +83,13 @@ SRCS		=	sources/parsing/main.c \
 				sources/rt_mathematics/tuples.c \
 				sources/rt_mathematics/vectors.c \
 				sources/rt_mathematics/normalize.c \
-				sources/rt_mathematics/reflect.c
+				sources/rt_mathematics/reflect.c \
+				sources/parsing/data_getters.c \
 
 OBJS 		= 	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" lib/libft/libft.a
-CFLAGS		=	-Wall -Werror -Wextra -Ofast #-fsanitize=address -g3
+CFLAGS		=	-Wall -Werror -Wextra -Ofast -fsanitize=address -g3
 CC			=	cc
 RM			=	rm -rf
 

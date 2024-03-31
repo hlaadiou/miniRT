@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/30 14:08:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 07:07:08 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,21 @@ typedef struct s_rgb255
 typedef struct s_ambient
 {
 	float		scale;
-	t_rgb255	*color;
+	t_rgb255	color;
 }	t_ambient;
 
 typedef struct s_camera
 {
-	t_point		*view_point;
-	t_vector	*orientation;
+	t_point		view_point;
+	t_vector	orientation;
 	float		fov;
 }	t_camera;
 
 typedef struct s_light_src
 {
-	t_point		*light_point;
+	t_point		light_point;
 	float		scale;
-	t_rgb255	*color;
+	t_rgb255	color;
 }	t_light_src;
 
 typedef struct s_obj_lst
@@ -82,18 +82,29 @@ typedef struct s_obj_lst
 
 typedef struct		s_world
 {
-	t_light_src		*light;
+	t_light		light;
 	t_obj_lst		*obj_lst;
 }				t_world;
 
 
 typedef struct s_scene
 {
-	t_ambient	*ambient;
-	t_camera	*camera;
-	t_light_src	*light;
+	t_ambient	ambient;
+	t_camera	camera;
+	t_light		light;
 	t_obj_lst	*lst;
 }	t_scene;
+
+typedef struct s_camera_fn
+{
+	float		hsize;
+	float       vsize;
+	float		hwidth;
+	float   	hheight;
+	float		fov;
+	float		pixel_size;
+	t_matrix	*transform;
+}	t_camera_fn;
 
 // AZGAOUA
 char			**str_split(char *str, char *seps);
@@ -101,7 +112,7 @@ int				ft_tab_size(char	**tab);
 void			ft_ambient(char	*line, t_pars **pars);
 void			ft_camera(char *line, t_pars **pars);
 void			ft_light(char *line, t_pars **pars);
-void			ft_lstadd_back(t_pars **lst, t_pars *n);
+void			ft_lstadd_back(t_pars **lst, t_pars *new);
 void			ft_pars_spher(char *line, t_pars **pars);
 t_pars			*ft_lstnew(char *content, char **elms, int flag);
 void			plane_pars(char *line, t_pars **pars);
@@ -109,6 +120,13 @@ void			cylinder_pars(char *line, t_pars **pars);
 void			free_tab(char	**tab);
 int				ft_lstsize(t_pars *lst);
 void			ft_free_struct(t_pars *pars);
+t_world			*init_world(t_scene *scene);
+t_comps 		*prepare_computations(t_inter *inter, t_ray *ray);
+t_color 		shade_hit(t_world *world, t_comps *copms);
+t_color			color_at(t_world *w, t_ray *r);
+void			render(t_camera_fn c, t_world *w, mlx_image_t **image);
+
+
 
 //HLAADIOU
 int 			check_al(t_pars *conf);
@@ -135,9 +153,10 @@ t_light_src 	*get_light_data(t_pars *conf);
 t_obj_lst   	*get_objs_data(t_pars *conf);
 int 			check_scene(t_scene *scene);
 t_scene 		*parse_scene(t_pars *conf);
-t_collector	**ft_collector(void);
-t_collector	*ft_lstnew_clctr(void *lst);
-void	ft_free_collector(t_collector **lst);
-void	ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
+t_collector		**ft_collector(void);
+t_collector		*ft_lstnew_clctr(void *lst);
+void			ft_free_collector(t_collector **lst);
+void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
+/*  ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(ptr));  */
 
 #endif

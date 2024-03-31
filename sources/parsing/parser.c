@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/30 02:50:04 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 23:19:22 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,31 +75,31 @@ t_rgb255	*parse_color(char *str)
 	return (free_tab(strs), rgb);
 }
 
-int	check_scene(t_scene *scene)
-{
-	if (!scene->ambient)
-	{
-		ft_putstr_fd("Error\nInvalid ambient lighting data\n", 2);
-		return (0);
-	}
-	if (!scene->camera)
-	{
-		ft_putstr_fd("Error\nInvalid camera data\n", 2);
-		return (free(scene->ambient), 0);
-	}
-	if (!scene->light)
-	{
-		ft_putstr_fd("Error\nInvalid light data\n", 2);
-		return (free(scene->ambient), free(scene->camera), 0);
-	}
-	if (!scene->lst)
-	{
-		ft_putstr_fd("Error\nInvalid objects data\n", 2);
-		return (free(scene->ambient), \
-				free(scene->camera), free(scene->light), 0);
-	}
-	return (1);
-}
+// int	check_scene(t_scene *scene)
+// {
+// 	if (!scene->ambient)
+// 	{
+// 		ft_putstr_fd("Error\nInvalid ambient lighting data\n", 2);
+// 		return (0);
+// 	}
+// 	if (!scene->camera)
+// 	{
+// 		ft_putstr_fd("Error\nInvalid camera data\n", 2);
+// 		return (free(scene->ambient), 0);
+// 	}
+// 	if (!scene->light)
+// 	{
+// 		ft_putstr_fd("Error\nInvalid light data\n", 2);
+// 		return (free(scene->ambient), free(scene->camera), 0);
+// 	}
+// 	if (!scene->lst)
+// 	{
+// 		ft_putstr_fd("Error\nInvalid objects data\n", 2);
+// 		return (free(scene->ambient), \
+// 				free(scene->camera), free(scene->light), 0);
+// 	}
+// 	return (1);
+// }
 
 t_scene	*parse_scene(t_pars *conf)
 {
@@ -111,11 +111,11 @@ t_scene	*parse_scene(t_pars *conf)
 	scene = (t_scene *)malloc(sizeof(t_scene));
 	if (!scene)
 		return (NULL);
-	scene->ambient = get_ambient_data(conf);
-	scene->camera = get_camera_data(conf);
-	scene->light = get_light_data(conf);
+	// scene->ambient = get_ambient_data(conf);
+	// scene->camera = get_camera_data(conf);
+	// scene->light = get_light_data(conf);
 	scene->lst = get_objs_data(conf);
-	if (!check_scene(scene))
-		return (free(scene), NULL);
+	// if (!check_scene(scene))
+	// 	return (free(scene), NULL);
 	return (scene);
 }

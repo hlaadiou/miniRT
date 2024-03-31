@@ -6,21 +6,20 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:53:36 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 08:08:30 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/30 23:15:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
 /* 0 <= r,g,b <= 1 */
-t_rgb255	*_color(float r, float g, float b)
+t_color	_color(float r, float g, float b)
 {
-	t_rgb255	*c;
+	t_color	c;
 
-	c = (t_rgb255 *)malloc(sizeof(t_rgb255));
-	c->r = r;
-	c->g = g;
-	c->b = b;
+	c.r = r;
+	c.g = g;
+	c.b = b;
 	return (c);
 }
 

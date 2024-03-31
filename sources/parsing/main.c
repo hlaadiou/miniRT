@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/30 18:02:55 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 02:59:13 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	ft_free_struct(t_pars *pars)
 		pars = pars->next;
 		if (tmp->elements)
 			ft_free_tab(tmp->elements);
-		// if (pars->identifier)
-		// 	free(pars->identifier);
 		free(tmp);
 	}
 }
@@ -130,14 +128,14 @@ void print_lstobj(t_obj_lst *lst)
 			printf("Sphere\n\n");
 			printf("Center: %.2f %.2f %.2f\n", tmp->obj->sp->org.x, tmp->obj->sp->org.y, tmp->obj->sp->org.z);
 			printf("Radius: %.2f\n", tmp->obj->sp->radius);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, tmp->obj->color.g, tmp->obj->color.b);
 		}
 		else if (tmp->obj->type == PLANE)
 		{
 			printf("Plane\n\n");
 			printf("Point: %.2f %.2f %.2f\n", tmp->obj->pl->pt.x, tmp->obj->pl->pt.y, tmp->obj->pl->pt.z);
 			printf("Vector: %.2f %.2f %.2f\n", tmp->obj->pl->vec.x, tmp->obj->pl->vec.y, tmp->obj->pl->vec.z);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, tmp->obj->color.g, tmp->obj->color.b);
 		}
 		else if (tmp->obj->type == CYLINDER)
 		{
@@ -146,7 +144,7 @@ void print_lstobj(t_obj_lst *lst)
 			printf("Axis: %.2f %.2f %.2f\n", tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, tmp->obj->cy->axis.z);
 			printf("Diameter: %.2f\n", tmp->obj->cy->diameter);
 			printf("Height: %.2f\n", tmp->obj->cy->height);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, tmp->obj->color.g, tmp->obj->color.b);
 		}
 		tmp = tmp->next;
 	}
@@ -155,16 +153,16 @@ void print_lstobj(t_obj_lst *lst)
 void print_scene(t_scene *scene)
 {
 	printf("Ambient\n\n");
-	printf("Color: %d %d %d\n", scene->ambient->color->r, scene->ambient->color->g, scene->ambient->color->b);
-	printf("Ratio: %.2f\n\n", scene->ambient->scale);
+	printf("Color: %d %d %d\n", scene->ambient.color.r, scene->ambient.color.g, scene->ambient.color.b);
+	printf("Ratio: %.2f\n\n", scene->ambient.scale);
 	printf("Camera\n\n");
-	printf("view_point: %.2f %.2f %.2f\n", scene->camera->view_point->x, scene->camera->view_point->y, scene->camera->view_point->z);
-	printf("Orientation: %.2f %.2f %.2f\n", scene->camera->orientation->x, scene->camera->orientation->y, scene->camera->orientation->z);
-	printf("FOV: %.2f\n\n", scene->camera->fov);
+	printf("view_point: %.2f %.2f %.2f\n", scene->camera.view_point.x, scene->camera.view_point.y, scene->camera.view_point.z);
+	printf("Orientation: %.2f %.2f %.2f\n", scene->camera.orientation.x, scene->camera.orientation.y, scene->camera.orientation.z);
+	printf("FOV: %.2f\n\n", scene->camera.fov);
 	printf("Light\n\n");
-	printf("light_point: %.2f %.2f %.2f\n", scene->light->light_point->x, scene->light->light_point->y, scene->light->light_point->z);
-	printf("Brightness: %.2f\n", scene->light->scale);
-	printf("Color: %d %d %d\n\n", scene->light->color->r, scene->light->color->g, scene->light->color->b);
+	printf("light_point: %.2f %.2f %.2f\n", scene->light.light_point.x, scene->light.light_point.y, scene->light.light_point.z);
+	printf("Brightness: %.2f\n", scene->light.scale);
+	printf("Color: %d %d %d\n\n", scene->light.color.r, scene->light.color.g, scene->light.color.b);
 	print_lstobj(scene->lst);
 }
 
@@ -198,7 +196,6 @@ void	free_obj_lst(t_obj_lst *lst)
 		{
 			free(tmp->obj->cy);
 		}
-		free(tmp->obj->color);
 		free_f_mtx(tmp->obj->transform->mtx, tmp->obj->transform->size);
 		free(tmp->obj->transform);
 		free(tmp->obj);
@@ -208,14 +205,14 @@ void	free_obj_lst(t_obj_lst *lst)
 
 void free_scene(t_scene *scene)
 {
-	free(scene->ambient->color);
+	/*free(scene->ambient->color);
 	free(scene->ambient);
 	free(scene->camera->view_point);
 	free(scene->camera->orientation);
 	free(scene->camera);
 	free(scene->light->color);
 	free(scene->light->light_point);
-	free(scene->light);
+	free(scene->light);*/
 	free_obj_lst(scene->lst);
 	free(scene);
 }
@@ -260,23 +257,10 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 	return (comps);
 }
 
-// t_rgb255	*shade_hit(t_world *world, t_comps *comps)
-// {
-// 	t_rgb255	*color;
-// 	t_rgb255	*col;
-// 	t_light		light;
-// 	t_phong		phong;
-
-// 	color = _color(0, 0, 0);
-// 	light = *world->light;
-// 	phong = _phong(comps->obj, comps->over_point, light, world->camera->view_point);
-// 	if (is_shadowed(world, comps->over_point))
-// 		return (color);
-// 	col = illuminate(comps->obj, comps->over_point, light, world->camera->view_point);
-// 	color = rtn_phong(phong.ambient, phong.diffuse, phong.specular);
-// 	color = schur_product(color, col);
-// 	return (color);
-// }
+t_color shade_hit(t_world *world, t_comps *copms)
+{
+	return(illuminate(copms->obj, copms->over_point, world->light, copms->eyev));
+}
 
 int	main(int ac, char **av)
 {
