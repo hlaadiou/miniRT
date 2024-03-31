@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 07:07:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 10:45:44 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_rgb255
 typedef struct s_ambient
 {
 	float		scale;
-	t_rgb255	color;
+	t_color		color;
 }	t_ambient;
 
 typedef struct s_camera
@@ -66,12 +66,14 @@ typedef struct s_camera
 	float		fov;
 }	t_camera;
 
-typedef struct s_light_src
-{
-	t_point		light_point;
-	float		scale;
-	t_rgb255	color;
-}	t_light_src;
+// typedef struct s_light_src
+// {
+// 	t_point		position;
+// 	float		brightness;
+// 	t_color		color;
+// }	t_light_src;
+
+typedef t_light t_light_src;
 
 typedef struct s_obj_lst
 {
@@ -83,7 +85,7 @@ typedef struct s_obj_lst
 typedef struct		s_world
 {
 	t_light		light;
-	t_obj_lst		*obj_lst;
+	t_obj_lst	*obj_lst;
 }				t_world;
 
 
@@ -120,6 +122,15 @@ void			cylinder_pars(char *line, t_pars **pars);
 void			free_tab(char	**tab);
 int				ft_lstsize(t_pars *lst);
 void			ft_free_struct(t_pars *pars);
+void			free_f_mtx(float **mtx, int size);
+
+/* g_collector */
+
+void			*ft_malloc(size_t size);
+t_collector		**ft_collector(void);
+t_collector		*ft_lstnew_clctr(void *lst);
+void			ft_free_collector(t_collector **lst);
+void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
 t_world			*init_world(t_scene *scene);
 t_comps 		*prepare_computations(t_inter *inter, t_ray *ray);
 t_color 		shade_hit(t_world *world, t_comps *copms);
@@ -140,23 +151,22 @@ int				valid_float(char *str);
 int				isnumber(char **str);
 int				is_int(char **str);
 
-t_tuple 		*parse_coordinates(char *str);
-t_rgb255		*parse_color(char *str);
+t_tuple 		parse_coordinates(char *str);
+t_rgb255		parse_color(char *str);
 
 t_obj_lst   	*new_obj_node(t_object *obj);
 int 			obj_list_add(t_obj_lst **list, t_object *obj);
 t_obj_lst   	*obj_lst_last(t_obj_lst *objs);
 
-t_ambient   	*get_ambient_data(t_pars *conf);
-t_camera    	*get_camera_data(t_pars *conf);
-t_light_src 	*get_light_data(t_pars *conf);
+t_ambient   	get_ambient_data(t_pars *conf);
+t_camera    	get_camera_data(t_pars *conf);
+t_light_src 	get_light_data(t_pars *conf);
 t_obj_lst   	*get_objs_data(t_pars *conf);
-int 			check_scene(t_scene *scene);
 t_scene 		*parse_scene(t_pars *conf);
-t_collector		**ft_collector(void);
-t_collector		*ft_lstnew_clctr(void *lst);
-void			ft_free_collector(t_collector **lst);
-void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
-/*  ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(ptr));  */
+
+void			put_error(char *str);
+void			free_object(t_object *obj);
+void			object_fatal(t_obj_lst *lst);
+
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 02:59:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 10:43:34 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,31 +95,31 @@ void	ft_pars(char *av, t_pars **pars)
 	return ;
 }
 
-void	print_lst(t_pars *pars)
-{
-	int		i;
-	t_pars	*tmp;
+// void	print_lst(t_pars *pars)
+// {
+// 	int		i;
+// 	t_pars	*tmp;
 
-	i = 0;
-	tmp = pars;
-	while (tmp != NULL)
-	{
-		printf("%d ", tmp->flag);
-		i = 0;
-		while (tmp->elements[i])
-		{
-			printf("%s ", tmp->elements[i]);
-			i++;
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
-}
+// 	i = 0;
+// 	tmp = pars;
+// 	while (tmp != NULL)
+// 	{
+// 		printf("%d ", tmp->flag);
+// 		i = 0;
+// 		while (tmp->elements[i])
+// 		{
+// 			printf("%s ", tmp->elements[i]);
+// 			i++;
+// 		}
+// 		printf("\n");
+// 		tmp = tmp->next;
+// 	}
+// }
+
 
 void print_lstobj(t_obj_lst *lst)
 {
 	t_obj_lst	*tmp;
-
 	tmp = lst;
 	while (tmp)
 	{
@@ -160,13 +160,13 @@ void print_scene(t_scene *scene)
 	printf("Orientation: %.2f %.2f %.2f\n", scene->camera.orientation.x, scene->camera.orientation.y, scene->camera.orientation.z);
 	printf("FOV: %.2f\n\n", scene->camera.fov);
 	printf("Light\n\n");
-	printf("light_point: %.2f %.2f %.2f\n", scene->light.light_point.x, scene->light.light_point.y, scene->light.light_point.z);
+	printf("position: %.2f %.2f %.2f\n", scene->light.position.x, scene->light.position.y, scene->light.position.z);
 	printf("Brightness: %.2f\n", scene->light.scale);
 	printf("Color: %d %d %d\n\n", scene->light.color.r, scene->light.color.g, scene->light.color.b);
 	print_lstobj(scene->lst);
 }
 
-void free_f_mtx(float **mtx, int size)
+void	free_f_mtx(float **mtx, int size)
 {
 	while (size)
 	{
@@ -205,14 +205,6 @@ void	free_obj_lst(t_obj_lst *lst)
 
 void free_scene(t_scene *scene)
 {
-	/*free(scene->ambient->color);
-	free(scene->ambient);
-	free(scene->camera->view_point);
-	free(scene->camera->orientation);
-	free(scene->camera);
-	free(scene->light->color);
-	free(scene->light->light_point);
-	free(scene->light);*/
 	free_obj_lst(scene->lst);
 	free(scene);
 }
@@ -222,40 +214,40 @@ void vv(void)
 	system("leaks miniRT");
 }
 
-t_world	*init_world(t_scene *scene)
-{
-	t_world	*world;
+// t_world	*init_world(t_scene *scene)
+// {
+// 	t_world	*world;
 
-	world = malloc(sizeof(t_world));
-	if (!world)
-		return (NULL);
-	world->light = scene->light;
-	world->obj_lst = scene->lst;
-	return (world);
-}
+// 	world = malloc(sizeof(t_world));
+// 	if (!world)
+// 		return (NULL);
+// 	world->light = scene->light;
+// 	world->obj_lst = scene->lst;
+// 	return (world);
+// }
 
-t_comps *prepare_computations(t_inter *inter, t_ray *ray)
-{
-	t_comps	*comps;
+// t_comps *prepare_computations(t_inter *inter, t_ray *ray)
+// {
+// 	t_comps	*comps;
 
-	comps = malloc(sizeof(t_comps));
-	if (!comps)
-		return (NULL);
-	comps->t = inter->t;
-	comps->obj = inter->obj;
-	comps->point = _position(ray, comps->t);
-	comps->eyev = vec_normalize(multiply_tuple_scalar(-1, ray->dir));
-	comps->normalv = normal_at(comps->obj, comps->point);
-	if (dot_product(comps->normalv, comps->eyev) < 0)
-	{
-		comps->inside = 1;
-		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
-	}
-	else
-		comps->inside = 0;
-	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
-	return (comps);
-}
+// 	comps = malloc(sizeof(t_comps));
+// 	if (!comps)
+// 		return (NULL);
+// 	comps->t = inter->t;
+// 	comps->obj = inter->obj;
+// 	comps->point = _position(ray, comps->t);
+// 	comps->eyev = vec_normalize(multiply_tuple_scalar(-1, ray->dir));
+// 	comps->normalv = normal_at(comps->obj, comps->point);
+// 	if (dot_product(comps->normalv, comps->eyev) < 0)
+// 	{
+// 		comps->inside = 1;
+// 		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
+// 	}
+// 	else
+// 		comps->inside = 0;
+// 	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
+// 	return (comps);
+// }
 
 t_color shade_hit(t_world *world, t_comps *copms)
 {
@@ -266,7 +258,6 @@ int	main(int ac, char **av)
 {
 	t_pars	*pars;
 	t_scene	*scene;
-	t_world	*world;
 
 	atexit(vv);
 	pars = NULL;
@@ -282,10 +273,9 @@ int	main(int ac, char **av)
 	scene = parse_scene(pars);
 	if (!scene)
 		return (1); //free
-	print_scene(scene);
-	world = init_world(scene);
+	// print_scene(scene);
+	// world = init_world(scene);
 	free_scene(scene);
 	ft_free_struct(pars);
-
 	return (0);
 }

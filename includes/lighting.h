@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:42:22 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/30 23:05:43 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 10:34:47 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LIGHTING_H
 
 # include "miniRT.h"
+
+typedef struct s_rgb255 t_rgb255;
 
 /* 0 <= r,g,b <= 1 */
 typedef struct s_color
@@ -46,9 +48,9 @@ typedef struct s_phong
 
 t_specs		_specs(float r, float g, float b, float ph);
 t_light		_light(t_point pos, float br, t_color c);
-// t_color		_color01(t_rgb255 c); /*-----to implement----*/
-t_color		_color255(t_color c);
 t_color		_color(float r, float g, float b);
+t_color		_color01(t_rgb255 c);
+t_color		_color255(t_color c);
 t_phong		_phong(t_object *obj, t_point px, t_light light, t_point cam);
 t_color		illuminate(t_object *obj, t_point px, t_light light, t_point cam);
 t_color		schur_product(t_color col1, t_color col2);

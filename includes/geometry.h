@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   geometry.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/31 07:11:10 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 10:34:31 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GEOMETRY_H
 
 # include "rt_mathematics.h"
-#include "lighting.h"
+# include "lighting.h"
 
 typedef struct s_rgb255 t_rgb255;
 
@@ -52,7 +52,6 @@ typedef struct s_quadratic
 
 typedef struct s_sphere	t_sphere;
 typedef struct s_object	t_object;
-// typedef struct s_color	t_color;
 
 typedef struct s_inter
 {

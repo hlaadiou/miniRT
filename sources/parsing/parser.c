@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/30 23:19:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 10:38:58 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pars.h"
+
+void	put_error(char *str)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(str, 2);
+	exit(EXIT_FAILURE);
+}
 
 int	multiple_sep(char *str, char c)
 {
@@ -30,77 +37,58 @@ int	multiple_sep(char *str, char c)
 	return (0);
 }
 
-t_tuple	*parse_coordinates(char *str)
+t_tuple	parse_coordinates(char *str)
 {
 	int		i;
 	char	**strs;
-	t_tuple	*coords;
+	t_tuple	coords;
 
 	i = -1;
-	coords = NULL;
 	if (multiple_sep(str, ','))
-		return (NULL);
+		put_error("Invalid coordinates format\n");
 	strs = ft_split(str, ',');
 	while (strs[++i])
+	{
 		if (!valid_float(strs[i]))
-			return (free_tab(strs), NULL);
+		{
+			free_tab(strs);
+			put_error("Invalid coordinates data\n");
+		}
+	}
 	if (i != 3)
-		return (free_tab(strs), NULL);
-	coords = (t_tuple *)malloc(sizeof(t_tuple));
-	if (!coords)
-		return (free_tab(strs), NULL);
-	*coords = (t_tuple){ft_atof(strs[0]), ft_atof(strs[1]), ft_atof(strs[2]), 0.0};
+	{
+		free_tab(strs);
+		put_error("Invalid coordinates data\n");
+	}
+	coords = (t_tuple){ft_atof(strs[0]), ft_atof(strs[1]), ft_atof(strs[2]), 0.0};
 	return (free_tab(strs), coords);
 }
 
-t_rgb255	*parse_color(char *str)
+t_rgb255	parse_color(char *str)
 {
 	char		**strs;
-	t_rgb255	*rgb;
+	t_rgb255	rgb;
 
-	rgb = NULL;
 	if (multiple_sep(str, ','))
-		return (NULL);
+		put_error("Invalid color format\n");
 	strs = ft_split(str, ',');
 	if (ft_tab_size(strs) != 3 || !isnumber(strs) || !is_int(strs))
-		return (free_tab(strs), NULL);
-	rgb = (t_rgb255 *)malloc(sizeof(t_rgb255));
-	if (!rgb)
-		return (free_tab(strs), NULL);
+	{
+		free_tab(strs);
+		put_error("Invalid color data\n");
+	}
 	if (ft_atoi(strs[0]) < 0 || ft_atoi(strs[0]) > 255 \
-		|| ft_atoi(strs[1]) < 0 || ft_atoi(strs[1]) > 255 \
-		|| ft_atoi(strs[2]) < 0 || ft_atoi(strs[2]) > 255)
-		return (free_tab(strs), NULL);
-	*rgb = (t_rgb255){ft_atoi(strs[0]), ft_atoi(strs[1]), ft_atoi(strs[2])};
+	|| ft_atoi(strs[1]) < 0 || ft_atoi(strs[1]) > 255 \
+	|| ft_atoi(strs[2]) < 0 || ft_atoi(strs[2]) > 255)
+	{
+		free_tab(strs);
+		put_error("Invalid color data\n");
+	}
+	rgb = (t_rgb255){ft_atoi(strs[0]), ft_atoi(strs[1]), ft_atoi(strs[2])};
 	return (free_tab(strs), rgb);
 }
 
-// int	check_scene(t_scene *scene)
-// {
-// 	if (!scene->ambient)
-// 	{
-// 		ft_putstr_fd("Error\nInvalid ambient lighting data\n", 2);
-// 		return (0);
-// 	}
-// 	if (!scene->camera)
-// 	{
-// 		ft_putstr_fd("Error\nInvalid camera data\n", 2);
-// 		return (free(scene->ambient), 0);
-// 	}
-// 	if (!scene->light)
-// 	{
-// 		ft_putstr_fd("Error\nInvalid light data\n", 2);
-// 		return (free(scene->ambient), free(scene->camera), 0);
-// 	}
-// 	if (!scene->lst)
-// 	{
-// 		ft_putstr_fd("Error\nInvalid objects data\n", 2);
-// 		return (free(scene->ambient), \
-// 				free(scene->camera), free(scene->light), 0);
-// 	}
-// 	return (1);
-// }
-
+// t_pars needs to freed in case of error as well as object list and scene
 t_scene	*parse_scene(t_pars *conf)
 {
 	t_scene		*scene;
@@ -111,11 +99,9 @@ t_scene	*parse_scene(t_pars *conf)
 	scene = (t_scene *)malloc(sizeof(t_scene));
 	if (!scene)
 		return (NULL);
-	// scene->ambient = get_ambient_data(conf);
-	// scene->camera = get_camera_data(conf);
-	// scene->light = get_light_data(conf);
+	scene->ambient = get_ambient_data(conf);
+	scene->camera = get_camera_data(conf);
+	scene->light = get_light_data(conf);
 	scene->lst = get_objs_data(conf);
-	// if (!check_scene(scene))
-	// 	return (free(scene), NULL);
 	return (scene);
 }
