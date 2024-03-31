@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lights.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:06:10 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 19:54:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 07:19:15 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_light	_light(t_point pos, float br, t_rgb255 *c)
+t_light	_light(t_point pos, float br, t_color c)
 {
 	return ((t_light){pos, br, c});
 }

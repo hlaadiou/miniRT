@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:38 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/27 02:55:36 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 07:15:12 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_object	*_sphere(t_point o, float radius, t_rgb255 *c)
+t_object	*_sphere(t_point o, float radius, t_color c)
 {
 	t_sphere	*sp;
 

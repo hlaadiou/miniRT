@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
+#    By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/03/30 15:38:43 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/03/31 06:42:00 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SRCS		=	sources/parsing/main.c \
 				sources/parsing/atof.c \
 				sources/parsing/object_list.c \
 				sources/parsing/parser.c \
-				sources/parsing/colictor.c \
+				sources/parsing/collector.c \
 				sources/geometry/cylinder.c \
 				sources/geometry/hits.c \
 				sources/geometry/lists.c \

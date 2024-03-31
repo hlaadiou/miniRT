@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/30 18:02:55 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 07:10:34 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,78 +97,78 @@ void	ft_pars(char *av, t_pars **pars)
 	return ;
 }
 
-void	print_lst(t_pars *pars)
-{
-	int		i;
-	t_pars	*tmp;
+// void	print_lst(t_pars *pars)
+// {
+// 	int		i;
+// 	t_pars	*tmp;
 
-	i = 0;
-	tmp = pars;
-	while (tmp != NULL)
-	{
-		printf("%d ", tmp->flag);
-		i = 0;
-		while (tmp->elements[i])
-		{
-			printf("%s ", tmp->elements[i]);
-			i++;
-		}
-		printf("\n");
-		tmp = tmp->next;
-	}
-}
+// 	i = 0;
+// 	tmp = pars;
+// 	while (tmp != NULL)
+// 	{
+// 		printf("%d ", tmp->flag);
+// 		i = 0;
+// 		while (tmp->elements[i])
+// 		{
+// 			printf("%s ", tmp->elements[i]);
+// 			i++;
+// 		}
+// 		printf("\n");
+// 		tmp = tmp->next;
+// 	}
+// }
 
-void print_lstobj(t_obj_lst *lst)
-{
-	t_obj_lst	*tmp;
+// void print_lstobj(t_obj_lst *lst)
+// {
+// 	t_obj_lst	*tmp;
 
-	tmp = lst;
-	while (tmp)
-	{
-		if (tmp->obj->type == SPHERE)
-		{
-			printf("Sphere\n\n");
-			printf("Center: %.2f %.2f %.2f\n", tmp->obj->sp->org.x, tmp->obj->sp->org.y, tmp->obj->sp->org.z);
-			printf("Radius: %.2f\n", tmp->obj->sp->radius);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
-		}
-		else if (tmp->obj->type == PLANE)
-		{
-			printf("Plane\n\n");
-			printf("Point: %.2f %.2f %.2f\n", tmp->obj->pl->pt.x, tmp->obj->pl->pt.y, tmp->obj->pl->pt.z);
-			printf("Vector: %.2f %.2f %.2f\n", tmp->obj->pl->vec.x, tmp->obj->pl->vec.y, tmp->obj->pl->vec.z);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
-		}
-		else if (tmp->obj->type == CYLINDER)
-		{
-			printf("Cylinder\n\n");
-			printf("Center: %.2f %.2f %.2f\n", tmp->obj->cy->center.x, tmp->obj->cy->center.y, tmp->obj->cy->center.z);
-			printf("Axis: %.2f %.2f %.2f\n", tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, tmp->obj->cy->axis.z);
-			printf("Diameter: %.2f\n", tmp->obj->cy->diameter);
-			printf("Height: %.2f\n", tmp->obj->cy->height);
-			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
-		}
-		tmp = tmp->next;
-	}
-}
+// 	tmp = lst;
+// 	while (tmp)
+// 	{
+// 		if (tmp->obj->type == SPHERE)
+// 		{
+// 			printf("Sphere\n\n");
+// 			printf("Center: %.2f %.2f %.2f\n", tmp->obj->sp->org.x, tmp->obj->sp->org.y, tmp->obj->sp->org.z);
+// 			printf("Radius: %.2f\n", tmp->obj->sp->radius);
+// 			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+// 		}
+// 		else if (tmp->obj->type == PLANE)
+// 		{
+// 			printf("Plane\n\n");
+// 			printf("Point: %.2f %.2f %.2f\n", tmp->obj->pl->pt.x, tmp->obj->pl->pt.y, tmp->obj->pl->pt.z);
+// 			printf("Vector: %.2f %.2f %.2f\n", tmp->obj->pl->vec.x, tmp->obj->pl->vec.y, tmp->obj->pl->vec.z);
+// 			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+// 		}
+// 		else if (tmp->obj->type == CYLINDER)
+// 		{
+// 			printf("Cylinder\n\n");
+// 			printf("Center: %.2f %.2f %.2f\n", tmp->obj->cy->center.x, tmp->obj->cy->center.y, tmp->obj->cy->center.z);
+// 			printf("Axis: %.2f %.2f %.2f\n", tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, tmp->obj->cy->axis.z);
+// 			printf("Diameter: %.2f\n", tmp->obj->cy->diameter);
+// 			printf("Height: %.2f\n", tmp->obj->cy->height);
+// 			printf("Color: %d %d %d\n\n", tmp->obj->color->r, tmp->obj->color->g, tmp->obj->color->b);
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// }
 
-void print_scene(t_scene *scene)
-{
-	printf("Ambient\n\n");
-	printf("Color: %d %d %d\n", scene->ambient->color->r, scene->ambient->color->g, scene->ambient->color->b);
-	printf("Ratio: %.2f\n\n", scene->ambient->scale);
-	printf("Camera\n\n");
-	printf("view_point: %.2f %.2f %.2f\n", scene->camera->view_point->x, scene->camera->view_point->y, scene->camera->view_point->z);
-	printf("Orientation: %.2f %.2f %.2f\n", scene->camera->orientation->x, scene->camera->orientation->y, scene->camera->orientation->z);
-	printf("FOV: %.2f\n\n", scene->camera->fov);
-	printf("Light\n\n");
-	printf("light_point: %.2f %.2f %.2f\n", scene->light->light_point->x, scene->light->light_point->y, scene->light->light_point->z);
-	printf("Brightness: %.2f\n", scene->light->scale);
-	printf("Color: %d %d %d\n\n", scene->light->color->r, scene->light->color->g, scene->light->color->b);
-	print_lstobj(scene->lst);
-}
+// void print_scene(t_scene *scene)
+// {
+// 	printf("Ambient\n\n");
+// 	printf("Color: %d %d %d\n", scene->ambient->color->r, scene->ambient->color->g, scene->ambient->color->b);
+// 	printf("Ratio: %.2f\n\n", scene->ambient->scale);
+// 	printf("Camera\n\n");
+// 	printf("view_point: %.2f %.2f %.2f\n", scene->camera->view_point->x, scene->camera->view_point->y, scene->camera->view_point->z);
+// 	printf("Orientation: %.2f %.2f %.2f\n", scene->camera->orientation->x, scene->camera->orientation->y, scene->camera->orientation->z);
+// 	printf("FOV: %.2f\n\n", scene->camera->fov);
+// 	printf("Light\n\n");
+// 	printf("light_point: %.2f %.2f %.2f\n", scene->light->light_point->x, scene->light->light_point->y, scene->light->light_point->z);
+// 	printf("Brightness: %.2f\n", scene->light->scale);
+// 	printf("Color: %d %d %d\n\n", scene->light->color->r, scene->light->color->g, scene->light->color->b);
+// 	print_lstobj(scene->lst);
+// }
 
-void free_f_mtx(float **mtx, int size)
+void	free_f_mtx(float **mtx, int size)
 {
 	while (size)
 	{
@@ -198,7 +198,6 @@ void	free_obj_lst(t_obj_lst *lst)
 		{
 			free(tmp->obj->cy);
 		}
-		free(tmp->obj->color);
 		free_f_mtx(tmp->obj->transform->mtx, tmp->obj->transform->size);
 		free(tmp->obj->transform);
 		free(tmp->obj);
@@ -208,14 +207,6 @@ void	free_obj_lst(t_obj_lst *lst)
 
 void free_scene(t_scene *scene)
 {
-	free(scene->ambient->color);
-	free(scene->ambient);
-	free(scene->camera->view_point);
-	free(scene->camera->orientation);
-	free(scene->camera);
-	free(scene->light->color);
-	free(scene->light->light_point);
-	free(scene->light);
 	free_obj_lst(scene->lst);
 	free(scene);
 }
@@ -225,40 +216,40 @@ void vv(void)
 	system("leaks miniRT");
 }
 
-t_world	*init_world(t_scene *scene)
-{
-	t_world	*world;
+// t_world	*init_world(t_scene *scene)
+// {
+// 	t_world	*world;
 
-	world = malloc(sizeof(t_world));
-	if (!world)
-		return (NULL);
-	world->light = scene->light;
-	world->obj_lst = scene->lst;
-	return (world);
-}
+// 	world = malloc(sizeof(t_world));
+// 	if (!world)
+// 		return (NULL);
+// 	world->light = scene->light;
+// 	world->obj_lst = scene->lst;
+// 	return (world);
+// }
 
-t_comps *prepare_computations(t_inter *inter, t_ray *ray)
-{
-	t_comps	*comps;
+// t_comps *prepare_computations(t_inter *inter, t_ray *ray)
+// {
+// 	t_comps	*comps;
 
-	comps = malloc(sizeof(t_comps));
-	if (!comps)
-		return (NULL);
-	comps->t = inter->t;
-	comps->obj = inter->obj;
-	comps->point = _position(ray, comps->t);
-	comps->eyev = vec_normalize(multiply_tuple_scalar(-1, ray->dir));
-	comps->normalv = normal_at(comps->obj, comps->point);
-	if (dot_product(comps->normalv, comps->eyev) < 0)
-	{
-		comps->inside = 1;
-		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
-	}
-	else
-		comps->inside = 0;
-	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
-	return (comps);
-}
+// 	comps = malloc(sizeof(t_comps));
+// 	if (!comps)
+// 		return (NULL);
+// 	comps->t = inter->t;
+// 	comps->obj = inter->obj;
+// 	comps->point = _position(ray, comps->t);
+// 	comps->eyev = vec_normalize(multiply_tuple_scalar(-1, ray->dir));
+// 	comps->normalv = normal_at(comps->obj, comps->point);
+// 	if (dot_product(comps->normalv, comps->eyev) < 0)
+// 	{
+// 		comps->inside = 1;
+// 		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
+// 	}
+// 	else
+// 		comps->inside = 0;
+// 	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
+// 	return (comps);
+// }
 
 // t_rgb255	*shade_hit(t_world *world, t_comps *comps)
 // {
@@ -282,7 +273,6 @@ int	main(int ac, char **av)
 {
 	t_pars	*pars;
 	t_scene	*scene;
-	t_world	*world;
 
 	atexit(vv);
 	pars = NULL;
@@ -298,10 +288,9 @@ int	main(int ac, char **av)
 	scene = parse_scene(pars);
 	if (!scene)
 		return (1); //free
-	print_scene(scene);
-	world = init_world(scene);
+	// print_scene(scene);
+	// world = init_world(scene);
 	free_scene(scene);
 	ft_free_struct(pars);
-
 	return (0);
 }

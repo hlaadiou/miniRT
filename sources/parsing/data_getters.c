@@ -3,35 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   data_getters.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/30 02:46:58 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 07:13:25 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pars.h"
+#include "../../includes/lighting.h"
 
-t_ambient	*get_ambient_data(t_pars *conf)
+t_ambient	get_ambient_data(t_pars *conf)
 {
-	t_ambient	*amb;
-	t_rgb255	*rgb;
+	t_ambient	amb;
+	t_rgb255	rgb;
 
-	amb = NULL;
+	amb = (t_ambient){0};
 	while (conf)
 	{
 		if (conf->flag == AMB)
 		{
 			if (!valid_float(conf->elements[1]))
-				return (NULL);
+				put_error("Invalid ambient lighting ratio\n");
 			rgb = parse_color(conf->elements[2]);
-			if (!rgb)
-				return (NULL);
-			amb = (t_ambient*)malloc(sizeof(t_ambient));
-			if (!amb)
-				return (NULL);
-			amb->scale = ft_atof(conf->elements[1]);
-			amb->color = rgb;
+			amb.scale = ft_atof(conf->elements[1]);
+			amb.color = _color01(rgb);
 			break ;
 		}
 		conf = conf->next;
@@ -39,46 +35,38 @@ t_ambient	*get_ambient_data(t_pars *conf)
 	return (amb);
 }
 
-int	normalized_range(t_vector *vec)
+int	normalized_range(t_vector vec)
 {
-	if (vec->x < -1.0 || vec->x > 1.0 \
-		|| vec->y < -1.0 || vec->y > 1.0 \
-		|| vec->z < -1.0 || vec->z > 1.0)
+	if (vec.x < -1.0 || vec.x > 1.0 \
+		|| vec.y < -1.0 || vec.y > 1.0 \
+		|| vec.z < -1.0 || vec.z > 1.0)
 		return (0);
 	return (1);
 }
 
-t_camera	*check_camera_data(t_pars *conf)
+t_camera	check_camera_data(t_pars *conf)
 {
-	t_camera	*cam;
-	t_point		*pt;
-	t_vector	*vec;
+	t_camera	cam;
+	t_point		pt;
+	t_vector	vec;
 
-	cam = NULL;
 	pt = parse_coordinates(conf->elements[1]);
-	if (!pt)
-		return (NULL);
 	vec = parse_coordinates(conf->elements[2]);
-	if (!vec)
-		return (free(pt), NULL);
 	if (!normalized_range(vec))
-		return (free(pt), free(vec), NULL);
+		put_error("The camera's orientation vector is not normalized\n");
 	if (!valid_float(conf->elements[3]) || \
 	ft_atof(conf->elements[3]) < 0.0 || ft_atof(conf->elements[3]) > 180.0)
-		return (free(pt), free(vec), NULL);
-	cam = (t_camera*)malloc(sizeof(t_camera));
-	if (!cam)
-		return (free(pt), free(vec), NULL);
-	pt->w = 1.0;
-	*cam = (t_camera){pt, vec, ft_atof(conf->elements[3])};
+		put_error("The camera's FOV range is invalid\n");
+	pt.w = 1.0;
+	cam = (t_camera){pt, vec, ft_atof(conf->elements[3])};
 	return (cam);
 }
 
-t_camera	*get_camera_data(t_pars *conf)
+t_camera	get_camera_data(t_pars *conf)
 {
-	t_camera	*cam;
+	t_camera	cam;
 
-	cam = NULL;
+	cam = (t_camera){0};
 	while (conf)
 	{
 		if (conf->flag == CAM)
@@ -91,35 +79,27 @@ t_camera	*get_camera_data(t_pars *conf)
 	return (cam);
 }
 
-t_light_src	*check_light_data(t_pars *conf)
+t_light_src	check_light_data(t_pars *conf)
 {
-	t_light_src	*light;
-	t_point		*pt;
-	t_rgb255	*rgb;
+	t_light_src	light;
+	t_point		pt;
+	t_rgb255	rgb;
 
-	light = NULL;
 	pt = parse_coordinates(conf->elements[1]);
-	if (!pt)
-		return (NULL);
 	if (!valid_float(conf->elements[2]) || ft_atof(conf->elements[2]) < 0.0 \
 			|| ft_atof(conf->elements[2]) > 1.0)
-		return (free(pt), NULL);
+		put_error("Invalid light brightness\n");
 	rgb = parse_color(conf->elements[3]);
-	if (!rgb)
-		return (free(pt), NULL);
-	light = (t_light_src*)malloc(sizeof(t_light_src));
-	if (!light)
-		return (free(pt), free(rgb), NULL);
-	pt->w = 1.0;
-	*light = (t_light_src){pt, ft_atof(conf->elements[2]), rgb};
+	pt.w = 1.0;
+	light = (t_light_src){pt, ft_atof(conf->elements[2]), _color01(rgb)};
 	return (light);
 }
 
-t_light_src	*get_light_data(t_pars *conf)
+t_light_src	get_light_data(t_pars *conf)
 {
-	t_light_src	*light;
+	t_light_src	light;
 
-	light = NULL;
+	light = (t_light_src){0};
 	while (conf)
 	{
 		if (conf->flag == LIGHT)
@@ -135,80 +115,58 @@ t_light_src	*get_light_data(t_pars *conf)
 t_object	*check_sp_data(t_pars *conf)
 {
 	t_object	*sp;
-	t_point		*pt;
-	t_rgb255	*rgb;
+	t_point		pt;
+	t_rgb255	rgb;
 
 	sp = NULL;
 	pt = parse_coordinates(conf->elements[1]);
-	if (!pt)
-		return (NULL);
 	if (!valid_float(conf->elements[2]))
-		return (free(pt), NULL);
+		put_error("Invalid sphere diameter\n");
 	rgb = parse_color(conf->elements[3]);
-	if (!rgb)
-		return (free(pt), NULL);
-	pt->w = 1.0;
-	sp = _sphere(*pt, ft_atof(conf->elements[2]), rgb);
+	pt.w = 1.0;
+	sp = _sphere(pt, ft_atof(conf->elements[2]), _color01(rgb));
 	if (!sp)
-		return (free(pt), free(rgb), NULL);
-	free(pt);
+		put_error("Fatal, unable to create object\n");
 	return (sp);
 }
 
 t_object	*check_pl_data(t_pars *conf)
 {
 	t_object	*pl;
-	t_point		*pt;
-	t_vector	*vec;
-	t_rgb255	*rgb;
+	t_point		pt;
+	t_vector	vec;
+	t_rgb255	rgb;
 
 	pl = NULL;
 	pt = parse_coordinates(conf->elements[1]);
-	if (!pt)
-		return (NULL);
 	vec = parse_coordinates(conf->elements[2]);
-	if (!vec)
-		return (free(pt), NULL);
 	if (!normalized_range(vec))
-		return (free(pt), free(vec), NULL);
+		put_error("The plane's orientation vector is not normalized\n");
 	rgb = parse_color(conf->elements[3]);
-	if (!rgb)
-		return (free(pt), free(vec), NULL);
-	pl = _plane(*pt, *vec, rgb);
+	pl = _plane(pt, vec, _color01(rgb));
 	if (!pl)
-		return (free(pt), free(vec), free(rgb), NULL);
-	free(pt);
-	free(vec);
+		put_error("Fatal, unable to create object\n");
 	return (pl);
 }
 
 t_object	*check_cy_data(t_pars *conf)
 {
 	t_object	*cy;
-	t_point		*pt;
-	t_vector	*vec;
-	t_rgb255	*rgb;
+	t_point		pt;
+	t_vector	vec;
+	t_rgb255	rgb;
 
-	cy = NULL;
 	pt = parse_coordinates(conf->elements[1]);
-	if (!pt)
-		return (NULL);
 	vec = parse_coordinates(conf->elements[2]);
-	if (!vec)
-		return (free(pt), NULL);
 	if (!normalized_range(vec))
-		return (free(pt), free(vec), NULL);
+		put_error("The cylinder's orientation vector is not normalized\n");
 	if (!valid_float(conf->elements[3]) || !valid_float(conf->elements[4]))
-		return (free(pt), free(vec), NULL);
+		put_error("Invalid cylinder diameter/height\n");
 	rgb = parse_color(conf->elements[5]);
-	if (!rgb)
-		return (free(pt), free(vec), NULL);
-	cy = _cylinder(*pt, *vec, ft_atof(conf->elements[3]), \
-	ft_atof(conf->elements[4]), rgb);
+	cy = _cylinder(pt, vec, ft_atof(conf->elements[3]), \
+	ft_atof(conf->elements[4]), _color01(rgb));
 	if (!cy)
-		return (free(pt), free(vec), free(rgb), NULL);
-	free(pt);
-	free(vec);
+		put_error("Fatal, unable to create object\n");
 	return (cy);
 }
 
@@ -222,6 +180,33 @@ t_object	*check_objs_data(t_pars *conf)
 		return (check_cy_data(conf));
 	else
 		return (NULL);
+}
+
+void	free_object(t_object *obj)
+{
+	if (obj->type == SPHERE)
+		free(obj->sp);
+	else if (obj->type == PLANE)
+		free(obj->pl);
+	else if (obj->type == CYLINDER)
+		free(obj->cy);
+	free_f_mtx(obj->transform->mtx, obj->transform->size);
+	free(obj->transform);
+	free(obj);
+}
+
+void	object_fatal(t_obj_lst *lst)
+{
+	t_obj_lst	*tmp;
+
+	while (lst)
+	{
+		tmp = lst;
+		lst = lst->next;
+		free_object(tmp->obj);
+		free(tmp);
+	}
+	put_error("Fatal, Memory error: unable to create node\n");
 }
 
 t_obj_lst	*get_objs_data(t_pars *conf)
@@ -239,10 +224,11 @@ t_obj_lst	*get_objs_data(t_pars *conf)
 			if (obj)
 			{
 				if (obj_list_add(&lst, obj))
-					return (free(obj), NULL); //SHOULD FREE LIST
+				{
+					free_object(obj);
+					object_fatal(lst);
+				}
 			}
-			else
-				return (free(obj), NULL);
 		}
 		conf = conf->next;
 	}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colictor.c                                         :+:      :+:    :+:   */
+/*   collector.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:36:00 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/29 21:41:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 06:59:07 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,17 @@ void	ft_lstadd_back_clctr(t_collector **lst, t_collector *new)
 	new->next = NULL;
 }
 
-void *ft_malloc(size_t size)
+void	*ft_malloc(size_t size)
 {
     void	*ptr;
 
     ptr = malloc(size);
     if (!ptr)
-        exit(1);
-    ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(ptr));
+	{
+		ft_free_collector(ft_collector());
+		put_error("Unexpected malloc fail\n");
+	}
+	else
+    	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(ptr));
     return (ptr);
 }
