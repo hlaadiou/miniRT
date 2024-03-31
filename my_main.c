@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 09:17:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/03/31 13:58:36 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-# define WIDTH  600
-# define HEIGHT 300
+# define WIDTH  500
+# define HEIGHT 250
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
@@ -177,7 +177,7 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 	comps->t = inter->t;
 	comps->obj = inter->obj;
 	comps->point = _position(ray, comps->t);
-	comps->eyev = vec_normalize(multiply_tuple_scalar(-1, ray->dir));
+	comps->eyev = ray->org;
 	comps->normalv = normal_at(comps->obj, comps->point);
 	if (dot_product(comps->normalv, comps->eyev) < 0)
 	{
@@ -186,7 +186,7 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 	}
 	else
 		comps->inside = 0;
-	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
+	// comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
 	return (comps);
 }
 
@@ -205,7 +205,7 @@ t_color color_at(t_world *w, t_ray *r)
 
 t_color shade_hit(t_world *world, t_comps *copms)
 {
-	return(illuminate(copms->obj, copms->over_point, world->light, copms->eyev));
+	return(illuminate(copms->obj, copms->point, world->light, copms->eyev));
 }
 
 void render(t_camera_fn c, t_world *w, mlx_image_t **image)
@@ -251,6 +251,16 @@ t_matrix *view_transform(t_point from, t_point to, t_vector up)
 	return (res);
 }
 
+void	free_f_mtx(float **mtx, int size)
+{
+	while (size)
+	{
+		free(mtx[size - 1]);
+		size--;
+	}
+	free(mtx);
+}
+
 int main ()
 {
 	t_object *floor = _sphere(_point(0, 0, 0), 1, _color(1, 0.9, 0.9));
@@ -266,15 +276,15 @@ int main ()
 	right_wall->specs.specular = 0;
 	t_object *middle = _sphere(_point(0, 0, 0), 1, _color(0.1, 1, 0.5));
 	middle->specs.diffuse = 0.7;
-	// middle->specs.specular = 0.3;
+	middle->specs.specular = 0.3;
 	middle->transform = inverse(translation(-0.5, 1, -0.5));
 	t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
 	right->specs.diffuse = 0.7;
-	// right->specs.specular = 0.3;
+	right->specs.specular = 0.3;
 	right->transform = inverse(mtx_multiply(translation(1.5, 0.5, -0.5), scaling_mtx(0.5, 0.5, 0.5)));
 	t_object *left = _sphere(_point(0, 0, 0), 1, _color(1, 0.8, 0.1));
 	left->specs.diffuse = 0.7;
-	// left->specs.specular = 0.3;
+	left->specs.specular = 0.3;
 	left->transform = inverse(mtx_multiply(translation(-1.5, 0.33, -0.75), scaling_mtx(0.33, 0.33, 0.33)));
 	t_world *w = malloc(sizeof(t_world));
 	w->light = _light(_point(-10, 10, -10), 1.0, _color(1.0, 1.0, 1.0));
@@ -291,7 +301,7 @@ int main ()
 	w->obj_lst->next->next->next->next->next = malloc(sizeof(t_obj_lst));
 	w->obj_lst->next->next->next->next->next->obj = left;
 	w->obj_lst->next->next->next->next->next->next = NULL;
-	t_camera_fn c = camera(600, 300, M_PI / 3);
+	t_camera_fn c = camera(WIDTH, HEIGHT, M_PI / 3);
 	c.transform = view_transform(_point(0, 1.5, -5), _point(0, 1, 0), _vector(0, 1, 0));
 	mlx_image_t *image;
 	mlx_t *mlx;
