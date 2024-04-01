@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/04/01 14:47:12 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/04/01 17:26:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,16 +165,6 @@ t_lst_inter *intersect_world(t_world *w, t_ray *r)
 		obj = obj->next;
 	}
 	lst = lst_sort(lst);
-	// t_obj_lst *obj_lst = w->obj_lst;
-	// t_inter **xs = NULL;
-
-	// while (obj_lst)
-	// {
-		
-	// 	xs = intersect_sp(r, obj_lst->obj);
-	// 	_intersections(&lst, xs);
-	// 	obj_lst = obj_lst->next;
-	// }
 	return (lst);
 }
 
@@ -295,43 +285,6 @@ int	is_shadowed(t_world *w, t_point p)
 	free(r);
 	return (0);
 }
-
-// int is_shadowed(t_world *w, t_point p)
-// {
-//     t_vector v;
-//     float distance;
-//     t_ray *r = NULL;
-//     t_inter **xs = NULL;
-//     t_inter *h = NULL;
-//     t_lst_inter *lst = new_intersection(NULL);
-
-//     v = subtract_tuples(w->light.position, p);
-//     distance = vec_magnitude(v);
-//     r = _ray(p, vec_normalize(v));
-//     xs = intersect_world(w, r);
-
-//     // Exclude the origin object from intersection tests
-//     // while (*xs != NULL && (*xs)->obj == origin_obj)
-//     //     xs++;
-//     _intersections(&lst, xs);
-//     h = hit(lst);
-    
-//     // Check if there's any intersection
-//     if (h != NULL) {
-//         // Check if the intersection is in the direction of the light source
-//         if (h->t < distance) {
-//             // Free memory allocated for ray and intersections
-//             // free(r);
-//             // free(xs);
-//             return 1;
-//         }
-//     }
-//     // Free memory allocated for ray and intersections
-//     // free(r);
-//     // free(xs);
-//     return 0;
-// }
-
 
 int main ()
 {
