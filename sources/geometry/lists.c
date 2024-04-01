@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:55:46 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/31 15:41:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/04/01 08:50:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	_intersections(t_lst_inter **lst, t_inter **i)
 		return (free(i[0]), free(i[1]), free(i), 1);
 	if (inter_list_add(lst, i[1]))
 		return (free(i[1]), free(i), 1);
-	free(i);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 20:19:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/04/01 14:47:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void ft_hook(void* param)
 
 int ft_mlx(mlx_t **mlx, mlx_image_t **image)
 {
-	if (!((*mlx) = mlx_init(WIDTH, HEIGHT, "miniRT", false)))
+	if (!((*mlx) = mlx_init(WIDTH, HEIGHT, "miniRT", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
@@ -73,8 +73,6 @@ void	ft_free_struct(t_pars *pars)
 		pars = pars->next;
 		if (tmp->elements)
 			ft_free_tab(tmp->elements);
-		// if (pars->identifier)
-		// 	free(pars->identifier);
 		free(tmp);
 	}
 }
@@ -129,43 +127,55 @@ t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
 			mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0))))));
 }
 
-t_inter **intersect_world(t_world *w, t_ray *r)
+t_lst_inter *lst_sort(t_lst_inter *lst)
 {
+	t_lst_inter *tmp = lst;
+	t_lst_inter *tmp2 = lst;
+	t_inter *inter;
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		while (tmp2)
+		{
+			if (tmp->inter->t > tmp2->inter->t)
+			{
+				inter = tmp->inter;
+				tmp->inter = tmp2->inter;
+				tmp2->inter = inter;
+			}
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
+	}
+	return (lst);
+
+}
+
+t_lst_inter *intersect_world(t_world *w, t_ray *r)
+{
+	t_lst_inter *lst = NULL;
 	t_inter **xs = malloc(sizeof(t_inter *) * 2);
 	t_obj_lst *obj = w->obj_lst;
 	xs[0] = NULL;
 	xs[1] = NULL;
-	t_inter **tmp = NULL;
 	while (obj != NULL)
 	{
-		tmp = intersect_sp(r, obj->obj);
-		if (tmp != NULL)
-		{
-			if (xs[0] == NULL)
-				xs[0] = tmp[0];
-			else if (tmp[0]->t < xs[0]->t)
-			{
-				xs[1] = xs[0];
-				xs[0] = tmp[0];
-			}
-			else if (xs[1] == NULL || tmp[0]->t < xs[1]->t)
-				xs[1] = tmp[0];
-		}
-		if (tmp != NULL)
-		{
-			if (xs[0] == NULL)
-				xs[0] = tmp[1];
-			else if (tmp[1]->t < xs[0]->t)
-			{
-				xs[1] = xs[0];
-				xs[0] = tmp[1];
-			}
-			else if (xs[1] == NULL || tmp[1]->t < xs[1]->t)
-				xs[1] = tmp[1];
-		}
+		xs = intersect_sp(r, obj->obj);
+		_intersections(&lst, xs);
 		obj = obj->next;
 	}
-	return (xs);
+	lst = lst_sort(lst);
+	// t_obj_lst *obj_lst = w->obj_lst;
+	// t_inter **xs = NULL;
+
+	// while (obj_lst)
+	// {
+		
+	// 	xs = intersect_sp(r, obj_lst->obj);
+	// 	_intersections(&lst, xs);
+	// 	obj_lst = obj_lst->next;
+	// }
+	return (lst);
 }
 
 t_comps *prepare_computations(t_inter *inter, t_ray *ray)
@@ -193,10 +203,10 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 
 t_color color_at(t_world *w, t_ray *r)
 {
-	t_inter **xs = intersect_world(w, r);
-	t_lst_inter *lst = new_intersection(NULL);
-	_intersections(&lst, xs);
-	t_inter *h = hit(lst);
+	t_lst_inter *lst;
+	lst = intersect_world(w, r);
+	t_inter *h;
+	h = hit(lst);
 	if (h == NULL)
 		return (_color(0, 0, 0));
 	t_comps *comps = prepare_computations(h, r);
@@ -224,7 +234,7 @@ void render(t_camera_fn c, t_world *w, mlx_image_t **image)
 			int32_t color_int = ft_pixel((int)(color.r), (int)(color.g), \
 										(int)(color.b), 0x00FF);
 			mlx_put_pixel((*image), x, y, color_int);
-			free(r);
+			// free(r);
 		}
 	}
 }
@@ -247,10 +257,10 @@ t_matrix *view_transform(t_point from, t_point to, t_vector up)
 	orientation->mtx[2][2] = -forward.z;
 	t_matrix *translation_mtx = translation(-from.x, -from.y, -from.z);
 	t_matrix *res = mtx_multiply(orientation, translation_mtx);
-	// free(orientation->mtx);
-	// free(orientation);
-	// free(translation_mtx->mtx);
-	// free(translation_mtx);
+	free(orientation->mtx);
+	free(orientation);
+	free(translation_mtx->mtx);
+	free(translation_mtx);
 	return (res);
 }
 
@@ -269,26 +279,59 @@ int	is_shadowed(t_world *w, t_point p)
 	t_vector v;
 	float distance;
 	t_ray *r = NULL;
-	t_inter **xs = NULL;
 	t_inter *h = NULL;
-	t_lst_inter *lst = new_intersection(NULL);
+	t_lst_inter *lst = NULL;
 
 	v = subtract_tuples(w->light.position, p);
 	distance = vec_magnitude(v);
 	r = _ray(p, vec_normalize(v));
-	xs = intersect_world(w, r);
-	_intersections(&lst, xs);
+	lst = intersect_world(w, r);
 	h = hit(lst);
 	if (h != NULL && h->t < distance)
 	{
-		// free(r);
-		// free(xs);
+		free(r);
 		return (1);
 	}
-	// free(r);
-	// free(xs);
+	free(r);
 	return (0);
 }
+
+// int is_shadowed(t_world *w, t_point p)
+// {
+//     t_vector v;
+//     float distance;
+//     t_ray *r = NULL;
+//     t_inter **xs = NULL;
+//     t_inter *h = NULL;
+//     t_lst_inter *lst = new_intersection(NULL);
+
+//     v = subtract_tuples(w->light.position, p);
+//     distance = vec_magnitude(v);
+//     r = _ray(p, vec_normalize(v));
+//     xs = intersect_world(w, r);
+
+//     // Exclude the origin object from intersection tests
+//     // while (*xs != NULL && (*xs)->obj == origin_obj)
+//     //     xs++;
+//     _intersections(&lst, xs);
+//     h = hit(lst);
+    
+//     // Check if there's any intersection
+//     if (h != NULL) {
+//         // Check if the intersection is in the direction of the light source
+//         if (h->t < distance) {
+//             // Free memory allocated for ray and intersections
+//             // free(r);
+//             // free(xs);
+//             return 1;
+//         }
+//     }
+//     // Free memory allocated for ray and intersections
+//     // free(r);
+//     // free(xs);
+//     return 0;
+// }
+
 
 int main ()
 {
@@ -330,8 +373,6 @@ int main ()
 	w->obj_lst->next->next->next->next->next = malloc(sizeof(t_obj_lst));
 	w->obj_lst->next->next->next->next->next->obj = left;
 	w->obj_lst->next->next->next->next->next->next = NULL;
-	// t_point p = _point(-20, 20, -20);
-	// printf("is_shadowed = %d\n", is_shadowed(w, p));
 	t_camera_fn c = camera(WIDTH, HEIGHT, M_PI / 3);
 	c.transform = view_transform(_point(0, 1.5, -5), _point(0, 1, 0), _vector(0, 1, 0));
 
@@ -340,6 +381,7 @@ int main ()
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	render(c, w, &image);
+	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (0);
@@ -347,8 +389,6 @@ int main ()
 
 // int main ()
 // {
-// 	printf("camera function : %.2f\n", camera(200, 125, M_PI_2).pixel_size);
-// 	printf("camera function : %.2f\n", camera(125, 200, M_PI_2).pixel_size);
 // 	t_world *w = malloc(sizeof(t_world));
 // 	w->light = _light(_point(-10, 10, -10), 1.0, _color(1.0, 1.0, 1.0));
 // 	t_object *s1 = _sphere(_point(0, 0, 0), 1, _color(0.8, 1.0, 0.6));
@@ -363,16 +403,23 @@ int main ()
 // 	w->obj_lst->next = malloc(sizeof(t_obj_lst));
 // 	w->obj_lst->next->obj = s2;
 // 	w->obj_lst->next->next = NULL;
-// 	t_camera_fn c = camera(200, 200, M_PI_2);
-// 	c.transform = view_transform(_point(0, 0, -5), _point(0, 0, 0), _vector(0, 1, 0));
-// 	mlx_image_t		*image;
-// 	mlx_t			*mlx;
+// 	// t_camera_fn c = camera(200, 200, M_PI_2);
+// 	// c.transform = view_transform(_point(0, 0, -5), _point(0, 0, 0), _vector(0, 1, 0));
+// 	// mlx_image_t		*image;
+// 	// mlx_t			*mlx;
 
-// 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
-// 		return (EXIT_FAILURE);
-// 	render(c, w, &image);
-// 	mlx_loop(mlx);
-// 	mlx_terminate(mlx);
+// 	t_lst_inter *lst = intersect_world(w, _ray(_point(0, 0, -5), _vector(0, 0, 1)));
+// 	printf("h->t = %.2f\n", lst->inter->t);
+// 	lst  = lst->next;
+// 	printf("h->t = %.2f\n", lst->inter->t);
+	
+	
+	
+// 	// if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
+// 	// 	return (EXIT_FAILURE);
+// 	// render(c, w, &image);
+// 	// mlx_loop(mlx);
+// 	// mlx_terminate(mlx);
 // 	// t_ray *r = _ray(_point(0, 0, -5), _vector(0, 0, 1));
 // 	// t_color c = color_at(w, r);
 	
