@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 10:45:44 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/04/02 05:01:23 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ void			free_tab(char	**tab);
 int				ft_lstsize(t_pars *lst);
 void			ft_free_struct(t_pars *pars);
 void			free_f_mtx(float **mtx, int size);
+int 			check_cap(t_ray *r, float t, float y);
+t_vector		local_normal_at(t_object *cy, t_point world_point);
 
 /* g_collector */
 
@@ -136,7 +138,7 @@ t_comps 		*prepare_computations(t_inter *inter, t_ray *ray);
 t_color 		shade_hit(t_world *world, t_comps *copms);
 t_color			color_at(t_world *w, t_ray *r);
 void			render(t_camera_fn c, t_world *w, mlx_image_t **image);
-
+t_inter 		**local_intersect(t_object *cy, t_ray *r);
 
 
 //HLAADIOU

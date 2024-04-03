@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_getters.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/31 10:29:50 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/04/02 06:21:07 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ t_object	*check_cy_data(t_pars *conf)
 		put_error("Invalid cylinder diameter/height\n");
 	rgb = parse_color(conf->elements[5]);
 	cy = _cylinder(pt, vec, ft_atof(conf->elements[3]), \
-	ft_atof(conf->elements[4]), _color01(rgb));
+					ft_atof(conf->elements[4]), 0, _color01(rgb)); /* to fix !!*/
 	if (!cy)
 		put_error("Fatal, unable to create object\n");
 	return (cy);

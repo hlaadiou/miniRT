@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/31 15:51:34 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/04/03 10:31:37 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ typedef struct s_cylinder
 	t_point		center;
 	t_vector	axis;
 	float		diameter;
-	float		height;
-	t_types		type;
+	float		min;
+	float		max;
 }	t_cylinder;
 
 typedef struct s_plane
@@ -133,7 +133,7 @@ t_ray			*_ray(t_point org, t_vector vec);
 t_point			_position(t_ray *ray, float t);
 t_object		*_sphere(t_point o, float radius, t_color c);
 t_object    	*_plane(t_point pt, t_vector vec, t_color c);
-t_object    	*_cylinder(t_point pt, t_vector axis, float d, float h, t_color c);
+t_object    	*_cylinder(t_point pt, t_vector axis, float d, float max, float min, t_color c);
 t_quadratic		discriminant_sp(t_ray *ray, t_object *sp);
 t_inter			**intersect_sp(t_ray *ray, t_object *sp);
 t_object		*_obj(void *obj, t_color color, t_types type);
@@ -148,6 +148,7 @@ t_vector 		normal_at(t_object *sp, t_point pnt);
 t_vector		cross_product(t_vector vec1, t_vector vec2);
 float			vec_magnitude(t_vector vec);
 t_lst_inter		*new_intersection(t_inter *inter);
+t_inter			**intersect_pl(t_ray *ray, t_object *plane);
 
 
 #endif

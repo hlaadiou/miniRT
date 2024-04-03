@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/04/01 17:26:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/04/03 11:12:01 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-# define WIDTH  400
-# define HEIGHT 200
+# define WIDTH  200
+# define HEIGHT 100
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
@@ -127,6 +127,21 @@ t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
 			mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0))))));
 }
 
+// t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
+// {
+//     float world_x;
+//     float world_y;
+//     t_tuple pixel;
+
+//     world_x = c.hwidth - (px + 0.5) * c.pixel_size;
+//     world_y = c.hheight - (py + 0.5) * c.pixel_size;
+//     pixel = mtx_tuple_prod(inverse(c.transform), _point(world_x, world_y, -1));
+// 	t_point origin = mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0));
+// 	t_vector direction = vec_normalize(subtract_tuples(pixel, origin));
+//     return _ray(origin, direction);
+// }
+
+
 t_lst_inter *lst_sort(t_lst_inter *lst)
 {
 	t_lst_inter *tmp = lst;
@@ -160,12 +175,29 @@ t_lst_inter *intersect_world(t_world *w, t_ray *r)
 	xs[1] = NULL;
 	while (obj != NULL)
 	{
-		xs = intersect_sp(r, obj->obj);
+		if (obj->obj->type == SPHERE)
+			xs = intersect_sp(r, obj->obj);
+		else if (obj->obj->type == CYLINDER)
+			xs = local_intersect(obj->obj, r);
+		else if (obj->obj->type == PLANE)
+			xs = intersect_pl(r, obj->obj);
 		_intersections(&lst, xs);
 		obj = obj->next;
 	}
 	lst = lst_sort(lst);
 	return (lst);
+}
+
+t_inter    **intersect_pl(t_ray *ray, t_object *plane)
+{
+    t_roots    root;
+
+    if (fabs(ray->dir.y) < EPSILON)
+        return (NULL);
+    root.counter = 1;
+    root.t1 = (-1 * ray->org.y) / ray->dir.y;
+    root.t2 = root.t1;
+    return (_intersection(root, plane));
 }
 
 t_comps *prepare_computations(t_inter *inter, t_ray *ray)
@@ -178,8 +210,14 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 	comps->t = inter->t;
 	comps->obj = inter->obj;
 	comps->point = _position(ray, comps->t);
-	comps->eyev = ray->org;
-	comps->normalv = normal_at(comps->obj, comps->point);
+	// comps->point.z = roundf(comps->point.z * 1000) / 1000;
+	// comps->point.y = roundf(comps->point.y * 1000) / 1000;
+	// comps->point.x = roundf(comps->point.x * 1000) / 1000;
+	comps->eyev = multiply_tuple_scalar(-1, ray->dir);
+	if (comps->obj->type == SPHERE)
+		comps->normalv = normal_at(comps->obj, comps->point);
+	else if (comps->obj->type == CYLINDER)
+		comps->normalv = local_normal_at(comps->obj, comps->point);
 	if (dot_product(comps->normalv, comps->eyev) < 0)
 	{
 		comps->inside = 1;
@@ -187,7 +225,8 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 	}
 	else
 		comps->inside = 0;
-	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
+	float epsilon = 0.0001;
+	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(epsilon, comps->normalv));
 	return (comps);
 }
 
@@ -207,8 +246,8 @@ t_color color_at(t_world *w, t_ray *r)
 t_color shade_hit(t_world *world, t_comps *copms)
 {
 	int shadowed;
-	shadowed = is_shadowed(world, copms->over_point);
-	return(illuminate(copms->obj, copms->over_point, world->light, copms->eyev, shadowed));
+	shadowed = is_shadowed(world, copms->point);
+	return(illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
 }
 
 void render(t_camera_fn c, t_world *w, mlx_image_t **image)
@@ -220,12 +259,15 @@ void render(t_camera_fn c, t_world *w, mlx_image_t **image)
 			t_ray *r = ray_for_pixel(c, x, y);
 			t_color color = color_at(w, r);
 			color = normalizeColor(color);
+			if (w->light.brightness != 0)
+				color = multiply_color_scalar(w->light.brightness, color);
 			color = _color255(color);
 			int32_t color_int = ft_pixel((int)(color.r), (int)(color.g), \
 										(int)(color.b), 0x00FF);
 			mlx_put_pixel((*image), x, y, color_int);
 			// free(r);
 		}
+
 	}
 }
 
@@ -264,6 +306,44 @@ void	free_f_mtx(float **mtx, int size)
 	free(mtx);
 }
 
+// int is_shadowed(t_world *w, t_point p)
+// {
+//     t_vector v;
+//     float distance;
+//     t_ray *r = NULL;
+//     t_inter *h = NULL;
+//     t_lst_inter *lst = NULL;
+
+//     // Calculate direction and distance to light source
+//     v = subtract_tuples(w->light.position, p);
+//     distance = vec_magnitude(v);
+
+//     // Create ray from point to light source
+//     r = _ray(p, vec_normalize(v));
+
+//     // Intersect world with ray
+//     lst = intersect_world(w, r);
+
+//     // Find closest intersection
+//     h = hit(lst);
+
+//     // Check if intersection is valid and not self-shadowed
+//     if (h != NULL && h->t < distance - EPSILON)
+//     {
+//         // Free allocated memory
+//         free(r);
+//         // free_inter_list(lst);
+//         return 1; // Point is shadowed
+//     }
+
+//     // Free allocated memory
+//     free(r);
+//     // free_inter_list(lst);
+
+//     return 0; // Point is not shadowed
+// }
+
+
 int	is_shadowed(t_world *w, t_point p)
 {
 	t_vector v;
@@ -277,7 +357,7 @@ int	is_shadowed(t_world *w, t_point p)
 	r = _ray(p, vec_normalize(v));
 	lst = intersect_world(w, r);
 	h = hit(lst);
-	if (h != NULL && h->t < distance)
+	if (h != NULL && h->t < distance - EPSILON)
 	{
 		free(r);
 		return (1);
@@ -286,46 +366,235 @@ int	is_shadowed(t_world *w, t_point p)
 	return (0);
 }
 
+t_ray *transform_ray(t_ray *ray, t_matrix *a)
+{
+	t_ray *b;
+
+	b = _ray(ray->org, ray->dir);
+	b->org =  mtx_tuple_prod(a, ray->org);
+	b->dir =  mtx_tuple_prod(a, ray->dir);
+	return (b);
+}
+
+// typedef struct {
+//     float x, y, z;
+// } t_vector;
+
+// typedef struct {
+//     t_vector org;   // Origin point of the ray
+//     t_vector dir;   // Direction of the ray (unit vector)
+// } t_ray;
+
+// typedef struct {
+//     t_ray *ray;
+// } t_object;
+
+// typedef struct {
+//     float t;        // Parameter value along the ray where the intersection occurs
+//     t_object *obj;  // Pointer to the intersected object
+// } t_inter;
+
+t_inter **local_intersect(t_object *cy, t_ray *r) {
+    t_inter **inter = malloc(sizeof(t_inter *) * 2);
+    if (inter == NULL) {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+    float a = (r->dir.x * r->dir.x) + (r->dir.z * r->dir.z);
+    if (fabs(a) < EPSILON || fabs(r->dir.y) < EPSILON) {
+        // r is parallel to the cylinder's axis or too close to zero
+        free(inter);
+        return NULL;
+    }
+    float b = 2 * ((r->dir.x * r->org.x) + (r->dir.z * r->org.z));
+    float c = (r->org.x * r->org.x) + (r->org.z * r->org.z) - 1;
+    float discriminant = b * b - 4 * a * c;
+    if (discriminant < EPSILON) {
+        free(inter);
+        return NULL;
+    }
+    float sqrt_discriminant = sqrt(discriminant);
+    float t1 = (-b - sqrt_discriminant) / (2 * a);
+    float t2 = (-b + sqrt_discriminant) / (2 * a);
+    if (t1 < EPSILON && t2 < EPSILON) {
+        free(inter);
+        return NULL;
+    }
+    inter[0] = malloc(sizeof(t_inter));
+    inter[1] = malloc(sizeof(t_inter));
+    if (inter[0] == NULL || inter[1] == NULL) {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+	if (t1 > t2)
+	{
+		float tmp = t1;
+		t1 = t2;
+		t2 = tmp;
+	}
+	float y0 = r->org.y + t1 * r->dir.y;
+	if (cy->cy->min < y0 && y0 < cy->cy->max)
+	{
+		inter[0]->t = t1;
+		inter[0]->obj = cy;
+	}
+	float y1 = r->org.y + t2 * r->dir.y;
+	if (cy->cy->min < y1 && y1 < cy->cy->max)
+	{
+		inter[1]->t = t2;
+		inter[1]->obj = cy;
+	}
+    return inter;
+}
+
+
+// t_inter **local_intersect(t_object *cy, t_r->*r)
+// {
+// 	t_ray *ray2;
+// 	t_ray *ray;
+// 	t_inter **inter = malloc(sizeof(t_inter *) * 2);
+// 	t_matrix *transform = cy->transform;
+// 	ray = transform_ray(r, transform);
+// 	ray2 = transform_ray(r, transform);
+// 	float a = ray2->dir.x * ray2->dir.x + ray2->dir.z * ray2->dir.z;
+// 	if (a < EPSILON || r->dir.y < EPSILON)
+// 	{
+// 		// free(ray);
+// 		// free(ray2);
+// 		return (NULL);
+// 	}
+// 	float b = 2 * ray2->dir.x * ray2->org.x + 2 * ray2->dir.z * ray2->org.z;
+// 	float c = ray2->org.x * ray2->org.x + ray2->org.z * ray2->org.z - 1;
+// 	float discriminant = b * b - 4 * a * c;
+// 	if (discriminant < 0)
+// 	{
+// 		// free(ray);
+// 		// free(ray2);
+// 		return (NULL);
+// 	}
+// 	inter[0] = malloc(sizeof(t_inter));
+// 	inter[1] = malloc(sizeof(t_inter));
+// 	float t1 =	(-b - sqrt(discriminant)) / (2 * a);
+// 	float t2 =	(-b + sqrt(discriminant)) / (2 * a);
+// 	if (t1 > t2)
+// 	{
+// 		float tmp = t1;
+// 		t1 = t2;
+// 		t2 = tmp;
+// 	}
+// 	inter[0]->t = t1;
+// 	inter[0]->obj = cy;
+// 	inter[1]->t = t2;
+// 	inter[1]->obj = cy;
+// 	if (inter[0]->t > inter[1]->t)
+// 	{
+// 		float tmp = inter[0]->t;
+// 		inter[0]->t = inter[1]->t;
+// 		inter[1]->t = tmp;
+// 	}
+// 	float y0 = ray->org.y + inter[0]->t * ray->dir.y;
+// 	if (cy->cy->min < y0 && y0 < cy->cy->max)
+// 	{
+// 		inter[0]->t = t1;
+// 		inter[0]->obj = cy;
+// 	}
+// 	float y1 = ray->org.y + inter[1]->t * ray->dir.y;
+// 	if (cy->cy->min < y1 && y1 < cy->cy->max)
+// 	{
+// 		// free(ray);
+// 		// free(ray2);
+// 		inter[0]->t = t2;
+// 		inter[0]->obj = cy;
+// 	}
+// 	if (inter[0]->t <= 0 || inter[1]->t <= 0)
+// 	{
+// 		// free(inter[0]);
+// 		// free(inter[1]);
+// 		// free(inter);
+// 		// free(ray);
+// 		// free(ray2);
+// 		return (NULL);
+// 	}
+// 	printf("t1 = %.2f\n", inter[0]->t);
+// 	printf("t2 = %.2f\n", inter[1]->t);
+// 	// free(ray);
+// 	// free(ray2);
+// 	return (inter);
+// }
+
+t_vector	local_normal_at(t_object *cy, t_point world_point)
+{
+	float dist = (world_point.x * world_point.x) + (world_point.z * world_point.z);
+	if (dist < 1 && world_point.y >= cy->cy->max)
+		return (_vector(0, 1, 0));
+	else if (dist < 1 && world_point.y <= cy->cy->min)
+		return (_vector(0, -1, 0));
+	else
+		return (_vector(world_point.x, 0, world_point.z));
+}
+
+// int main ()
+// {
+// 	t_object *cy = _cylinder(_point(0, 0, 0), _vector(0, 1, 0), 1, 2, 1, _color(1, 0, 0));
+// 	t_ray *r = _ray(_point(0, 1.5, -2), vec_normalize(_vector(0, 0, 1)));
+// 	t_inter **v = local_intersect(cy, r);
+// 	if (v)
+// 	{
+// 		printf("t1 = %.2f\n", v[0]->t);
+// 		printf("t2 = %.2f\n", v[1]->t);
+// 	}
+// 	else 
+// 		printf("no intersection\n");
+	
+// }
+
+int check_cap(t_ray *r, float t, float y)
+{
+	float x = r->org.x + (t * r->dir.x);
+	float z = r->org.z + (t * r->dir.z);
+	if (x * x + z * z > 1)
+		return (0);
+	if (y > 0)
+		return (1);
+	else if (compare_f(y, 0))
+		return (0);
+	return (x * x + z * z <= 1);
+}
+
 int main ()
 {
-	t_object *floor = _sphere(_point(0, 0, 0), 1, _color(1, 0.9, 0.9));
-	floor->transform = inverse(scaling_mtx(10, 0.01, 10));
+	t_object *floor = _plane(_point(0, 0, 0), _vector(0, 1, 0), _color(1, 1, 1));
 	floor->specs.specular = 0;
-	t_object *left_wall = _sphere(_point(0, 0, 0), 1, _color(1, 0.9, 0.9));
-	left_wall->transform = inverse(mtx_multiply(translation(0, 0, 5), (mtx_multiply( rotation_y(-M_PI_4),
- 							(mtx_multiply(rotation_x(-M_PI_2) ,scaling_mtx(10, 0.01, 10)))))));
-	left_wall->specs.specular = 0;
-	t_object *right_wall = _sphere(_point(0, 0, 0), 1, _color(1, 0.9, 0.9));
-	right_wall->transform = inverse(mtx_multiply(translation(0, 0, 5), (mtx_multiply( rotation_y(M_PI_4),
- 							(mtx_multiply(rotation_x(M_PI_2) ,scaling_mtx(10, 0.01, 10)))))));
-	right_wall->specs.specular = 0;
-	t_object *middle = _sphere(_point(0, 0, 0), 1, _color(0.1, 1, 0.5));
-	middle->specs.diffuse = 0.7;
-	middle->specs.specular = 0.3;
-	middle->transform = inverse(translation(-0.5, 1, -0.5));
+	
+	t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 1, 0), 2, 2, 0, _color(0.1, 1, 0.5));
+
 	t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
 	right->specs.diffuse = 0.7;
 	right->specs.specular = 0.3;
 	right->transform = inverse(mtx_multiply(translation(1.5, 0.5, -0.5), scaling_mtx(0.5, 0.5, 0.5)));
+	right->transform = inverse(translation(2, 1, 2));
+	// set_transform(&right, scaling_mtx(2, 2, 2));
+
 	t_object *left = _sphere(_point(0, 0, 0), 1, _color(1, 0.8, 0.1));
 	left->specs.diffuse = 0.7;
 	left->specs.specular = 0.3;
-	left->transform = inverse(mtx_multiply(translation(-1.5, 0.33, -0.75), scaling_mtx(0.33, 0.33, 0.33)));
+	set_transform(&left, mtx_multiply(translation(-1.5, 0.33, -0.75), scaling_mtx(0.33, 0.33, 0.33)));
+
 	t_world *w = malloc(sizeof(t_world));
-	w->light = _light(_point(-10, 10, -10), 1.0, _color(1.0, 1.0, 1.0));
+	w->light = _light(_point(-10, 10, -10), 1, _color(1.0, 1.0, 1.0));
 	w->obj_lst = malloc(sizeof(t_obj_lst));
 	w->obj_lst->obj = floor;
 	w->obj_lst->next = malloc(sizeof(t_obj_lst));
-	w->obj_lst->next->obj = left_wall;
+	w->obj_lst->next->obj = middle;
 	w->obj_lst->next->next = malloc(sizeof(t_obj_lst));
-	w->obj_lst->next->next->obj = right_wall;
+	w->obj_lst->next->next->obj = right;
 	w->obj_lst->next->next->next = malloc(sizeof(t_obj_lst));
-	w->obj_lst->next->next->next->obj = middle;
-	w->obj_lst->next->next->next->next = malloc(sizeof(t_obj_lst));
-	w->obj_lst->next->next->next->next->obj = right;
-	w->obj_lst->next->next->next->next->next = malloc(sizeof(t_obj_lst));
-	w->obj_lst->next->next->next->next->next->obj = left;
-	w->obj_lst->next->next->next->next->next->next = NULL;
+	w->obj_lst->next->next->next->obj = left;
+	w->obj_lst->next->next->next->next = NULL;
+	// w->obj_lst->next->next->next->next->obj = ;
+	// w->obj_lst->next->next->next->next->next = malloc(sizeof(t_obj_lst));
+	// w->obj_lst->next->next->next->next->next->obj = ;
+	// w->obj_lst->next->next->next->next->next->next = NULL;
 	t_camera_fn c = camera(WIDTH, HEIGHT, M_PI / 3);
 	c.transform = view_transform(_point(0, 1.5, -5), _point(0, 1, 0), _vector(0, 1, 0));
 
