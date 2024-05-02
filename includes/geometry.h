@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/04/03 10:31:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/04/03 12:06:22 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,6 @@ t_vector		cross_product(t_vector vec1, t_vector vec2);
 float			vec_magnitude(t_vector vec);
 t_lst_inter		*new_intersection(t_inter *inter);
 t_inter			**intersect_pl(t_ray *ray, t_object *plane);
-
+t_inter 		**intersect_caps(t_object *cy, t_ray *r);
 
 #endif

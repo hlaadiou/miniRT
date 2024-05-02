@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/04/02 05:01:23 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/04/03 12:12:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void			free_tab(char	**tab);
 int				ft_lstsize(t_pars *lst);
 void			ft_free_struct(t_pars *pars);
 void			free_f_mtx(float **mtx, int size);
-int 			check_cap(t_ray *r, float t, float y);
+int 			check_cap(t_ray *r, float t);
 t_vector		local_normal_at(t_object *cy, t_point world_point);
 
 /* g_collector */

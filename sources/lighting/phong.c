@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/04/03 11:08:55 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/04/03 11:39:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam, int in
 	if (in_shadow || compare_f(light.brightness , 0))
 		return (ph.ambient);
 	light_dot_normal = dot_product(ph.l, ph.n);
-	if (light_dot_normal >= EPSILON)
+	if (light_dot_normal >= 0)
 	{
 		ph.diffuse = multiply_color_scalar(obj->specs.diffuse * \
 								light_dot_normal, ph.px_color);
 		reflect_dot_eye = dot_product(ph.r, ph.e);
-		if (reflect_dot_eye > EPSILON)
+		if (reflect_dot_eye > 0)
 		{
 			factor = pow(reflect_dot_eye, obj->specs.phong_factor);
 			ph.specular = multiply_color_scalar(factor * \
