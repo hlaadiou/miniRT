@@ -1,0 +1,7 @@
+/Users/azgaoua/miniRT/build/CMakeFiles/mlx42.dir
+/Users/azgaoua/miniRT/build/CMakeFiles/edit_cache.dir
+/Users/azgaoua/miniRT/build/CMakeFiles/rebuild_cache.dir
+/Users/azgaoua/miniRT/build/CMakeFiles/list_install_components.dir
+/Users/azgaoua/miniRT/build/CMakeFiles/install.dir
+/Users/azgaoua/miniRT/build/CMakeFiles/install/local.dir
+/Users/azgaoua/miniRT/build/CMakeFiles/install/strip.dir

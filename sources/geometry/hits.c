@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/04/03 10:30:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/09 17:11:23 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,61 @@ t_inter	*hit(t_lst_inter *lst)
 		lst = lst->next;
 	}
 	return (NULL);
+}
+
+t_inter **local_intersect(t_object *cy, t_ray *r) 
+{
+    t_inter **inter = malloc(sizeof(t_inter *) * 2);
+    if (inter == NULL) {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+    float a = (r->dir.x * r->dir.x) + (r->dir.z * r->dir.z);
+    if (fabs(a) < EPSILON || fabs(r->dir.y) < EPSILON) 
+    {
+        free(inter);
+        return (NULL);
+    }
+    float b = 2 * ((r->dir.x * r->org.x) + (r->dir.z * r->org.z));
+    float c = (r->org.x * r->org.x) + (r->org.z * r->org.z) - 1;
+    float discriminant = b * b - 4 * a * c;
+    if (discriminant < EPSILON)
+    {
+        free(inter);
+        return (NULL);
+    }
+    float sqrt_discriminant = sqrt(discriminant);
+    float t1 = (-b - sqrt_discriminant) / (2 * a);
+    float t2 = (-b + sqrt_discriminant) / (2 * a);
+    if (t1 < EPSILON && t2 < EPSILON)
+    {
+        free(inter);
+        return (NULL);
+    }
+    inter[0] = malloc(sizeof(t_inter));
+    inter[1] = malloc(sizeof(t_inter));
+    if (inter[0] == NULL || inter[1] == NULL)
+    {
+        perror("Memory allocation failed");
+        exit(EXIT_FAILURE);
+    }
+    if (t1 > t2)
+    {
+        float tmp = t1;
+        t1 = t2;
+        t2 = tmp;
+    }
+    float y0 = r->org.y + t1 * r->dir.y;
+    if (cy->cy->min < y0 && y0 < cy->cy->max)
+    {
+        inter[0]->t = t1;
+        inter[0]->obj = cy;
+    }
+    float y1 = r->org.y + t2 * r->dir.y;
+    if (cy->cy->min < y1 && y1 < cy->cy->max)
+    {
+        inter[1]->t = t2;
+        inter[1]->obj = cy;
+    }
+    return (inter);
 }

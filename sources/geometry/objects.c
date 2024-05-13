@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:46:44 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/04/02 00:38:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/09 17:16:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,14 @@ t_object	*_obj(void *obj, t_color c, t_types type)
 		_specs(0.1, 0.9, 0.9, 200.0), c};
 	}
 	return (o);
+}
+
+t_ray *transform_ray(t_ray *ray, t_matrix *a)
+{
+    t_ray *b;
+
+    b = _ray(ray->org, ray->dir);
+    b->org =  mtx_tuple_prod(a, ray->org);
+    b->dir =  mtx_tuple_prod(a, ray->dir);
+    return (b);
 }
