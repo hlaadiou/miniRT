@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/09 17:11:23 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:12:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_inter **local_intersect(t_object *cy, t_ray *r)
         exit(EXIT_FAILURE);
     }
     float a = (r->dir.x * r->dir.x) + (r->dir.z * r->dir.z);
-    if (fabs(a) < EPSILON || fabs(r->dir.y) < EPSILON) 
+    if (fabs(a) < 0.00001 || fabs(r->dir.y) < 0.00001) 
     {
         free(inter);
         return (NULL);
@@ -44,7 +44,7 @@ t_inter **local_intersect(t_object *cy, t_ray *r)
     float b = 2 * ((r->dir.x * r->org.x) + (r->dir.z * r->org.z));
     float c = (r->org.x * r->org.x) + (r->org.z * r->org.z) - 1;
     float discriminant = b * b - 4 * a * c;
-    if (discriminant < EPSILON)
+    if (discriminant < 0.00001)
     {
         free(inter);
         return (NULL);
@@ -52,7 +52,7 @@ t_inter **local_intersect(t_object *cy, t_ray *r)
     float sqrt_discriminant = sqrt(discriminant);
     float t1 = (-b - sqrt_discriminant) / (2 * a);
     float t2 = (-b + sqrt_discriminant) / (2 * a);
-    if (t1 < EPSILON && t2 < EPSILON)
+    if (t1 < 0.00001 && t2 < 0.00001)
     {
         free(inter);
         return (NULL);

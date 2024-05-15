@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/12 20:47:48 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/15 17:51:41 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // 	float		min;
 // 	float		max;
 // }	t_cylinder;
-t_object	*_cylinder(t_point pt, t_vector axis, float d, float max,float min, t_color c)
+t_object	*_cylinder(t_point pt, t_vector axis, double d, double max,double min, t_color c)
 {
 	t_cylinder	*cy;
 
@@ -37,14 +37,14 @@ t_inter    **intersect_pl(t_ray *ray, t_object *plane)
     t_inter         **inter;
     t_roots         roots;
     t_vector        x;
-    float           prod;
+    double           prod;
 
     inter = NULL;
     if (!dot_product(ray->dir, plane->pl->vec))
         return (NULL);
     x = subtract_tuples(ray->org, plane->pl->pt);
     prod = dot_product(ray->dir, plane->pl->vec) * dot_product(x, plane->pl->vec);
-    if (prod < 0.0f)
+    if (prod < EPSILON)
     {
         roots.counter = 1;
         roots.t1 = dot_product(multiply_tuple_scalar(-1.0, x), plane->pl->vec) \
@@ -55,35 +55,97 @@ t_inter    **intersect_pl(t_ray *ray, t_object *plane)
     return (inter);
 }
 
-t_inter **intersect_caps(t_object *cy, t_ray *r)
-{
+t_inter **intersect_caps(t_object *cy, t_ray *r) {
     t_inter **inter = malloc(sizeof(t_inter *) * 2);
-    float t;
+    double t;
+    int count = 0;
 
-    t = 0;
-    inter[0] = malloc(sizeof(t_inter));
-    inter[1] = malloc(sizeof(t_inter));
-    if (inter[0] == NULL || inter[1] == NULL || inter == NULL)
-    {
+    if (inter == NULL) {
         perror("Memory allocation failed");
         exit(EXIT_FAILURE);
     }
-    if (compare_f(r->dir.y, 0))
-        return (NULL);
+
+    inter[0] = malloc(sizeof(t_inter));
+    inter[1] = malloc(sizeof(t_inter));
+
+    if (inter[0] == NULL || inter[1] == NULL) {
+        perror("Memory allocation failed");
+        free(inter[0]); // Free allocated memory before exiting
+        free(inter[1]);
+        free(inter);
+        exit(EXIT_FAILURE);
+    }
+
+    if (compare_f(r->dir.y, 0)) {
+        free(inter[0]);
+        free(inter[1]);
+        free(inter);
+        return NULL;
+    }
+
+    // Check intersection with the lower cap
     t = (cy->cy->min - r->org.y) / r->dir.y;
-    if (check_cap(r, t))
-    {
-        inter[0]->t = t;
-        inter[0]->obj = cy;
+    if (check_cap(r, t)) {
+        inter[count]->t = t;
+        inter[count]->obj = cy;
+        count++;
     }
+
+    // Check intersection with the upper cap
     t = (cy->cy->max - r->org.y) / r->dir.y;
-    if (check_cap(r, t))
-    {
-        inter[1]->t = t;
-        inter[1]->obj = cy;
+    if (check_cap(r, t)) {
+        inter[count]->t = t;
+        inter[count]->obj = cy;
+        count++;
     }
-    return (inter);
+
+    // If there are no valid intersections, free memory and return NULL
+    if (count == 0) {
+        free(inter[0]);
+        free(inter[1]);
+        free(inter);
+        return NULL;
+    }
+
+    // If there is only one valid intersection, free the unused allocation
+    if (count == 1) {
+        free(inter[1]);
+        inter[1] = NULL; // Set the unused slot to NULL for clarity
+    }
+
+    return inter;
 }
+
+
+// t_inter **intersect_caps(t_object *cy, t_ray *r)
+// {
+//     t_inter **inter = malloc(sizeof(t_inter *) * 2);
+//     double t;
+
+//     t = 0;
+//     inter[0] = malloc(sizeof(t_inter));
+//     inter[1] = malloc(sizeof(t_inter));
+//     if (inter[0] == NULL || inter[1] == NULL || inter == NULL)
+//     {
+//         perror("Memory allocation failed");
+//         exit(EXIT_FAILURE);
+//     }
+//     if (compare_f(r->dir.y, 0))
+//         return (NULL);
+//     t = (cy->cy->min - r->org.y) / r->dir.y;
+//     if (check_cap(r, t))
+//     {
+//         inter[0]->t = t;
+//         inter[0]->obj = cy;
+//     }
+//     t = (cy->cy->max - r->org.y) / r->dir.y;
+//     if (check_cap(r, t))
+//     {
+//         inter[1]->t = t;
+//         inter[1]->obj = cy;
+//     }
+//     return (inter);
+// }
 
 int check_cap(t_ray *r, float t)
 {
@@ -104,7 +166,7 @@ t_vector local_normal_at(t_object *cy, t_point world_point)
     float dist;
 
 
-    object_point = mtx_tuple_prod(inverse(cy->transform), world_point);
+    object_point = mtx_tuple_prod(cy->transform, world_point);
     dist = (object_point.x * object_point.x) + (object_point.z * object_point.z);
     if (dist < 1 && object_point.y >= cy->cy->max)
         normal = (t_vector){0, 1, 0, 1};

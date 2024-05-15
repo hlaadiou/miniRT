@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/05/13 18:13:17 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:26:39 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-# define WIDTH  400
-# define HEIGHT 200
+# define WIDTH  800
+# define HEIGHT 400
 
 /**
  * @brief Creates a 32-bit pixel color value from the specified red, green, and blue color components.
@@ -161,14 +161,14 @@ t_color normalizeColor(t_color colorValue) {
 t_camera_fn camera(int hsize, int vsize, float field_of_view)
 {
     t_camera_fn c;
-    float aspect;
-    float hview;
+    double aspect;
+    double hview;
 
     c.vsize = vsize;
     c.hsize = hsize;
-    hview = tan(field_of_view / 2);
-    aspect = (float)hsize / (float)vsize;
-    if (aspect >= 1)
+    hview = tan(field_of_view / 2.0f);
+    aspect = (double)hsize / (double)vsize;
+    if (aspect >= 1.0f)
     {
         c.hwidth = hview;
         c.hheight = hview / aspect;
@@ -178,9 +178,9 @@ t_camera_fn camera(int hsize, int vsize, float field_of_view)
         c.hwidth = hview * aspect;
         c.hheight = hview;
     }
-    c.pixel_size = (c.hwidth * 2) / hsize;
+    c.pixel_size = (c.hwidth * 2.0f) / hsize;
     c.transform = _identity(4);
-    return c;
+    return (c);
 }
 
 /**
@@ -194,6 +194,11 @@ t_camera_fn camera(int hsize, int vsize, float field_of_view)
  * 
  * @return A pointer to the ray for the specified pixel
  */
+
+/*
+<<<*********************************-THE OLD VR-*********************************>>>
+*/
+
 t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
 {
     float world_x;
@@ -207,6 +212,37 @@ t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
             vec_normalize(subtract_tuples(pixel,
             mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0))))));
 }
+// t_ray *ray_for_pixel(t_camera_fn c, int px, int py) {
+//     double world_x;
+//     double world_y;
+//     t_tuple pixel;
+//     t_tuple origin;
+//     t_tuple direction;
+//     t_tuple transformed_origin;
+//     t_tuple transformed_pixel;
+//     t_matrix *inv_transform;
+
+//     // Calculate the world coordinates of the pixel in camera space
+//     world_x = c.hwidth - (px + 0.5) * c.pixel_size;
+//     world_y = c.hheight - (py + 0.5) * c.pixel_size;
+
+//     // Calculate the inverse of the camera transformation matrix
+//     inv_transform = inverse(c.transform);
+
+//     // Transform the pixel and origin to world space
+//     pixel = _point(world_x, world_y, -1);
+//     transformed_pixel = mtx_tuple_prod(inv_transform, pixel);
+//     origin = _point(0, 0, 0);
+//     transformed_origin = mtx_tuple_prod(inv_transform, origin);
+
+//     // Compute the direction vector from the camera origin to the pixel
+//     direction = subtract_tuples(transformed_pixel, transformed_origin);
+//     direction = vec_normalize(direction);
+
+//     // Create the ray
+//     return _ray(transformed_origin, direction);
+// }
+
 
 /**
  * @brief Sorts a list of intersection points in ascending order based on the parameter t
@@ -227,7 +263,7 @@ t_lst_inter *lst_sort(t_lst_inter *lst)
         tmp2 = tmp->next;
         while (tmp2)
         {
-            if (tmp->inter->t > tmp2->inter->t)
+            if (tmp->inter && tmp2->inter && tmp->inter->t > tmp2->inter->t)
             {
                 inter = tmp->inter;
                 tmp->inter = tmp2->inter;
@@ -258,8 +294,11 @@ t_lst_inter *intersect_world(t_world *w, t_ray *r)
     t_ray *r1;
     while (obj != NULL)
     {
-        if (obj->obj->type == SPHERE)
-            xs = intersect_sp(r, obj->obj);
+        if (obj->obj->type == PLANE)
+        {
+            // r1 = transform_ray(r, obj->obj->transform);
+            xs = intersect_pl(r, obj->obj);
+        }
         else if (obj->obj->type == CYLINDER)
         {
             r1 = transform_ray(r, obj->obj->transform);
@@ -267,11 +306,8 @@ t_lst_inter *intersect_world(t_world *w, t_ray *r)
             _intersections(&lst, xs);
             xs = local_intersect(obj->obj, r1);
         }
-        else if (obj->obj->type == PLANE)
-        {
-            // r1 = transform_ray(r, obj->obj->transform);
-            xs = intersect_pl(r, obj->obj);
-        }
+        else if (obj->obj->type == SPHERE)
+            xs = intersect_sp(r, obj->obj);
         if (xs)
             _intersections(&lst, xs);
         r1 = NULL;
@@ -295,6 +331,7 @@ t_lst_inter *intersect_world(t_world *w, t_ray *r)
 t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 {
     t_comps *comps;
+
     comps = malloc(sizeof(t_comps));
     if (!comps)
         return (NULL);
@@ -307,12 +344,14 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
     else if (comps->obj->type == CYLINDER) 
     {
         comps->normalv = local_normal_at(comps->obj, comps->point);
-        
     }
     if (dot_product(comps->normalv, comps->eyev) < EPSILON)
     {
         comps->inside = 1;
-        comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
+        if (comps->obj->type == PLANE)
+            comps->normalv = multiply_tuple_scalar(-1, comps->obj->pl->vec);
+        else 
+            comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
     }
     else
         comps->inside = 0;
@@ -488,16 +527,20 @@ int main ()
 {
     // Create objects in the scene
     t_object *floor = _plane(_point(3, 0, 0), _vector(0, 1, 0), _color(1, 1, 1));
-    t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 0, 0), 1, 1, 0, _color(1, 0, 0));
+
+    t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 1, 0), 1, 2, 0, _color(1, 0, 0));
     middle->specs.diffuse = 0.7;
     middle->specs.specular = 0;
-    middle->transform = inverse(translation(0, 1, 3));
-    middle->transform = mtx_multiply(rotation_x(M_PI_4), middle->transform);
-    middle->transform = mtx_multiply((rotation_y(M_PI_2)), middle->transform);
+    // ft_from_vectr_to_mtx_transform_cy(&middle);
+    middle->transform = inverse(translation(0, 0, 0));
+    // set_transform(&middle, rotation_x(M_PI_4));
+    // set_transform(&middle, rotation_y(M_PI_2));
+
     t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
     right->specs.diffuse = 0.7;
     right->specs.specular = 0;
     right->transform = inverse(translation(3, 1, 8));
+
     t_object *left = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
     left->specs.diffuse = 0.7;
     left->specs.specular = 0;
