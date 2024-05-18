@@ -1,6 +1,9 @@
 {
     "files.associations": {
-        "minirt.h": "c"
+        "minirt.h": "c",
+        "lighting.h": "c",
+        "rt_mathematics.h": "c",
+        "mlx42.h": "c"
     },
     "cmake.sourceDirectory": "/Users/azgaoua/miniRT/lib/MLX42"
 }

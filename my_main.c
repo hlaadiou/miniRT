@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/05/18 18:15:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/18 21:36:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-# define WIDTH  200
-# define HEIGHT 100
+# define WIDTH  800
+# define HEIGHT 400
 
 /**
  * @brief Creates a 32-bit pixel color value from the specified red, green, and blue color components.
@@ -161,13 +161,13 @@ t_color normalizeColor(t_color colorValue) {
 t_camera_fn camera(int hsize, int vsize, float field_of_view)
 {
     t_camera_fn c;
-    double aspect;
-    double hview;
+    float aspect;
+    float hview;
 
     c.vsize = vsize;
     c.hsize = hsize;
     hview = tan(field_of_view / 2.0f);
-    aspect = (double)hsize / (double)vsize;
+    aspect = (float)hsize / (float)vsize;
     if (aspect >= 1.0f)
     {
         c.hwidth = hview;
@@ -207,10 +207,10 @@ t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
 
     world_x = c.hwidth - (px + 0.5) * c.pixel_size;
     world_y = c.hheight - (py + 0.5) * c.pixel_size;
-    pixel = mtx_tuple_prod(inverse(c.transform), _point(world_x, world_y, -1));
-    return (_ray(mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0)),
+    pixel = mtx_tuple_prod(c.transform, _point(world_x, world_y, -1));
+    return (_ray(mtx_tuple_prod(c.transform, _point(0, 0, 0)),
             vec_normalize(subtract_tuples(pixel,
-            mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0))))));
+            mtx_tuple_prod(c.transform, _point(0, 0, 0))))));
 }
 
 /**
@@ -492,25 +492,26 @@ int	is_shadowed(t_world *w, t_point p)
 int main ()
 {
     // Create objects in the scene
-    t_object *floor = _plane(_point(3, 0, 0), _vector(0, 1, 0), _color(1, 1, 1));
+    t_object *floor = _plane(_point(0, 0, 0), _vector(0, 1, 0), _color(1, 1, 1));
 
-    t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 1, 0), 1, 1, 0, _color(1, 0, 0));
+    t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 0, 0), 1, 2, 0, _color(1, 0, 0));
     middle->specs.diffuse = 0.7;
     middle->specs.specular = 0;
     // ft_from_vectr_to_mtx_transform_cy(&middle);
-    middle->transform = inverse(translation(0, 1, 3));
+    middle->transform = inverse(translation(0, 1, 5));
+    // set_transform(&middle, rotation_x(M_PI_2));
+    // set_transform(&middle, rotation_z(M_PI_4));
     set_transform(&middle, rotation_x(M_PI_4));
-    // set_transform(&middle, rotation_y(M_PI_2));
 
     t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
     right->specs.diffuse = 0.7;
     right->specs.specular = 0;
-    right->transform = inverse(translation(3, 1, 8));
+    right->transform = inverse(translation(3, 1, 3));
 
     t_object *left = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
     left->specs.diffuse = 0.7;
     left->specs.specular = 0;
-    left->transform = inverse(mtx_multiply(translation(-1.5, 0.33, -0.75), scaling_mtx(0.33, 0.33, 0.33)));
+    left->transform = inverse(mtx_multiply(translation(-2, 1, 2), scaling_mtx(1, 1, 1)));
 
     t_world *w = malloc(sizeof(t_world));
     w->light = _light(_point(-10, 10, -10), 1, _color(1.0, 1.0, 1.0));
@@ -526,7 +527,7 @@ int main ()
 
     t_camera_fn c = camera(WIDTH, HEIGHT, M_PI / 3);
     c.transform = view_transform(_point(0, 1.5, -5), _point(0, 1, 0), _vector(0, 1, 0));
-
+    c.transform = inverse(c.transform);
     mlx_image_t *image;
     mlx_t *mlx;
     if (ft_mlx(&mlx, &image) == EXIT_FAILURE)

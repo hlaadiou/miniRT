@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/15 16:20:24 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/18 18:45:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ t_ray			*_ray(t_point org, t_vector vec);
 t_point			_position(t_ray *ray, float t);
 t_object		*_sphere(t_point o, float radius, t_color c);
 t_object    	*_plane(t_point pt, t_vector vec, t_color c);
-t_object    	*_cylinder(t_point pt, t_vector axis, double d, double max, double min, t_color c);
+t_object    	*_cylinder(t_point pt, t_vector axis, float d, float max, float min, t_color c);
 t_quadratic		discriminant_sp(t_ray *ray, t_object *sp);
 t_inter			**intersect_sp(t_ray *ray, t_object *sp);
 t_object		*_obj(void *obj, t_color color, t_types type);

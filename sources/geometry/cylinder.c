@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/18 18:12:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/18 18:45:25 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // 	float		min;
 // 	float		max;
 // }	t_cylinder;
-t_object	*_cylinder(t_point pt, t_vector axis, double d, double max,double min, t_color c)
+t_object	*_cylinder(t_point pt, t_vector axis, float d, float max,float min, t_color c)
 {
 	t_cylinder	*cy;
 
@@ -37,7 +37,7 @@ t_inter    **intersect_pl(t_ray *ray, t_object *plane)
     t_inter         **inter;
     t_roots         roots;
     t_vector        x;
-    double           prod;
+    float           prod;
 
     inter = NULL;
     if (!dot_product(ray->dir, plane->pl->vec))

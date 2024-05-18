@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/12 19:34:16 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/18 21:33:26 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ t_phong	_phong(t_object *obj, t_point px, t_light light, t_point cam)
 	if (obj->type == SPHERE)
 		phong.n = normal_at(obj, px);
 	else if (obj->type == CYLINDER)
-	{
-		// phong.n = vec_normalize(subtract_tuples(px, obj->cy->center));
 		phong.n = local_normal_at(obj, px);
-	}
 	else if (obj->type == PLANE)
 		phong.n = vec_normalize(obj->pl->vec);
 	phong.l = vec_normalize(subtract_tuples(light.position, px));
