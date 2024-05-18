@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/05/18 21:36:31 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/18 21:38:56 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -497,10 +497,7 @@ int main ()
     t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 0, 0), 1, 2, 0, _color(1, 0, 0));
     middle->specs.diffuse = 0.7;
     middle->specs.specular = 0;
-    // ft_from_vectr_to_mtx_transform_cy(&middle);
     middle->transform = inverse(translation(0, 1, 5));
-    // set_transform(&middle, rotation_x(M_PI_2));
-    // set_transform(&middle, rotation_z(M_PI_4));
     set_transform(&middle, rotation_x(M_PI_4));
 
     t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
