@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/05/15 18:26:39 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/18 18:15:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
 
-# define WIDTH  800
-# define HEIGHT 400
+# define WIDTH  200
+# define HEIGHT 100
 
 /**
  * @brief Creates a 32-bit pixel color value from the specified red, green, and blue color components.
@@ -138,7 +138,7 @@ void	ft_free_struct(t_pars *pars)
  */
 t_color normalizeColor(t_color colorValue) {
     float max_val = fmax(colorValue.r, fmax(colorValue.g, colorValue.b));
-    if (max_val > 1.0f) {
+    if (max_val > 1) {
         colorValue.r = colorValue.r / max_val;
         colorValue.g = colorValue.g / max_val;
         colorValue.b = colorValue.b / max_val;
@@ -212,37 +212,6 @@ t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
             vec_normalize(subtract_tuples(pixel,
             mtx_tuple_prod(inverse(c.transform), _point(0, 0, 0))))));
 }
-// t_ray *ray_for_pixel(t_camera_fn c, int px, int py) {
-//     double world_x;
-//     double world_y;
-//     t_tuple pixel;
-//     t_tuple origin;
-//     t_tuple direction;
-//     t_tuple transformed_origin;
-//     t_tuple transformed_pixel;
-//     t_matrix *inv_transform;
-
-//     // Calculate the world coordinates of the pixel in camera space
-//     world_x = c.hwidth - (px + 0.5) * c.pixel_size;
-//     world_y = c.hheight - (py + 0.5) * c.pixel_size;
-
-//     // Calculate the inverse of the camera transformation matrix
-//     inv_transform = inverse(c.transform);
-
-//     // Transform the pixel and origin to world space
-//     pixel = _point(world_x, world_y, -1);
-//     transformed_pixel = mtx_tuple_prod(inv_transform, pixel);
-//     origin = _point(0, 0, 0);
-//     transformed_origin = mtx_tuple_prod(inv_transform, origin);
-
-//     // Compute the direction vector from the camera origin to the pixel
-//     direction = subtract_tuples(transformed_pixel, transformed_origin);
-//     direction = vec_normalize(direction);
-
-//     // Create the ray
-//     return _ray(transformed_origin, direction);
-// }
-
 
 /**
  * @brief Sorts a list of intersection points in ascending order based on the parameter t
@@ -295,10 +264,7 @@ t_lst_inter *intersect_world(t_world *w, t_ray *r)
     while (obj != NULL)
     {
         if (obj->obj->type == PLANE)
-        {
-            // r1 = transform_ray(r, obj->obj->transform);
             xs = intersect_pl(r, obj->obj);
-        }
         else if (obj->obj->type == CYLINDER)
         {
             r1 = transform_ray(r, obj->obj->transform);
@@ -528,12 +494,12 @@ int main ()
     // Create objects in the scene
     t_object *floor = _plane(_point(3, 0, 0), _vector(0, 1, 0), _color(1, 1, 1));
 
-    t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 1, 0), 1, 2, 0, _color(1, 0, 0));
+    t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 1, 0), 1, 1, 0, _color(1, 0, 0));
     middle->specs.diffuse = 0.7;
     middle->specs.specular = 0;
     // ft_from_vectr_to_mtx_transform_cy(&middle);
-    middle->transform = inverse(translation(0, 0, 0));
-    // set_transform(&middle, rotation_x(M_PI_4));
+    middle->transform = inverse(translation(0, 1, 3));
+    set_transform(&middle, rotation_x(M_PI_4));
     // set_transform(&middle, rotation_y(M_PI_2));
 
     t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));

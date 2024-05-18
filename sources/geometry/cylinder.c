@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/15 17:51:41 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/05/18 18:12:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_inter    **intersect_pl(t_ray *ray, t_object *plane)
 
 t_inter **intersect_caps(t_object *cy, t_ray *r) {
     t_inter **inter = malloc(sizeof(t_inter *) * 2);
-    double t;
+    float t;
     int count = 0;
 
     if (inter == NULL) {
@@ -76,7 +76,7 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
         exit(EXIT_FAILURE);
     }
 
-    if (compare_f(r->dir.y, 0)) {
+    if (compare_f(r->dir.y, EPSILON)) {
         free(inter[0]);
         free(inter[1]);
         free(inter);
@@ -116,37 +116,6 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
     return inter;
 }
 
-
-// t_inter **intersect_caps(t_object *cy, t_ray *r)
-// {
-//     t_inter **inter = malloc(sizeof(t_inter *) * 2);
-//     double t;
-
-//     t = 0;
-//     inter[0] = malloc(sizeof(t_inter));
-//     inter[1] = malloc(sizeof(t_inter));
-//     if (inter[0] == NULL || inter[1] == NULL || inter == NULL)
-//     {
-//         perror("Memory allocation failed");
-//         exit(EXIT_FAILURE);
-//     }
-//     if (compare_f(r->dir.y, 0))
-//         return (NULL);
-//     t = (cy->cy->min - r->org.y) / r->dir.y;
-//     if (check_cap(r, t))
-//     {
-//         inter[0]->t = t;
-//         inter[0]->obj = cy;
-//     }
-//     t = (cy->cy->max - r->org.y) / r->dir.y;
-//     if (check_cap(r, t))
-//     {
-//         inter[1]->t = t;
-//         inter[1]->obj = cy;
-//     }
-//     return (inter);
-// }
-
 int check_cap(t_ray *r, float t)
 {
     float x;
@@ -154,7 +123,7 @@ int check_cap(t_ray *r, float t)
 
     x = r->org.x + (t * r->dir.x);
     z = r->org.z + (t * r->dir.z);
-    if (((x * x) + (z * z)) <= 1.0f)
+    if (((x * x) + (z * z)) <= 1)
         return (1);
     return (0);
 }
@@ -168,13 +137,21 @@ t_vector local_normal_at(t_object *cy, t_point world_point)
 
     object_point = mtx_tuple_prod(cy->transform, world_point);
     dist = (object_point.x * object_point.x) + (object_point.z * object_point.z);
-    if (dist < 1 && object_point.y >= cy->cy->max)
+    // normal.w = 0;
+    if (dist < 1 && object_point.y >= cy->cy->max - EPSILON)
+    {
         normal = (t_vector){0, 1, 0, 1};
-    else if (dist < 1 && object_point.y <= cy->cy->min)
+        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
+    }
+    else if (dist < 1 && object_point.y <= cy->cy->min + EPSILON)
+    {
         normal = (t_vector){0, -1, 0, 1};
+        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
+    }
     else
-        normal = (t_vector){object_point.x, 0, object_point.z, 0};
-    normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
-    normal.w = 0;
-    return (vec_normalize(normal));
+    {
+        normal = (t_vector){object_point.x, 0, object_point.z, 1};
+        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
+    }
+    return (normal);
 }
