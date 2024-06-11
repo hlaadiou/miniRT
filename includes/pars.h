@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/05/15 17:50:21 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/06/11 04:41:03 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,11 +164,17 @@ t_ambient   	get_ambient_data(t_pars *conf);
 t_camera    	get_camera_data(t_pars *conf);
 t_light_src 	get_light_data(t_pars *conf);
 t_obj_lst   	*get_objs_data(t_pars *conf);
-t_scene 		*parse_scene(t_pars *conf);
 
 void			put_error(char *str);
 void			free_object(t_object *obj);
 void			object_fatal(t_obj_lst *lst);
 
+t_scene 		*parse_scene(t_pars *conf);
+t_pars			*create_conf(int ac, char **av);
+
+void 			print_scene(t_scene *scene); // Remove later
+void			ft_free_tab(char **tab);
+void			free_f_mtx(float **mtx, int size);
+void			ft_free_struct(t_pars *pars);
 
 #endif

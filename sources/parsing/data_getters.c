@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_getters.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/04/02 06:21:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/06/11 05:28:47 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ t_ambient	get_ambient_data(t_pars *conf)
 	{
 		if (conf->flag == AMB)
 		{
-			if (!valid_float(conf->elements[1]))
+			if (!valid_float(conf->elements[1]) || \
+			ft_atof(conf->elements[1]) < 0.0 || ft_atof(conf->elements[1]) > 1.0)
 				put_error("Invalid ambient lighting ratio\n");
 			rgb = parse_color(conf->elements[2]);
 			amb.scale = ft_atof(conf->elements[1]);

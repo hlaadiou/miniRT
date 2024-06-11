@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   geometry.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/18 18:45:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/06/11 02:55:43 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,5 +150,6 @@ float			vec_magnitude(t_vector vec);
 t_lst_inter		*new_intersection(t_inter *inter);
 t_inter			**intersect_pl(t_ray *ray, t_object *plane);
 t_inter 		**intersect_caps(t_object *cy, t_ray *r);
+t_ray			*transform_ray(t_ray *ray, t_matrix *a);
 
 #endif

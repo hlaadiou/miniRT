@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:53:36 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/31 10:35:40 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/06/11 05:44:18 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_color	_color01(t_rgb255 c)
 {
 	t_color	color;
 
-	color.r = c.r / 255;
-	color.g = c.g / 255;
-	color.b = c.b / 255;
+	color.r = (float)c.r / 255;
+	color.g = (float)c.g / 255;
+	color.b = (float)c.b / 255;
 	return (color);
 }
 

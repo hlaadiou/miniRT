@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:15:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/02 17:27:48 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/06/11 03:00:25 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+# define WIDTH  1080
+# define HEIGHT 1080
 
 # include <math.h>
 # include <stdio.h>
@@ -22,18 +25,5 @@
 # include "geometry.h"
 # include "lighting.h"
 # include "pars.h"
-
-
-typedef struct		s_rt
-{
-	/*----------- to do 
-	
-    *
-
-	to do -----------*/
-}					t_rt;
-
-t_ray *transform_ray(t_ray *ray, t_matrix *a);
-
 
 #endif

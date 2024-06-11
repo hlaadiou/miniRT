@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
+#    By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/05/16 17:08:44 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/06/11 02:51:13 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,17 +50,18 @@ libobj 		= lib/libft/get_next_line_utils.o	\
 
 SRCS		=	my_main.c \
 				sources/parsing/ambient_lightning.c \
-				sources/parsing/camera.c \
-				sources/parsing/light.c \
-				sources/parsing/sphere_pars.c \
-				sources/parsing/plane_pars.c \
-				sources/parsing/cylinder_pars.c \
-				sources/parsing/check_elements.c \
-				sources/parsing/data_validation.c \
 				sources/parsing/atof.c \
+				sources/parsing/camera.c \
+				sources/parsing/check_elements.c \
+				sources/parsing/collector.c \
+				sources/parsing/cylinder_pars.c \
+				sources/parsing/data_getters.c \
+				sources/parsing/data_validation.c \
+				sources/parsing/light.c \
 				sources/parsing/object_list.c \
 				sources/parsing/parser.c \
-				sources/parsing/collector.c \
+				sources/parsing/plane_pars.c \
+				sources/parsing/sphere_pars.c \
 				sources/geometry/cylinder.c \
 				sources/geometry/hits.c \
 				sources/geometry/lists.c \
@@ -83,8 +84,7 @@ SRCS		=	my_main.c \
 				sources/rt_mathematics/tuples.c \
 				sources/rt_mathematics/vectors.c \
 				sources/rt_mathematics/normalize.c \
-				sources/rt_mathematics/reflect.c \
-				sources/parsing/data_getters.c \
+				sources/rt_mathematics/reflect.c
 
 OBJS 		= 	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42

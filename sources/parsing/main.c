@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 10:43:34 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/06/11 02:35:14 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	ft_pars(char *av, t_pars **pars)
 // 	}
 // }
 
-
 void print_lstobj(t_obj_lst *lst)
 {
 	t_obj_lst	*tmp;
@@ -143,7 +142,7 @@ void print_lstobj(t_obj_lst *lst)
 			printf("Center: %.2f %.2f %.2f\n", tmp->obj->cy->center.x, tmp->obj->cy->center.y, tmp->obj->cy->center.z);
 			printf("Axis: %.2f %.2f %.2f\n", tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, tmp->obj->cy->axis.z);
 			printf("Diameter: %.2f\n", tmp->obj->cy->diameter);
-			printf("Height: %.2f\n", tmp->obj->cy->height);
+			printf("Height: %.2f\n", fabs(tmp->obj->cy->max - tmp->obj->cy->min));
 			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, tmp->obj->color.g, tmp->obj->color.b);
 		}
 		tmp = tmp->next;
@@ -161,7 +160,7 @@ void print_scene(t_scene *scene)
 	printf("FOV: %.2f\n\n", scene->camera.fov);
 	printf("Light\n\n");
 	printf("position: %.2f %.2f %.2f\n", scene->light.position.x, scene->light.position.y, scene->light.position.z);
-	printf("Brightness: %.2f\n", scene->light.scale);
+	printf("Brightness: %.2f\n", scene->light.brightness);
 	printf("Color: %d %d %d\n\n", scene->light.color.r, scene->light.color.g, scene->light.color.b);
 	print_lstobj(scene->lst);
 }
@@ -209,9 +208,21 @@ void free_scene(t_scene *scene)
 	free(scene);
 }
 
-void vv(void)
+t_pars	*create_conf(int ac, char **av)
 {
-	system("leaks miniRT");
+	t_pars	*pars;
+
+	pars = NULL;
+	if (ac != 2)
+		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), NULL);
+	else if (ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3) == 0 \
+														&& av[1][0] != '.')
+		ft_pars(av[1], &pars);
+	else
+		return (ft_putstr_fd("Error\nBad file name\n", 2), NULL);
+	if ((ft_lstsize(pars) < 4 && pars))
+		return (ft_putstr_fd("Error\nWrong number of identifiers\n", 2), NULL);
+	return (pars);
 }
 
 // t_world	*init_world(t_scene *scene)
@@ -249,33 +260,27 @@ void vv(void)
 // 	return (comps);
 // }
 
-t_color shade_hit(t_world *world, t_comps *copms)
-{
-	return(illuminate(copms->obj, copms->over_point, world->light, copms->eyev));
-}
+// int	main(int ac, char **av)
+// {
+// 	t_pars	*pars;
+// 	t_scene	*scene;
 
-int	main(int ac, char **av)
-{
-	t_pars	*pars;
-	t_scene	*scene;
-
-	atexit(vv);
-	pars = NULL;
-	if (ac != 2)
-		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
-	else if (ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3) == 0 \
-		&& av[1][0] != '.')
-		ft_pars(av[1], &pars);
-	else
-		return (ft_putstr_fd("Error\nBad file name\n", 2), 1);
-	if ((ft_lstsize(pars) < 4 && pars))
-		return (ft_putstr_fd("Error\nWrong number of identifiers\n", 2), 1);
-	scene = parse_scene(pars);
-	if (!scene)
-		return (1); //free
-	// print_scene(scene);
-	// world = init_world(scene);
-	free_scene(scene);
-	ft_free_struct(pars);
-	return (0);
-}
+// 	pars = NULL;
+// 	if (ac != 2)
+// 		return (ft_putstr_fd("Error\nWrong number of arguments\n", 2), 1);
+// 	else if (ft_strncmp(av[1] + ft_strlen(av[1]) - 3, ".rt", 3) == 0 \
+// 		&& av[1][0] != '.')
+// 		ft_pars(av[1], &pars);
+// 	else
+// 		return (ft_putstr_fd("Error\nBad file name\n", 2), 1);
+// 	if ((ft_lstsize(pars) < 4 && pars))
+// 		return (ft_putstr_fd("Error\nWrong number of identifiers\n", 2), 1);
+// 	scene = parse_scene(pars);
+// 	if (!scene)
+// 		return (1); //free
+// 	// print_scene(scene);
+// 	// world = init_world(scene);
+// 	free_scene(scene);
+// 	ft_free_struct(pars);
+// 	return (0);
+// }
