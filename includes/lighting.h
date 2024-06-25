@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:42:22 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/04/01 14:12:03 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/06/25 18:24:49 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 typedef struct s_rgb255 t_rgb255;
 typedef struct s_world t_world;
+typedef struct s_scene t_scene;
 
 /* 0 <= r,g,b <= 1 */
 typedef struct s_color
@@ -57,7 +58,7 @@ t_phong		_phong(t_object *obj, t_point px, t_light light, t_point cam);
 t_color		illuminate(t_object *obj, t_point px, t_light light, t_point cam, int in_shadow);
 t_color		schur_product(t_color col1, t_color col2);
 t_color		multiply_color_scalar(float scalar, t_color tup);
-int			is_shadowed(t_world *w, t_point p);
+int			is_shadowed(t_scene *w, t_point p);
 
 
 #endif

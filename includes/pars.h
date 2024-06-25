@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/06/11 04:41:03 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/06/25 16:11:54 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_obj_lst
 	struct s_obj_lst	*prev;
 }	t_obj_lst;
 
+// TO REMOVE
 typedef struct		s_world
 {
 	t_light		light;
@@ -135,9 +136,9 @@ void			ft_free_collector(t_collector **lst);
 void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
 t_world			*init_world(t_scene *scene);
 t_comps 		*prepare_computations(t_inter *inter, t_ray *ray);
-t_color 		shade_hit(t_world *world, t_comps *copms);
-t_color			color_at(t_world *w, t_ray *r);
-void			render(t_camera_fn c, t_world *w, mlx_image_t **image);
+t_color 		shade_hit(t_scene *world, t_comps *copms);
+t_color			color_at(t_scene *w, t_ray *r);
+void			render(t_camera_fn c, t_scene *w, mlx_image_t **image);
 t_inter 		**local_intersect(t_object *cy, t_ray *r);
 
 

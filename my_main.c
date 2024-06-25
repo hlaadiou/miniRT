@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/06/11 05:25:48 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/06/25 18:20:48 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
  * 
  * @return The 32-bit pixel color value with the specified color components
  */
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b)
+int32_t	ft_pixel(int32_t r, int32_t g, int32_t b)
 {
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
@@ -39,10 +39,11 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b)
  * 
  * @param param A pointer to the mlx structure for the window
  */
-void ft_hook(void* param)
+void	ft_hook(void* param)
 {
-	mlx_t* mlx = param;
+	mlx_t*	mlx;
 
+	mlx = param;
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 }
@@ -58,26 +59,27 @@ void ft_hook(void* param)
  * 
  * @return EXIT_SUCCESS if the initialization is successful, EXIT_FAILURE otherwise
  */
-int ft_mlx(mlx_t **mlx, mlx_image_t **image)
+int	ft_mlx(mlx_t **mlx, mlx_image_t **image)
 {
 	int w = WIDTH;
 	int h = HEIGHT;
-	if (!((*mlx) = mlx_init(w, h, "miniRT", true))) 
+	
+	if (!((*mlx) = mlx_init(w, h, "miniRT", false))) 
 	{
-		puts(mlx_strerror(mlx_errno));  
-		return(EXIT_FAILURE);  
+		puts(mlx_strerror(mlx_errno)); // Not allowed !
+		return (EXIT_FAILURE);  
 	}
 	if (!((*image) = mlx_new_image((*mlx), w, h))) 
 	{
 		mlx_close_window(*mlx);  
 		puts(mlx_strerror(mlx_errno));  
-		return(EXIT_FAILURE); 
+		return (EXIT_FAILURE); 
 	}
 	if (mlx_image_to_window((*mlx), (*image), 0, 0) == -1) 
 	{
 		mlx_close_window(*mlx);  
 		puts(mlx_strerror(mlx_errno));  
-		return(EXIT_FAILURE);  
+		return (EXIT_FAILURE);  
 	}
 	return (EXIT_SUCCESS);  
 }
@@ -133,15 +135,19 @@ void	ft_free_struct(t_pars *pars)
  * 
  * @return The normalized color value
  */
-t_color normalizeColor(t_color colorValue) {
-	float max_val = fmax(colorValue.r, fmax(colorValue.g, colorValue.b));
-	if (max_val > 1) {
-		colorValue.r = colorValue.r / max_val;
-		colorValue.g = colorValue.g / max_val;
-		colorValue.b = colorValue.b / max_val;
-		return (colorValue);
+t_color	normalize_color(t_color color_value)
+{
+	float max_val;
+
+	max_val = fmax(color_value.r, fmax(color_value.g, color_value.b));
+	if (max_val > 1)
+	{
+		color_value.r = color_value.r / max_val;
+		color_value.g = color_value.g / max_val;
+		color_value.b = color_value.b / max_val;
+		return (color_value);
 	}
-	return colorValue;
+	return (color_value);
 }
 
 /**
@@ -155,11 +161,11 @@ t_color normalizeColor(t_color colorValue) {
  * 
  * @return The camera configuration including the view plane dimensions, pixel size, and transformation matrix
  */
-t_camera_fn camera(int hsize, int vsize, float field_of_view)
+t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 {
-	t_camera_fn c;
-	float aspect;
-	float hview;
+	t_camera_fn	c;
+	float		aspect;
+	float		hview;
 
 	c.vsize = vsize;
 	c.hsize = hsize;
@@ -198,9 +204,9 @@ t_camera_fn camera(int hsize, int vsize, float field_of_view)
 
 t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
 {
-	float world_x;
-	float world_y;
-	t_tuple pixel;
+	float	world_x;
+	float	world_y;
+	t_tuple	pixel;
 
 	world_x = c.hwidth - (px + 0.5) * c.pixel_size;
 	world_y = c.hheight - (py + 0.5) * c.pixel_size;
@@ -221,9 +227,10 @@ t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
  */
 t_lst_inter *lst_sort(t_lst_inter *lst)
 {
-	t_lst_inter *tmp = lst;
-	t_lst_inter *tmp2 = lst;
-	t_inter *inter;
+	t_lst_inter	*tmp = lst;
+	t_lst_inter	*tmp2 = lst;
+	t_inter		*inter;
+
 	while (tmp)
 	{
 		tmp2 = tmp->next;
@@ -252,12 +259,13 @@ t_lst_inter *lst_sort(t_lst_inter *lst)
  * 
  * @return A pointer to the list of intersection points
  */
-t_lst_inter *intersect_world(t_world *w, t_ray *r)
+t_lst_inter *intersect_world(t_scene *w, t_ray *r)
 {
 	t_lst_inter *lst = NULL;
 	t_inter **xs = NULL;
-	t_obj_lst *obj = w->obj_lst;
+	t_obj_lst *obj = w->lst;
 	t_ray *r1;
+
 	while (obj != NULL)
 	{
 		if (obj->obj->type == PLANE)
@@ -291,9 +299,9 @@ t_lst_inter *intersect_world(t_world *w, t_ray *r)
  * 
  * @return A pointer to the prepared intersection information (comps)
  */
-t_comps *prepare_computations(t_inter *inter, t_ray *ray)
+t_comps	*prepare_computations(t_inter *inter, t_ray *ray)
 {
-	t_comps *comps;
+	t_comps	*comps;
 
 	comps = malloc(sizeof(t_comps));
 	if (!comps)
@@ -333,7 +341,7 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
  * 
  * @return The color at the intersection point
  */
-t_color color_at(t_world *w, t_ray *r)
+t_color color_at(t_scene *w, t_ray *r)
 {
 	t_lst_inter *lst;
 	t_inter *h;
@@ -356,11 +364,12 @@ t_color color_at(t_world *w, t_ray *r)
  * 
  * @return The shaded color at the intersection point
  */
-t_color shade_hit(t_world *world, t_comps *copms)
+t_color shade_hit(t_scene *world, t_comps *copms)
 {
 	int shadowed;
+
 	shadowed = is_shadowed(world, copms->point);
-	return(illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
+	return (illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
 }
 
 /**
@@ -369,16 +378,16 @@ t_color shade_hit(t_world *world, t_comps *copms)
  * This function renders the scene using ray tracing by calculating the color of each pixel in the image.
  * 
  * @param c The camera configuration for rendering the scene
- * @param w A pointer to the world containing the objects and the light source
+ * @param w A pointer to the scene containing the objects and important infos about the simulation
  * @param image A pointer to the image where the rendered scene will be stored
  */
-void render(t_camera_fn c, t_world *w, mlx_image_t **image)
+void	render(t_camera_fn c, t_scene *w, mlx_image_t **image)
 {	
-	t_ray *r = NULL;
-	t_color color;
-	int32_t color_int;
-	int y = 0;
-	int x = 0;
+	t_ray	*r = NULL;
+	t_color	color;
+	int32_t	color_int;
+	int		y = 0;
+	int		x = 0;
 
 	while (y < HEIGHT)
 	{
@@ -387,7 +396,7 @@ void render(t_camera_fn c, t_world *w, mlx_image_t **image)
 		{
 			r = ray_for_pixel(c, x, y);
 			color = color_at(w, r);
-			color = normalizeColor(color);
+			color = normalize_color(color);
 			if (w->light.brightness != 0)
 				color = multiply_color_scalar(w->light.brightness, color);
 			color = _color255(color);
@@ -413,19 +422,20 @@ void render(t_camera_fn c, t_world *w, mlx_image_t **image)
  */
 t_matrix *view_transform(t_point from, t_point to, t_vector up)
 {
-	t_vector forward = vec_normalize(subtract_tuples(to, from));
-	t_vector upn = vec_normalize(up);
-	t_vector left = cross_product(forward, upn);
-	t_vector true_up = cross_product(left, forward);
-	t_matrix *orientation = _identity(4);
+	t_vector	forward = vec_normalize(subtract_tuples(to, from));
+	t_vector	upn = vec_normalize(up);
+	t_vector	left = cross_product(forward, upn);
+	t_vector	true_up = cross_product(left, forward);
+	t_matrix	*orientation = _identity(4);
+
 	orientation->mtx[0][0] = left.x;
 	orientation->mtx[0][1] = left.y;
 	orientation->mtx[0][2] = left.z;
 	orientation->mtx[1][0] = true_up.x;
 	orientation->mtx[1][1] = true_up.y;
 	orientation->mtx[1][2] = true_up.z;
-	orientation->mtx[2][0]= -forward.x;
-	orientation->mtx[2][1]= -forward.y;
+	orientation->mtx[2][0] = -forward.x;
+	orientation->mtx[2][1] = -forward.y;
 	orientation->mtx[2][2] = -forward.z;
 	t_matrix *translation_mtx = translation(-from.x, -from.y, -from.z);
 	t_matrix *res = mtx_multiply(orientation, translation_mtx);
@@ -464,13 +474,13 @@ void	free_f_mtx(float **mtx, int size)
  * 
  * @return 1 if the point is shadowed, 0 otherwise
  */
-int	is_shadowed(t_world *w, t_point p)
+int	is_shadowed(t_scene *w, t_point p)
 {
-	t_vector v;
-	float distance;
-	t_ray *r = NULL;
-	t_inter *h = NULL;
-	t_lst_inter *lst = NULL;
+	t_vector	v;
+	float		distance;
+	t_ray		*r = NULL;
+	t_inter		*h = NULL;
+	t_lst_inter	*lst = NULL;
 
 	v = subtract_tuples(w->light.position, p);
 	distance = vec_magnitude(v);
@@ -486,17 +496,65 @@ int	is_shadowed(t_world *w, t_point p)
 	return (0);
 }
 
-int main(int ac, char **av)
+t_camera_fn	set_camera(t_camera cam)
 {
-	t_pars	*conf;
-	t_scene	*scene;
+	t_camera_fn	c;
+
+	c = camera(WIDTH, HEIGHT, cam.fov * (M_PI / 180));
+	c.transform = view_transform(cam.view_point, _point(0, 1, 0), cam.orientation);
+	c.transform = inverse(c.transform);
+	return (c);
+}
+
+t_point	get_obj_point(t_object *obj)
+{
+	if (obj->type == SP)
+		return (obj->sp->org);
+	else if (obj->type == CY)
+		return (obj->cy->center);
+	else if (obj->type == PL)
+		return (obj->pl->pt);
+	return ((t_point){0});
+}
+
+void	set_transformations(t_obj_lst *lst)
+{
+	t_point		p;
+
+	while (lst)
+	{
+		p = get_obj_point(lst->obj);
+		lst->obj->transform = inverse(translation(p.x, p.y, p.z));
+		lst->obj->specs.diffuse = 0.7;
+		lst->obj->specs.specular = 0.0;
+		lst = lst->next;
+	}
+	return ;
+}
+
+int	main(int ac, char **av)
+{
+	mlx_image_t	*image;
+	mlx_t		*mlx;
+	t_pars		*conf;
+	t_scene		*scene;
+	t_camera_fn	cam;
 
 	conf = create_conf(ac, av);
 	if (!conf)
 		return (1);
 	scene = parse_scene(conf);
-	if (scene)
-		print_scene(scene);
+	if (!scene)
+		return (1);
+	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
+		return (1);
+	print_scene(scene); // To remove later
+	cam = set_camera(scene->camera);
+	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
+	render(cam, scene, &image);
+	mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 	return (0);
 }
 
