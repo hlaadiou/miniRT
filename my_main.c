@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/06/25 18:20:48 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:01:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,16 +204,16 @@ t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 
 t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
 {
-	float	world_x;
-	float	world_y;
-	t_tuple	pixel;
+    float world_x;
+    float world_y;
+    t_tuple pixel;
 
-	world_x = c.hwidth - (px + 0.5) * c.pixel_size;
-	world_y = c.hheight - (py + 0.5) * c.pixel_size;
-	pixel = mtx_tuple_prod(c.transform, _point(world_x, world_y, -1));
-	return (_ray(mtx_tuple_prod(c.transform, _point(0, 0, 0)),
-			vec_normalize(subtract_tuples(pixel,
-			mtx_tuple_prod(c.transform, _point(0, 0, 0))))));
+    world_x = c.hwidth - (px + 0.5) * c.pixel_size;
+    world_y = c.hheight - (py + 0.5) * c.pixel_size;
+    pixel = mtx_tuple_prod(c.transform, _point(world_x, world_y, -1));
+    return (_ray(mtx_tuple_prod(c.transform, _point(0, 0, 0)),
+            vec_normalize(subtract_tuples(pixel,
+            mtx_tuple_prod(c.transform, _point(0, 0, 0))))));
 }
 
 /**
@@ -261,31 +261,30 @@ t_lst_inter *lst_sort(t_lst_inter *lst)
  */
 t_lst_inter *intersect_world(t_scene *w, t_ray *r)
 {
-	t_lst_inter *lst = NULL;
-	t_inter **xs = NULL;
-	t_obj_lst *obj = w->lst;
-	t_ray *r1;
-
-	while (obj != NULL)
-	{
-		if (obj->obj->type == PLANE)
-			xs = intersect_pl(r, obj->obj);
-		else if (obj->obj->type == CYLINDER)
-		{
-			r1 = transform_ray(r, obj->obj->transform);
-			xs = intersect_caps(obj->obj, r1);
-			_intersections(&lst, xs);
-			xs = local_intersect(obj->obj, r1);
-		}
-		else if (obj->obj->type == SPHERE)
-			xs = intersect_sp(r, obj->obj);
-		if (xs)
-			_intersections(&lst, xs);
-		r1 = NULL;
-		obj = obj->next;
-	}
-	lst = lst_sort(lst);
-	return (lst);
+    t_lst_inter *lst = NULL;
+    t_inter **xs = NULL;
+    t_obj_lst *obj = w->lst;
+    t_ray *r1;
+    while (obj != NULL)
+    {
+        if (obj->obj->type == PLANE)
+            xs = intersect_pl(r, obj->obj);
+        else if (obj->obj->type == CYLINDER)
+        {
+            r1 = transform_ray(r, obj->obj->transform);
+            xs = intersect_caps(obj->obj, r1);
+            _intersections(&lst, xs);
+            xs = local_intersect(obj->obj, r1);
+        }
+        else if (obj->obj->type == SPHERE)
+            xs = intersect_sp(r, obj->obj);
+        if (xs)
+            _intersections(&lst, xs);
+        r1 = NULL;
+        obj = obj->next;
+    }
+    lst = lst_sort(lst);
+    return (lst);
 }
 
 /**
@@ -299,35 +298,35 @@ t_lst_inter *intersect_world(t_scene *w, t_ray *r)
  * 
  * @return A pointer to the prepared intersection information (comps)
  */
-t_comps	*prepare_computations(t_inter *inter, t_ray *ray)
+t_comps *prepare_computations(t_inter *inter, t_ray *ray)
 {
-	t_comps	*comps;
+    t_comps *comps;
 
-	comps = malloc(sizeof(t_comps));
-	if (!comps)
-		return (NULL);
-	comps->t = inter->t;
-	comps->obj = inter->obj;
-	comps->point = _position(ray, comps->t);
-	comps->eyev = multiply_tuple_scalar(-1, ray->dir);
-	if (comps->obj->type == SPHERE)
-		comps->normalv = normal_at(comps->obj, comps->point);
-	else if (comps->obj->type == CYLINDER) 
-	{
-		comps->normalv = local_normal_at(comps->obj, comps->point);
-	}
-	if (dot_product(comps->normalv, comps->eyev) < EPSILON)
-	{
-		comps->inside = 1;
-		if (comps->obj->type == PLANE)
-			comps->normalv = multiply_tuple_scalar(-1, comps->obj->pl->vec);
-		else 
-			comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
-	}
-	else
-		comps->inside = 0;
-	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
-	return (comps);
+    comps = malloc(sizeof(t_comps));
+    if (!comps)
+        return (NULL);
+    comps->t = inter->t;
+    comps->obj = inter->obj;
+    comps->point = _position(ray, comps->t);
+    comps->eyev = multiply_tuple_scalar(-1, ray->dir);
+    if (comps->obj->type == SPHERE)
+        comps->normalv = normal_at(comps->obj, comps->point);
+    else if (comps->obj->type == CYLINDER) 
+    {
+        comps->normalv = local_normal_at(comps->obj, comps->point);
+    }
+    if (dot_product(comps->normalv, comps->eyev) < EPSILON)
+    {
+        comps->inside = 1;
+        if (comps->obj->type == PLANE)
+            comps->normalv = multiply_tuple_scalar(-1, comps->obj->pl->vec);
+        else 
+            comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
+    }
+    else
+        comps->inside = 0;
+    comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
+    return (comps);
 }
 
 /**
@@ -343,15 +342,15 @@ t_comps	*prepare_computations(t_inter *inter, t_ray *ray)
  */
 t_color color_at(t_scene *w, t_ray *r)
 {
-	t_lst_inter *lst;
-	t_inter *h;
+    t_lst_inter *lst;
+    t_inter *h;
 
-	lst = intersect_world(w, r);
-	h = hit(lst);
-	if (h == NULL)
-		return (_color(0, 0, 0));
-	t_color color = shade_hit(w, prepare_computations(h, r));
-	return (color);
+    lst = intersect_world(w, r);
+    h = hit(lst);
+    if (h == NULL)
+        return (_color(0, 0, 0));
+    t_color color = shade_hit(w, prepare_computations(h, r));
+    return (color);
 }
 
 /**
@@ -366,10 +365,9 @@ t_color color_at(t_scene *w, t_ray *r)
  */
 t_color shade_hit(t_scene *world, t_comps *copms)
 {
-	int shadowed;
-
-	shadowed = is_shadowed(world, copms->point);
-	return (illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
+    int shadowed;
+    shadowed = is_shadowed(world, copms->point);
+    return(illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
 }
 
 /**
@@ -381,32 +379,33 @@ t_color shade_hit(t_scene *world, t_comps *copms)
  * @param w A pointer to the scene containing the objects and important infos about the simulation
  * @param image A pointer to the image where the rendered scene will be stored
  */
-void	render(t_camera_fn c, t_scene *w, mlx_image_t **image)
-{	
-	t_ray	*r = NULL;
-	t_color	color;
-	int32_t	color_int;
-	int		y = 0;
-	int		x = 0;
 
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			r = ray_for_pixel(c, x, y);
-			color = color_at(w, r);
-			color = normalize_color(color);
-			if (w->light.brightness != 0)
-				color = multiply_color_scalar(w->light.brightness, color);
-			color = _color255(color);
-			color_int = ft_pixel((int)(color.r), (int)(color.g), \
-										(int)(color.b));
-			mlx_put_pixel((*image), x, y, color_int);
-			x++;
-		}
-		y++;
-	}
+void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
+{	
+    t_ray *r = NULL;
+    t_color color;
+    int32_t color_int;
+    int y = 0;
+    int x = 0;
+
+    while (y < HEIGHT)
+    {
+        x = 0;
+        while (x < WIDTH)
+        {
+            r = ray_for_pixel(c, x, y);
+            color = color_at(w, r);
+            // color = normalizeColor(color);
+            if (w->light.brightness != 0)
+                color = multiply_color_scalar(w->light.brightness, color);
+            color = _color255(color);
+            color_int = ft_pixel((int)(color.r), (int)(color.g), \
+                                        (int)(color.b));
+            mlx_put_pixel((*image), x, y, color_int);
+            x++;
+        }
+        y++;
+    }
 }
 
 /**
@@ -422,28 +421,27 @@ void	render(t_camera_fn c, t_scene *w, mlx_image_t **image)
  */
 t_matrix *view_transform(t_point from, t_point to, t_vector up)
 {
-	t_vector	forward = vec_normalize(subtract_tuples(to, from));
-	t_vector	upn = vec_normalize(up);
-	t_vector	left = cross_product(forward, upn);
-	t_vector	true_up = cross_product(left, forward);
-	t_matrix	*orientation = _identity(4);
-
-	orientation->mtx[0][0] = left.x;
-	orientation->mtx[0][1] = left.y;
-	orientation->mtx[0][2] = left.z;
-	orientation->mtx[1][0] = true_up.x;
-	orientation->mtx[1][1] = true_up.y;
-	orientation->mtx[1][2] = true_up.z;
-	orientation->mtx[2][0] = -forward.x;
-	orientation->mtx[2][1] = -forward.y;
-	orientation->mtx[2][2] = -forward.z;
-	t_matrix *translation_mtx = translation(-from.x, -from.y, -from.z);
-	t_matrix *res = mtx_multiply(orientation, translation_mtx);
-	free(orientation->mtx);
-	free(orientation);
-	free(translation_mtx->mtx);
-	free(translation_mtx);
-	return (res);
+    t_vector forward = vec_normalize(subtract_tuples(to, from));
+    t_vector upn = vec_normalize(up);
+    t_vector left = cross_product(forward, upn);
+    t_vector true_up = cross_product(left, forward);
+    t_matrix *orientation = _identity(4);
+    orientation->mtx[0][0] = left.x;
+    orientation->mtx[0][1] = left.y;
+    orientation->mtx[0][2] = left.z;
+    orientation->mtx[1][0] = true_up.x;
+    orientation->mtx[1][1] = true_up.y;
+    orientation->mtx[1][2] = true_up.z;
+    orientation->mtx[2][0]= -forward.x;
+    orientation->mtx[2][1]= -forward.y;
+    orientation->mtx[2][2] = -forward.z;
+    t_matrix *translation_mtx = translation(-from.x, -from.y, -from.z);
+    t_matrix *res = mtx_multiply(orientation, translation_mtx);
+    free(orientation->mtx);
+    free(orientation);
+    free(translation_mtx->mtx);
+    free(translation_mtx);
+    return (res);
 }
 
 /**
@@ -476,60 +474,93 @@ void	free_f_mtx(float **mtx, int size)
  */
 int	is_shadowed(t_scene *w, t_point p)
 {
-	t_vector	v;
-	float		distance;
-	t_ray		*r = NULL;
-	t_inter		*h = NULL;
-	t_lst_inter	*lst = NULL;
+    t_vector v;
+    float distance;
+    t_ray *r = NULL;
+    t_inter *h = NULL;
+    t_lst_inter *lst = NULL;
 
-	v = subtract_tuples(w->light.position, p);
-	distance = vec_magnitude(v);
-	r = _ray(p, vec_normalize(v));
-	lst = intersect_world(w, r);
-	h = hit(lst);
-	if (h != NULL && h->t < distance)
-	{
-		free(r);
-		return (1);
-	}
-	free(r);
-	return (0);
+    v = subtract_tuples(w->light.position, p);
+    distance = vec_magnitude(v);
+    r = _ray(p, vec_normalize(v));
+    lst = intersect_world(w, r);
+    h = hit(lst);
+    if (h != NULL && h->t < distance)
+    {
+        free(r);
+        return (1);
+    }
+    free(r);
+    return (0);
 }
 
 t_camera_fn	set_camera(t_camera cam)
 {
 	t_camera_fn	c;
 
+	// printf("set_camera.fov = %f\n", cam.fov);
 	c = camera(WIDTH, HEIGHT, cam.fov * (M_PI / 180));
-	c.transform = view_transform(cam.view_point, _point(0, 1, 0), cam.orientation);
+	// printf ("cam.view_point = (%f, %f, %f)\n", cam.view_point.x, cam.view_point.y, cam.view_point.z);
+	// printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
+	c.transform = view_transform(cam.view_point, cam.orientation, _point(0.0, 1.0, 0.0));
 	c.transform = inverse(c.transform);
 	return (c);
 }
 
 t_point	get_obj_point(t_object *obj)
 {
-	if (obj->type == SP)
+	if (obj->type == SPHERE)
 		return (obj->sp->org);
-	else if (obj->type == CY)
+	else if (obj->type == CYLINDER)
 		return (obj->cy->center);
-	else if (obj->type == PL)
+	else if (obj->type == PLANE)
 		return (obj->pl->pt);
 	return ((t_point){0});
+}
+
+float get_diameter(t_object *obj)
+{
+	if (obj->type == SPHERE)
+		return (obj->sp->radius);
+	else if (obj->type == CYLINDER)
+		return (obj->cy->diameter);
+	return (1.0);
 }
 
 void	set_transformations(t_obj_lst *lst)
 {
 	t_point		p;
+	float		scale;
 
+	p = _point(0, 0, 0);
 	while (lst)
 	{
 		p = get_obj_point(lst->obj);
-		lst->obj->transform = inverse(translation(p.x, p.y, p.z));
+		scale = get_diameter(lst->obj);
+		if (lst->obj->type == SPHERE)
+		{
+			lst->obj->sp->org = _point(0, 0, 0);
+			lst->obj->sp->radius = 1;
+			lst->obj->transform = inverse(translation(p.x, p.y, p.z));
+			set_transform(&lst->obj, inverse(scaling_mtx(scale, scale, scale)));
+		}
+		else if (lst->obj->type == CYLINDER)
+		{
+			lst->obj->cy->center = _point(0, 0, 0);
+			lst->obj->cy->diameter = 1;
+			lst->obj->transform = inverse(translation(p.x, p.y, p.z));
+			set_transform(&lst->obj, inverse(scaling_mtx(scale / 2.0f, scale / 2.0f, scale / 2.0f)));
+		}
 		lst->obj->specs.diffuse = 0.7;
 		lst->obj->specs.specular = 0.0;
 		lst = lst->next;
 	}
 	return ;
+}
+
+void vv(void)
+{
+	system("leaks miniRT");
 }
 
 int	main(int ac, char **av)
@@ -540,6 +571,7 @@ int	main(int ac, char **av)
 	t_scene		*scene;
 	t_camera_fn	cam;
 
+	// atexit (vv);
 	conf = create_conf(ac, av);
 	if (!conf)
 		return (1);
@@ -558,6 +590,56 @@ int	main(int ac, char **av)
 	return (0);
 }
 
+// int main ()
+// {
+//     // Create objects in the scene
+//     // t_object *floor = _plane(_point(0, 0, 0), _vector(0, 1, 0), _color(1, 1, 1));
+
+//     // t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 0, 0), 1, 2, 0, _color(1, 0, 0));
+//     // middle->specs.diffuse = 0.7;
+//     // middle->specs.specular = 0;
+//     // middle->transform = inverse(translation(0, 1, 5));
+//     // set_transform(&middle, rotation_x(M_PI_4));
+
+//     t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
+//     right->specs.diffuse = 0.7;
+//     right->specs.specular = 0;
+//     right->transform = inverse(translation(3, 1, 3));
+
+//     t_object *left = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
+//     left->specs.diffuse = 0.7;
+//     left->specs.specular = 0;
+//     left->transform = inverse(mtx_multiply(translation(-2, 1, 2), scaling_mtx(1, 1, 1)));
+
+//     t_scene *w = malloc(sizeof(t_scene));
+//     w->light = _light(_point(10, 10, -10), 1, _color(1.0, 1.0, 1.0));
+//     // w->obj_lst = malloc(sizeof(t_obj_lst));
+//     // w->obj_lst->obj = floor;
+//     // w->obj_lst->next = malloc(sizeof(t_obj_lst));
+//     // w->obj_lst->next->obj = middle;
+//     w->lst = malloc(sizeof(t_obj_lst));
+//     w->lst->obj = right;
+//     w->lst->next = malloc(sizeof(t_obj_lst));
+//     w->lst->next->obj = left;
+//     w->lst->next->next = NULL;
+
+//     t_camera_fn c = camera(WIDTH, HEIGHT, M_PI / 3);
+//     c.transform = view_transform(_point(0, 1.5, -5), _point(0, 1, 0), _vector(0, 1, 0));
+//     c.transform = inverse(c.transform);
+// 	w->camera = c;
+//     mlx_image_t *image;
+//     mlx_t *mlx;
+//     if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
+//         return (EXIT_FAILURE);
+
+//     render(c, w, &image);
+
+//     mlx_loop_hook(mlx, ft_hook, mlx);
+//     mlx_loop(mlx);
+//     mlx_terminate(mlx);
+
+//     return (0);
+// }
 /*
 int main ()
 {

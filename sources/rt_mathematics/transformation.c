@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:11:31 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/05/15 16:58:22 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/06/30 15:37:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void	set_transform(t_object **obj, t_matrix *mtx)
 {
+	if (!(*obj)->transform || !mtx)
+	{
+		ft_putstr_fd("Error: invalid transformation matrix\n", 2);
+        exit(EXIT_FAILURE);
+        return;
+	}
 	(*obj)->transform = mtx_multiply(mtx, (*obj)->transform);
 }
 

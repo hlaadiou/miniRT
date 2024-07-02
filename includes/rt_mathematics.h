@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/18 20:59:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/06/30 16:14:08 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ t_tuple		multiply_tuple_scalar(float scalar, t_tuple tup);
 
 t_vector 	normal_at(t_object *sp, t_point pnt);
 t_vector	reflect(t_vector a, t_vector n);
+t_matrix *cylinder_axis_to_matrix(double ex, double ey, double ez, t_matrix *matrix);
 
 #endif

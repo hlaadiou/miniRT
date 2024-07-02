@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_getters.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/06/11 05:28:47 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:13:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_camera	check_camera_data(t_pars *conf)
 
 t_camera	get_camera_data(t_pars *conf)
 {
-	t_camera	cam;
+	t_camera cam;
 
 	cam = (t_camera){0};
 	while (conf)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/06/25 16:11:54 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:13:47 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void			ft_free_struct(t_pars *pars);
 void			free_f_mtx(float **mtx, int size);
 int 			check_cap(t_ray *r, float t);
 t_vector		local_normal_at(t_object *cy, t_point world_point);
+t_matrix 		*view_transform(t_point from, t_point to, t_vector up);
 
 /* g_collector */
 
