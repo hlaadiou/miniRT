@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/04 11:35:10 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/04 12:20:39 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -695,8 +695,8 @@ void	set_transformations(t_obj_lst *lst)
 		{
 			lst->obj->cy->center = _point(0, 0, 0);
 			lst->obj->cy->diameter = 1;
-			// lst->obj->cy->max = lst->obj->cy->max / 2.0f;
-			// lst->obj->cy->min =  -lst->obj->cy->max;
+			lst->obj->cy->max = lst->obj->cy->max / 2.0f;
+			lst->obj->cy->min =  -lst->obj->cy->max;
 			printf("max_cylinder = %f \n min_cylinder = %f \n", lst->obj->cy->max, lst->obj->cy->min);
 			printf("axis_cylinder(%f, %f, %f)\n", lst->obj->cy->axis.x, lst->obj->cy->axis.y, lst->obj->cy->axis.z);
 			lst->obj->transform = _identity(4); 
