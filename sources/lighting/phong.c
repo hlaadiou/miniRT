@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/05/18 21:33:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/04 12:08:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam, int in
 		if (reflect_dot_eye > EPSILON)
 		{
 			factor = pow(reflect_dot_eye, obj->specs.phong_factor);
-			ph.specular = multiply_color_scalar(factor * \
-									obj->specs.specular, light.color);
+		// 	ph.specular = multiply_color_scalar(factor * \
+		// 							obj->specs.specular, light.color);
 		}
 	}
 	return (rtn_phong(ph.ambient, ph.diffuse, ph.specular));

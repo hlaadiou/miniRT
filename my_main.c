@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/02 18:01:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/04 11:35:10 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,92 @@ int32_t	ft_pixel(int32_t r, int32_t g, int32_t b)
 {
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }
+
+t_matrix *translationMatrix(float tx, float ty, float tz) {
+    t_matrix *mat = _identity(4);
+    mat->mtx[0][3] = tx;
+    mat->mtx[1][3] = ty;
+    mat->mtx[2][3] = tz;
+    return mat;
+}
+
+t_matrix *rotationToAlignWithVector(t_vector v) {
+    v = vec_normalize(v);
+
+    // Create an identity matrix for rotation
+    t_matrix *rotation = _identity(4);
+
+    // Special cases when the vector is along or opposite to z-axis
+    if (fabs(v.x) < 1e-6 && fabs(v.y) < 1e-6 && v.z > 0) {
+        return rotation;  // Aligned with z-axis
+    }
+    if (fabs(v.x) < 1e-6 && fabs(v.y) < 1e-6 && v.z < 0) {
+        rotation->mtx[0][0] = -1;
+        rotation->mtx[1][1] = -1;
+        rotation->mtx[2][2] = -1;
+        return rotation;  // Opposite to z-axis
+    }
+
+    // Calculate the axis of rotation using cross product with z-axis
+    t_vector axis = {v.y, -v.x, 0, 1};  // Perpendicular vector in the xy-plane
+    axis = vec_normalize(axis);
+
+    float cosTheta = v.z;  // Dot product between v and z-axis
+    float sinTheta = sqrtf(1 - cosTheta * cosTheta);
+
+    float ux = axis.x, uy = axis.y, uz = axis.z;
+
+    // Fill the rotation matrix based on axis and angle
+    rotation->mtx[0][0] = cosTheta + ux * ux * (1 - cosTheta);
+    rotation->mtx[0][1] = ux * uy * (1 - cosTheta) - uz * sinTheta;
+    rotation->mtx[0][2] = ux * uz * (1 - cosTheta) + uy * sinTheta;
+    
+    rotation->mtx[1][0] = uy * ux * (1 - cosTheta) + uz * sinTheta;
+    rotation->mtx[1][1] = cosTheta + uy * uy * (1 - cosTheta);
+    rotation->mtx[1][2] = uy * uz * (1 - cosTheta) - ux * sinTheta;
+    
+    rotation->mtx[2][0] = uz * ux * (1 - cosTheta) - uy * sinTheta;
+    rotation->mtx[2][1] = uz * uy * (1 - cosTheta) + ux * sinTheta;
+    rotation->mtx[2][2] = cosTheta + uz * uz * (1 - cosTheta);
+
+    // Homogeneous coordinates if needed
+    rotation->mtx[3][3] = 1.0f;
+
+    // Additional rotation around x-axis
+    float angleX = atan2f(v.y, sqrtf(v.x * v.x + v.z * v.z));
+    t_matrix *rotationX = _identity(4);
+    rotationX->mtx[1][1] = cosf(angleX);
+    rotationX->mtx[1][2] = sinf(angleX);
+    rotationX->mtx[2][1] = -sinf(angleX);
+    rotationX->mtx[2][2] = cosf(angleX);
+
+    // Additional rotation around y-axis
+    float angleY = atan2f(v.x, v.z);
+    t_matrix *rotationY = _identity(4);
+    rotationY->mtx[0][0] = cosf(angleY);
+    rotationY->mtx[0][2] = -sinf(angleY);
+    rotationY->mtx[2][0] = sinf(angleY);
+    rotationY->mtx[2][2] = cosf(angleY);
+
+    // Additional rotation around z-axis
+    float angleZ = atan2f(-v.y, v.x);
+    t_matrix *rotationZ = _identity(4);
+    rotationZ->mtx[0][0] = cosf(angleZ);
+    rotationZ->mtx[0][1] = sinf(angleZ);
+    rotationZ->mtx[1][0] = -sinf(angleZ);
+    rotationZ->mtx[1][1] = cosf(angleZ);
+
+    // Combine the rotation matrices
+    t_matrix *finalRotation = mtx_multiply(rotationZ, mtx_multiply(rotationY, mtx_multiply(rotationX, rotation)));
+
+    // Free the temporary matrices
+    free(rotationX);
+    free(rotationY);
+    free(rotationZ);
+
+    return finalRotation;
+}
+
 
 /**
  * @brief Handles the hook function for the mlx window
@@ -370,6 +456,17 @@ t_color shade_hit(t_scene *world, t_comps *copms)
     return(illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
 }
 
+t_color normalizeColor(t_color colorValue) {
+    float max_val = fmax(colorValue.r, fmax(colorValue.g, colorValue.b));
+    if (max_val > 1) {
+        colorValue.r = colorValue.r / max_val;
+        colorValue.g = colorValue.g / max_val;
+        colorValue.b = colorValue.b / max_val;
+        return (colorValue);
+    }
+    return colorValue;
+}
+
 /**
  * @brief Renders the scene using ray tracing
  * 
@@ -395,9 +492,9 @@ void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
         {
             r = ray_for_pixel(c, x, y);
             color = color_at(w, r);
-            // color = normalizeColor(color);
             if (w->light.brightness != 0)
                 color = multiply_color_scalar(w->light.brightness, color);
+            color = normalizeColor(color);
             color = _color255(color);
             color_int = ft_pixel((int)(color.r), (int)(color.g), \
                                         (int)(color.b));
@@ -527,6 +624,56 @@ float get_diameter(t_object *obj)
 	return (1.0);
 }
 
+t_matrix *axis_to_matrix(t_vector up, t_vector forw, t_vector right)
+{
+	t_matrix *res;
+
+	res = _identity(4);
+	res->mtx[0][0] = up.x;
+	res->mtx[1][0] = up.y;
+	res->mtx[2][0] = up.z;
+	res->mtx[3][0] = 0;
+	res->mtx[0][1] = forw.x;
+	res->mtx[1][1] = forw.y;
+	res->mtx[2][1] = forw.z;
+	res->mtx[3][1] = 0;
+	res->mtx[0][2] = right.x;
+	res->mtx[1][2] = right.y;
+	res->mtx[2][2] = right.z;
+	res->mtx[3][2] = 0;
+	res->mtx[0][3] = 0;
+	res->mtx[1][3] = 0;
+	res->mtx[2][3] = 0;
+	res->mtx[3][3] = 1;
+	return (res);
+}
+
+t_matrix *axis_cylinder(t_vector orie)
+{
+	t_vector	up;
+	t_vector	forw;
+	t_vector	right;
+
+	up = vec_normalize(orie); /* to removed !!*/
+	forw = vec_normalize(cross_product(_vector(0, 1, 0), up));
+	right = cross_product(up, forw);
+	if (orie.x == 0 && orie.z == 0)
+	{
+		if (orie.y >= 0)
+		{
+			up = _vector(0, 1, 0);
+			right = _vector(1, 0, 0);
+		}
+		else
+		{
+			up = _vector(0, -1, 0);
+			right = _vector(-1, 0, 0);
+		}
+		forw = _vector(0, 0, 1);
+	}
+	return (axis_to_matrix(right, up, forw));
+}
+
 void	set_transformations(t_obj_lst *lst)
 {
 	t_point		p;
@@ -548,8 +695,14 @@ void	set_transformations(t_obj_lst *lst)
 		{
 			lst->obj->cy->center = _point(0, 0, 0);
 			lst->obj->cy->diameter = 1;
-			lst->obj->transform = inverse(translation(p.x, p.y, p.z));
-			set_transform(&lst->obj, inverse(scaling_mtx(scale / 2.0f, scale / 2.0f, scale / 2.0f)));
+			// lst->obj->cy->max = lst->obj->cy->max / 2.0f;
+			// lst->obj->cy->min =  -lst->obj->cy->max;
+			printf("max_cylinder = %f \n min_cylinder = %f \n", lst->obj->cy->max, lst->obj->cy->min);
+			printf("axis_cylinder(%f, %f, %f)\n", lst->obj->cy->axis.x, lst->obj->cy->axis.y, lst->obj->cy->axis.z);
+			lst->obj->transform = _identity(4); 
+			set_transform(&lst->obj, inverse(translation(p.x, p.y, p.z)));
+			set_transform(&lst->obj, inverse(scaling_mtx(scale / 2.0f, scale / 2.0f, scale / 2.0f)));/* problem in hight !! */
+			set_transform(&lst->obj, inverse(axis_cylinder(lst->obj->cy->axis)));
 		}
 		lst->obj->specs.diffuse = 0.7;
 		lst->obj->specs.specular = 0.0;
