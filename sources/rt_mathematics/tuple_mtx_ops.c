@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:51:56 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/02 17:45:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/08 00:28:58 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_tuple	extract_tuple_mtx(int row, t_matrix *m)
 {
 	t_tuple	tup;
     
-    if (!m) {
-        fprintf(stderr, "Error: Null matrix pointer\n");
-        return (t_tuple){0, 0, 0, 0};
-    }
+    // if (!m) {
+    //     fprintf(stderr, "Error: Null matrix pointer\n");
+    //     return (t_tuple){0, 0, 0, 0};
+    // }
 	tup.x = m->mtx[row][0];
 	tup.y = m->mtx[row][1];
 	tup.z = m->mtx[row][2];

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/04 12:20:39 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/08 20:08:33 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,84 +38,6 @@ t_matrix *translationMatrix(float tx, float ty, float tz) {
     mat->mtx[2][3] = tz;
     return mat;
 }
-
-t_matrix *rotationToAlignWithVector(t_vector v) {
-    v = vec_normalize(v);
-
-    // Create an identity matrix for rotation
-    t_matrix *rotation = _identity(4);
-
-    // Special cases when the vector is along or opposite to z-axis
-    if (fabs(v.x) < 1e-6 && fabs(v.y) < 1e-6 && v.z > 0) {
-        return rotation;  // Aligned with z-axis
-    }
-    if (fabs(v.x) < 1e-6 && fabs(v.y) < 1e-6 && v.z < 0) {
-        rotation->mtx[0][0] = -1;
-        rotation->mtx[1][1] = -1;
-        rotation->mtx[2][2] = -1;
-        return rotation;  // Opposite to z-axis
-    }
-
-    // Calculate the axis of rotation using cross product with z-axis
-    t_vector axis = {v.y, -v.x, 0, 1};  // Perpendicular vector in the xy-plane
-    axis = vec_normalize(axis);
-
-    float cosTheta = v.z;  // Dot product between v and z-axis
-    float sinTheta = sqrtf(1 - cosTheta * cosTheta);
-
-    float ux = axis.x, uy = axis.y, uz = axis.z;
-
-    // Fill the rotation matrix based on axis and angle
-    rotation->mtx[0][0] = cosTheta + ux * ux * (1 - cosTheta);
-    rotation->mtx[0][1] = ux * uy * (1 - cosTheta) - uz * sinTheta;
-    rotation->mtx[0][2] = ux * uz * (1 - cosTheta) + uy * sinTheta;
-    
-    rotation->mtx[1][0] = uy * ux * (1 - cosTheta) + uz * sinTheta;
-    rotation->mtx[1][1] = cosTheta + uy * uy * (1 - cosTheta);
-    rotation->mtx[1][2] = uy * uz * (1 - cosTheta) - ux * sinTheta;
-    
-    rotation->mtx[2][0] = uz * ux * (1 - cosTheta) - uy * sinTheta;
-    rotation->mtx[2][1] = uz * uy * (1 - cosTheta) + ux * sinTheta;
-    rotation->mtx[2][2] = cosTheta + uz * uz * (1 - cosTheta);
-
-    // Homogeneous coordinates if needed
-    rotation->mtx[3][3] = 1.0f;
-
-    // Additional rotation around x-axis
-    float angleX = atan2f(v.y, sqrtf(v.x * v.x + v.z * v.z));
-    t_matrix *rotationX = _identity(4);
-    rotationX->mtx[1][1] = cosf(angleX);
-    rotationX->mtx[1][2] = sinf(angleX);
-    rotationX->mtx[2][1] = -sinf(angleX);
-    rotationX->mtx[2][2] = cosf(angleX);
-
-    // Additional rotation around y-axis
-    float angleY = atan2f(v.x, v.z);
-    t_matrix *rotationY = _identity(4);
-    rotationY->mtx[0][0] = cosf(angleY);
-    rotationY->mtx[0][2] = -sinf(angleY);
-    rotationY->mtx[2][0] = sinf(angleY);
-    rotationY->mtx[2][2] = cosf(angleY);
-
-    // Additional rotation around z-axis
-    float angleZ = atan2f(-v.y, v.x);
-    t_matrix *rotationZ = _identity(4);
-    rotationZ->mtx[0][0] = cosf(angleZ);
-    rotationZ->mtx[0][1] = sinf(angleZ);
-    rotationZ->mtx[1][0] = -sinf(angleZ);
-    rotationZ->mtx[1][1] = cosf(angleZ);
-
-    // Combine the rotation matrices
-    t_matrix *finalRotation = mtx_multiply(rotationZ, mtx_multiply(rotationY, mtx_multiply(rotationX, rotation)));
-
-    // Free the temporary matrices
-    free(rotationX);
-    free(rotationY);
-    free(rotationZ);
-
-    return finalRotation;
-}
-
 
 /**
  * @brief Handles the hook function for the mlx window
@@ -212,31 +134,6 @@ void	ft_free_struct(t_pars *pars)
 }
 
 /**
- * @brief Normalizes the color values to ensure they are within the valid range
- * 
- * This function normalizes the color values to ensure they are within the valid range of 0 to 1.
- * If any color component exceeds 1, all color components are divided by the maximum value to normalize the color.
- * 
- * @param colorValue The color value to be normalized
- * 
- * @return The normalized color value
- */
-t_color	normalize_color(t_color color_value)
-{
-	float max_val;
-
-	max_val = fmax(color_value.r, fmax(color_value.g, color_value.b));
-	if (max_val > 1)
-	{
-		color_value.r = color_value.r / max_val;
-		color_value.g = color_value.g / max_val;
-		color_value.b = color_value.b / max_val;
-		return (color_value);
-	}
-	return (color_value);
-}
-
-/**
  * @brief Creates a camera configuration for rendering the scene
  * 
  * This function creates a camera configuration for rendering the scene based on the specified parameters.
@@ -297,9 +194,7 @@ t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
     world_x = c.hwidth - (px + 0.5) * c.pixel_size;
     world_y = c.hheight - (py + 0.5) * c.pixel_size;
     pixel = mtx_tuple_prod(c.transform, _point(world_x, world_y, -1));
-    return (_ray(mtx_tuple_prod(c.transform, _point(0, 0, 0)),
-            vec_normalize(subtract_tuples(pixel,
-            mtx_tuple_prod(c.transform, _point(0, 0, 0))))));
+    return (_ray(mtx_tuple_prod(c.transform, _point(0, 0, 0)), vec_normalize(subtract_tuples(pixel, mtx_tuple_prod(c.transform, _point(0, 0, 0))))));
 }
 
 /**
@@ -355,7 +250,7 @@ t_lst_inter *intersect_world(t_scene *w, t_ray *r)
     {
         if (obj->obj->type == PLANE)
             xs = intersect_pl(r, obj->obj);
-        else if (obj->obj->type == CYLINDER)
+        else if (obj->obj->type == CYLINDER) /* r1 to be testet for remouving it AYGAOUA  */
         {
             r1 = transform_ray(r, obj->obj->transform);
             xs = intersect_caps(obj->obj, r1);
@@ -401,13 +296,12 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
     {
         comps->normalv = local_normal_at(comps->obj, comps->point);
     }
+	else if (comps->obj->type == PLANE)
+		comps->normalv = comps->obj->pl->vec;
     if (dot_product(comps->normalv, comps->eyev) < EPSILON)
     {
         comps->inside = 1;
-        if (comps->obj->type == PLANE)
-            comps->normalv = multiply_tuple_scalar(-1, comps->obj->pl->vec);
-        else 
-            comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
+        comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
     }
     else
         comps->inside = 0;
@@ -435,7 +329,8 @@ t_color color_at(t_scene *w, t_ray *r)
     h = hit(lst);
     if (h == NULL)
         return (_color(0, 0, 0));
-    t_color color = shade_hit(w, prepare_computations(h, r));
+	t_comps *comps = prepare_computations(h, r);
+    t_color color = shade_hit(w, comps);
     return (color);
 }
 
@@ -453,7 +348,7 @@ t_color shade_hit(t_scene *world, t_comps *copms)
 {
     int shadowed;
     shadowed = is_shadowed(world, copms->point);
-    return(illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
+    return(illuminate(copms, world->light, shadowed));
 }
 
 t_color normalizeColor(t_color colorValue) {
@@ -492,9 +387,9 @@ void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
         {
             r = ray_for_pixel(c, x, y);
             color = color_at(w, r);
+            color = normalizeColor(color);
             if (w->light.brightness != 0)
                 color = multiply_color_scalar(w->light.brightness, color);
-            color = normalizeColor(color);
             color = _color255(color);
             color_int = ft_pixel((int)(color.r), (int)(color.g), \
                                         (int)(color.b));
@@ -591,6 +486,11 @@ int	is_shadowed(t_scene *w, t_point p)
     return (0);
 }
 
+// t_matrix *axis_camera(t_vector orientation, t_point view_point)
+// {
+	
+// }
+
 t_camera_fn	set_camera(t_camera cam)
 {
 	t_camera_fn	c;
@@ -599,7 +499,9 @@ t_camera_fn	set_camera(t_camera cam)
 	c = camera(WIDTH, HEIGHT, cam.fov * (M_PI / 180));
 	// printf ("cam.view_point = (%f, %f, %f)\n", cam.view_point.x, cam.view_point.y, cam.view_point.z);
 	// printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
-	c.transform = view_transform(cam.view_point, cam.orientation, _point(0.0, 1.0, 0.0));
+	// c.transform = axis_camera(cam.orientation, cam.view_point);
+	// c.transform = inverse(c.transform);
+	c.transform = view_transform(cam.view_point, add_tuples(cam.view_point, cam.orientation), _point(EPSILON, 1, EPSILON));
 	c.transform = inverse(c.transform);
 	return (c);
 }
@@ -632,19 +534,12 @@ t_matrix *axis_to_matrix(t_vector up, t_vector forw, t_vector right)
 	res->mtx[0][0] = up.x;
 	res->mtx[1][0] = up.y;
 	res->mtx[2][0] = up.z;
-	res->mtx[3][0] = 0;
 	res->mtx[0][1] = forw.x;
 	res->mtx[1][1] = forw.y;
 	res->mtx[2][1] = forw.z;
-	res->mtx[3][1] = 0;
 	res->mtx[0][2] = right.x;
 	res->mtx[1][2] = right.y;
 	res->mtx[2][2] = right.z;
-	res->mtx[3][2] = 0;
-	res->mtx[0][3] = 0;
-	res->mtx[1][3] = 0;
-	res->mtx[2][3] = 0;
-	res->mtx[3][3] = 1;
 	return (res);
 }
 
@@ -699,7 +594,7 @@ void	set_transformations(t_obj_lst *lst)
 			lst->obj->cy->min =  -lst->obj->cy->max;
 			printf("max_cylinder = %f \n min_cylinder = %f \n", lst->obj->cy->max, lst->obj->cy->min);
 			printf("axis_cylinder(%f, %f, %f)\n", lst->obj->cy->axis.x, lst->obj->cy->axis.y, lst->obj->cy->axis.z);
-			lst->obj->transform = _identity(4); 
+			lst->obj->transform = _identity(4);
 			set_transform(&lst->obj, inverse(translation(p.x, p.y, p.z)));
 			set_transform(&lst->obj, inverse(scaling_mtx(scale / 2.0f, scale / 2.0f, scale / 2.0f)));/* problem in hight !! */
 			set_transform(&lst->obj, inverse(axis_cylinder(lst->obj->cy->axis)));

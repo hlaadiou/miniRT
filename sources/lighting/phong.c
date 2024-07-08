@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/04 12:08:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/08 20:13:56 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,38 +55,30 @@ t_color	multiply_color_scalar(float scalar, t_color tup)
 	return (res);
 }
 
-t_color	rtn_phong(t_color a, t_color d, t_color s)
+t_color	rtn_phong(t_color a, t_color d)
 {
 	t_color	res;
 
-	res.r = a.r + d.r + s.r;
-	res.g = a.g + d.g + s.g;
-	res.b = a.b + d.b + s.b;
+	res.r = a.r + d.r;
+	res.g = a.g + d.g;
+	res.b = a.b + d.b;
 	return (res);
 }
 
-t_color	illuminate(t_object *obj, t_point px, t_light light, t_point cam, int in_shadow)
+//     return(illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
+
+t_color	illuminate(t_comps *comps,t_light light, int in_shadow)
 {
 	t_phong		ph;
 	float		light_dot_normal;
-	float		reflect_dot_eye;
-	float		factor;
 
-	ph = _phong(obj, px, light, cam);
+	ph = _phong(comps->obj, comps->point, light, comps->eyev);
 	if (in_shadow || compare_f(light.brightness , 0))
 		return (ph.ambient);
 	light_dot_normal = dot_product(ph.l, ph.n);
-	if (light_dot_normal >= EPSILON)
-	{
-		ph.diffuse = multiply_color_scalar(obj->specs.diffuse * \
-								light_dot_normal, ph.px_color);
-		reflect_dot_eye = dot_product(ph.r, ph.e);
-		if (reflect_dot_eye > EPSILON)
-		{
-			factor = pow(reflect_dot_eye, obj->specs.phong_factor);
-		// 	ph.specular = multiply_color_scalar(factor * \
-		// 							obj->specs.specular, light.color);
-		}
-	}
-	return (rtn_phong(ph.ambient, ph.diffuse, ph.specular));
+	if (light_dot_normal < 0 && comps->inside == 0)
+		return (ph.ambient);
+	ph.diffuse = multiply_color_scalar(comps->obj->specs.diffuse * \
+							light_dot_normal, ph.px_color);
+	return (rtn_phong(ph.ambient, ph.diffuse));
 }
