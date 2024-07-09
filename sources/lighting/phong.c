@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/08 20:13:56 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/09 13:32:04 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ t_color	illuminate(t_comps *comps,t_light light, int in_shadow)
 	light_dot_normal = dot_product(ph.l, ph.n);
 	if (light_dot_normal < 0 && comps->inside == 0)
 		return (ph.ambient);
+	else if (light_dot_normal < 0)
+		light_dot_normal = -light_dot_normal;
 	ph.diffuse = multiply_color_scalar(comps->obj->specs.diffuse * \
 							light_dot_normal, ph.px_color);
 	return (rtn_phong(ph.ambient, ph.diffuse));
