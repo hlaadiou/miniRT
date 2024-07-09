@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/09 11:07:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/09 13:06:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,10 +414,17 @@ void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
 t_matrix *view_transform(t_point from, t_point to, t_vector up)
 {
 	if (compare_f(up.x, fabs(subtract_tuples(to, from).x)) && compare_f(up.y, fabs(subtract_tuples(to, from).y)) && compare_f(up.z, fabs(subtract_tuples(to, from).z)))
-		up = _vector(0,0,1);
+	{
+		if (subtract_tuples(to, from).y < EPSILON)
+			up = _vector(0,0,1);
+		else
+			up = _vector(0,0,-1);
+
+	}
     t_vector forward = vec_normalize(subtract_tuples(to, from));
     t_vector upn = vec_normalize(up);
     t_vector left = cross_product(forward, upn);
+	//Cross(camera_right, camera_direction)
     t_vector true_up = cross_product(left, forward);
     t_matrix *orientation = _identity(4);
     orientation->mtx[0][0] = left.x;
@@ -488,11 +495,6 @@ int	is_shadowed(t_scene *w, t_point p)
     return (0);
 }
 
-// t_matrix *axis_camera(t_vector orientation, t_point view_point)
-// {
-	
-// }
-
 t_camera_fn	set_camera(t_camera cam)
 {
 	t_camera_fn	c;
@@ -501,8 +503,6 @@ t_camera_fn	set_camera(t_camera cam)
 	c = camera(WIDTH, HEIGHT, cam.fov * (M_PI / 180));
 	// printf ("cam.view_point = (%f, %f, %f)\n", cam.view_point.x, cam.view_point.y, cam.view_point.z);
 	// printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
-	// c.transform = axis_camera(cam.orientation, cam.view_point);
-	// c.transform = inverse(c.transform);
 	c.transform = view_transform(cam.view_point, \
 					add_tuples(cam.view_point, cam.orientation), \
 					_point(0, 1, 0));
@@ -596,8 +596,8 @@ void	set_transformations(t_obj_lst *lst)
 			lst->obj->cy->diameter = 1;
 			lst->obj->cy->max = lst->obj->cy->max / 2.0f;
 			lst->obj->cy->min =  -lst->obj->cy->max;
-			printf("max_cylinder = %f \n min_cylinder = %f \n", lst->obj->cy->max, lst->obj->cy->min);
-			printf("axis_cylinder(%f, %f, %f)\n", lst->obj->cy->axis.x, lst->obj->cy->axis.y, lst->obj->cy->axis.z);
+			// printf("max_cylinder = %f \n min_cylinder = %f \n", lst->obj->cy->max, lst->obj->cy->min);
+			// printf("axis_cylinder(%f, %f, %f)\n", lst->obj->cy->axis.x, lst->obj->cy->axis.y, lst->obj->cy->axis.z);
 			lst->obj->transform = _identity(4);
 			set_transform(&lst->obj, inverse(translation(p.x, p.y, p.z)));
 			set_transform(&lst->obj, inverse(scaling_mtx(scale / 2.0f, scale / 2.0f, scale / 2.0f)));/* problem in hight !! */
@@ -632,7 +632,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
 		return (1);
-	print_scene(scene); // To remove later
+	// print_scene(scene); // To remove later
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
 	render(cam, scene, &image);
