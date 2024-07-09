@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/08 20:08:33 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/09 11:07:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,6 +413,8 @@ void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
  */
 t_matrix *view_transform(t_point from, t_point to, t_vector up)
 {
+	if (compare_f(up.x, fabs(subtract_tuples(to, from).x)) && compare_f(up.y, fabs(subtract_tuples(to, from).y)) && compare_f(up.z, fabs(subtract_tuples(to, from).z)))
+		up = _vector(0,0,1);
     t_vector forward = vec_normalize(subtract_tuples(to, from));
     t_vector upn = vec_normalize(up);
     t_vector left = cross_product(forward, upn);
@@ -501,7 +503,9 @@ t_camera_fn	set_camera(t_camera cam)
 	// printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
 	// c.transform = axis_camera(cam.orientation, cam.view_point);
 	// c.transform = inverse(c.transform);
-	c.transform = view_transform(cam.view_point, add_tuples(cam.view_point, cam.orientation), _point(EPSILON, 1, EPSILON));
+	c.transform = view_transform(cam.view_point, \
+					add_tuples(cam.view_point, cam.orientation), \
+					_point(0, 1, 0));
 	c.transform = inverse(c.transform);
 	return (c);
 }
