@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/02 17:14:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:03:50 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void print_scene(t_scene *scene)
 	printf("Orientation: %.2f %.2f %.2f\n", scene->camera.orientation.x, scene->camera.orientation.y, scene->camera.orientation.z);
 	printf("FOV: %.2f\n\n", scene->camera.fov);
 	printf("Light\n\n");
-	printf("position: %.2f %.2f %.2f\n", scene->light.position.x, scene->light.position.y, scene->light.position.z);
+	printf("position: %f %f %f\n", scene->light.position.x, scene->light.position.y, scene->light.position.z);
 	printf("Brightness: %.2f\n", scene->light.brightness);
 	printf("Color: %f %f %f\n\n", scene->light.color.r, scene->light.color.g, scene->light.color.b);
 	print_lstobj(scene->lst);

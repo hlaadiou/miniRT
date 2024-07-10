@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/09 13:06:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/10 18:15:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,7 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
     }
     else
         comps->inside = 0;
-    comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
+	comps->over_point = add_tuples(comps->point, multiply_tuple_scalar(EPSILON, comps->normalv));
     return (comps);
 }
 
@@ -347,7 +347,7 @@ t_color color_at(t_scene *w, t_ray *r)
 t_color shade_hit(t_scene *world, t_comps *copms)
 {
     int shadowed;
-    shadowed = is_shadowed(world, copms->point);
+    shadowed = is_shadowed(world, copms->over_point);
     return(illuminate(copms, world->light, shadowed));
 }
 
@@ -413,13 +413,14 @@ void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
  */
 t_matrix *view_transform(t_point from, t_point to, t_vector up)
 {
-	if (compare_f(up.x, fabs(subtract_tuples(to, from).x)) && compare_f(up.y, fabs(subtract_tuples(to, from).y)) && compare_f(up.z, fabs(subtract_tuples(to, from).z)))
+	if (compare_f(up.x, fabs(subtract_tuples(to, from).x)) && \
+		compare_f(up.y, fabs(subtract_tuples(to, from).y)) && \
+		compare_f(up.z, fabs(subtract_tuples(to, from).z)))
 	{
 		if (subtract_tuples(to, from).y < EPSILON)
 			up = _vector(0,0,1);
 		else
 			up = _vector(0,0,-1);
-
 	}
     t_vector forward = vec_normalize(subtract_tuples(to, from));
     t_vector upn = vec_normalize(up);
@@ -463,6 +464,14 @@ void	free_f_mtx(float **mtx, int size)
 	free(mtx);
 }
 
+int	compare_ff(float a, float b)
+{
+	if (fabs(a - b) < 0.000001f)
+		return (1);
+	else
+		return (0);
+}
+
 /**
  * @brief Checks if a point is shadowed by any object in the world from the light source
  * 
@@ -486,7 +495,9 @@ int	is_shadowed(t_scene *w, t_point p)
     r = _ray(p, vec_normalize(v));
     lst = intersect_world(w, r);
     h = hit(lst);
-    if (h != NULL && h->t < distance)
+	if (h != NULL && (compare_ff(fabs(h->t - distance), 0)))
+		return 1;
+    if (h != NULL && (h->t < distance))
     {
         free(r);
         return (1);
@@ -582,7 +593,8 @@ void	set_transformations(t_obj_lst *lst)
 	while (lst)
 	{
 		p = get_obj_point(lst->obj);
-		scale = get_diameter(lst->obj);
+		// p = multiply_tuple_scalar(0.5f, p);
+		scale = get_diameter(lst->obj) / 2.0f;
 		if (lst->obj->type == SPHERE)
 		{
 			lst->obj->sp->org = _point(0, 0, 0);
@@ -599,8 +611,8 @@ void	set_transformations(t_obj_lst *lst)
 			// printf("max_cylinder = %f \n min_cylinder = %f \n", lst->obj->cy->max, lst->obj->cy->min);
 			// printf("axis_cylinder(%f, %f, %f)\n", lst->obj->cy->axis.x, lst->obj->cy->axis.y, lst->obj->cy->axis.z);
 			lst->obj->transform = _identity(4);
+			set_transform(&lst->obj, inverse(scaling_mtx(scale, 1, scale)));/* problem in hight !! */
 			set_transform(&lst->obj, inverse(translation(p.x, p.y, p.z)));
-			set_transform(&lst->obj, inverse(scaling_mtx(scale / 2.0f, scale / 2.0f, scale / 2.0f)));/* problem in hight !! */
 			set_transform(&lst->obj, inverse(axis_cylinder(lst->obj->cy->axis)));
 		}
 		lst->obj->specs.diffuse = 0.7;
@@ -632,7 +644,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
 		return (1);
-	// print_scene(scene); // To remove later
+	print_scene(scene); // To remove later
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
 	render(cam, scene, &image);
