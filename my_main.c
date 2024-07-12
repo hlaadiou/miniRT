@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/10 18:15:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/12 17:08:25 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,7 +347,7 @@ t_color color_at(t_scene *w, t_ray *r)
 t_color shade_hit(t_scene *world, t_comps *copms)
 {
     int shadowed;
-    shadowed = is_shadowed(world, copms->over_point);
+    shadowed = is_shadowed(world, copms->point);
     return(illuminate(copms, world->light, shadowed));
 }
 
@@ -510,10 +510,10 @@ t_camera_fn	set_camera(t_camera cam)
 {
 	t_camera_fn	c;
 
-	// printf("set_camera.fov = %f\n", cam.fov);
+	printf("set_camera.fov = %f\n", cam.fov);
 	c = camera(WIDTH, HEIGHT, cam.fov * (M_PI / 180));
-	// printf ("cam.view_point = (%f, %f, %f)\n", cam.view_point.x, cam.view_point.y, cam.view_point.z);
-	// printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
+	printf ("cam.view_point = (%f, %f, %f)\n", cam.view_point.x, cam.view_point.y, cam.view_point.z);
+	printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
 	c.transform = view_transform(cam.view_point, \
 					add_tuples(cam.view_point, cam.orientation), \
 					_point(0, 1, 0));
@@ -644,7 +644,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
 		return (1);
-	print_scene(scene); // To remove later
+	// print_scene(scene); // To remove later
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
 	render(cam, scene, &image);
