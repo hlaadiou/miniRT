@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/07/12 17:04:54 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/07/13 03:30:12 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,7 @@ SRCS		=	my_main.c \
 OBJS 		= 	$(SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" lib/libft/libft.a
-CFLAGS		=	-Wall -Werror -Wextra -O3 #-fsanitize=address -g3
+CFLAGS		=	-Wall -Werror -Wextra -O3 -fsanitize=address -g3
 CC			=	cc
 RM			=	rm -rf
 

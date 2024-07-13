@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/12 17:08:31 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/12 19:58:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ t_color	illuminate(t_comps *comps,t_light light, int in_shadow)
 	t_phong		ph;
 	float		light_dot_normal;
 
-	ph = _phong(comps->obj, comps->point, light, comps->eyev);
+	if (!comps)
+		return (_color(0, 0, 0));
+	ph = _phong(comps->obj, comps->over_point, light, comps->eyev);
 	if (in_shadow || compare_f(light.brightness , 0))
 		return (ph.ambient);
 	light_dot_normal = dot_product(ph.l, ph.n);

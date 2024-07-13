@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/09 17:23:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/13 01:45:06 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_inter **local_intersect(t_object *cy, t_ray *r)
         return (NULL);
     }
     float b = 2 * ((r->dir.x * r->org.x) + (r->dir.z * r->org.z));
-    float c = (r->org.x * r->org.x) + (r->org.z * r->org.z) - 1;
+    float c = (r->org.x * r->org.x) + (r->org.z * r->org.z) - (powf(cy->cy->diameter, 2) / 4.0f);
     float discriminant = b * b - 4 * a * c;
     if (discriminant < 0)
     {

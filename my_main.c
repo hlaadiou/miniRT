@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/12 17:08:25 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/13 03:41:46 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,7 +347,7 @@ t_color color_at(t_scene *w, t_ray *r)
 t_color shade_hit(t_scene *world, t_comps *copms)
 {
     int shadowed;
-    shadowed = is_shadowed(world, copms->point);
+    shadowed = is_shadowed(world, copms->over_point);
     return(illuminate(copms, world->light, shadowed));
 }
 
@@ -605,13 +605,13 @@ void	set_transformations(t_obj_lst *lst)
 		else if (lst->obj->type == CYLINDER)
 		{
 			lst->obj->cy->center = _point(0, 0, 0);
-			lst->obj->cy->diameter = 1;
-			lst->obj->cy->max = lst->obj->cy->max / 2.0f;
-			lst->obj->cy->min =  -lst->obj->cy->max;
+			// lst->obj->cy->diameter = 1;
+			// lst->obj->cy->max = lst->obj->cy->max / 2.0f;
+			// lst->obj->cy->min =  -lst->obj->cy->max;
 			// printf("max_cylinder = %f \n min_cylinder = %f \n", lst->obj->cy->max, lst->obj->cy->min);
 			// printf("axis_cylinder(%f, %f, %f)\n", lst->obj->cy->axis.x, lst->obj->cy->axis.y, lst->obj->cy->axis.z);
 			lst->obj->transform = _identity(4);
-			set_transform(&lst->obj, inverse(scaling_mtx(scale, 1, scale)));/* problem in hight !! */
+			// set_transform(&lst->obj, inverse(scaling_mtx(scale, scale, scale)));/* problem in hight !! */
 			set_transform(&lst->obj, inverse(translation(p.x, p.y, p.z)));
 			set_transform(&lst->obj, inverse(axis_cylinder(lst->obj->cy->axis)));
 		}

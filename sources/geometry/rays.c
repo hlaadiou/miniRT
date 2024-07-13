@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:26:14 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/08 18:22:39 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/13 01:25:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_quadratic	discriminant_sp(t_ray *ray, t_object *sp)
 	quad.a = dot_product(ray->dir, ray->dir);
 	quad.b = 2 * dot_product(ray->dir, sp_to_ray);
 	quad.c = dot_product(sp_to_ray, sp_to_ray) - sp->sp->radius;
-	quad.delta = pow(quad.b, 2) - (4 * quad.a * quad.c);
+	quad.delta = powf(quad.b, 2) - (4 * quad.a * quad.c);
 	return (quad);
 }
 

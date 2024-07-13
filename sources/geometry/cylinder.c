@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/03 15:01:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/13 01:38:16 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
 
     // Check intersection with the lower cap
     t = (cy->cy->min - r->org.y) / r->dir.y;
-    if (check_cap(r, t)) {
+    if (check_cap(r, t, cy)) {
         inter[count]->t = t;
         inter[count]->obj = cy;
         count++;
@@ -93,7 +93,7 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
 
     // Check intersection with the upper cap
     t = (cy->cy->max - r->org.y) / r->dir.y;
-    if (check_cap(r, t)) {
+    if (check_cap(r, t, cy)) {
         inter[count]->t = t;
         inter[count]->obj = cy;
         count++;
@@ -116,14 +116,14 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
     return inter;
 }
 
-int check_cap(t_ray *r, float t)
+int check_cap(t_ray *r, float t, t_object *cy)
 {
     float x;
     float z;;
 
     x = r->org.x + (t * r->dir.x);
     z = r->org.z + (t * r->dir.z);
-    if (((x * x) + (z * z)) <= 1)
+    if (((x * x) + (z * z)) <= (powf(cy->cy->diameter, 2) / 4.0f))
         return (1);
     return (0);
 }
@@ -136,7 +136,7 @@ t_vector local_normal_at(t_object *cy, t_point world_point)
 
 
     object_point = mtx_tuple_prod(cy->transform, world_point);
-    dist = (object_point.x * object_point.x) + (object_point.z * object_point.z);
+    dist = powf(object_point.x, 2) + powf(object_point.z, 2);
     // normal.w = 0;
     if (dist < 1 && object_point.y >= cy->cy->max - EPSILON)
     {

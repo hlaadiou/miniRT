@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/02 17:13:24 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/13 03:29:04 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ t_object	*check_cy_data(t_pars *conf)
 		put_error("Invalid cylinder diameter/height\n");
 	rgb = parse_color(conf->elements[5]);
 	cy = _cylinder(pt, vec, ft_atof(conf->elements[3]), \
-					ft_atof(conf->elements[4]), 0, _color01(rgb)); /* to fix !!*/
+					(ft_atof(conf->elements[4]) / 2.0f), (-1 * (ft_atof(conf->elements[4]) / 2.0f)), _color01(rgb)); /* to fix !!*/
 	if (!cy)
 		put_error("Fatal, unable to create object\n");
 	return (cy);
