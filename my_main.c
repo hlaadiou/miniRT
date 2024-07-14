@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/13 03:41:46 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/14 01:14:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ t_lst_inter *intersect_world(t_scene *w, t_ray *r)
             xs = intersect_pl(r, obj->obj);
         else if (obj->obj->type == CYLINDER) /* r1 to be testet for remouving it AYGAOUA  */
         {
+			// printf("***************1***************\n");
             r1 = transform_ray(r, obj->obj->transform);
             xs = intersect_caps(obj->obj, r1);
             _intersections(&lst, xs);
@@ -322,8 +323,8 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
  */
 t_color color_at(t_scene *w, t_ray *r)
 {
-    t_lst_inter *lst;
-    t_inter *h;
+    t_lst_inter *lst = NULL;
+    t_inter *h = NULL;
 
     lst = intersect_world(w, r);
     h = hit(lst);
@@ -425,7 +426,6 @@ t_matrix *view_transform(t_point from, t_point to, t_vector up)
     t_vector forward = vec_normalize(subtract_tuples(to, from));
     t_vector upn = vec_normalize(up);
     t_vector left = cross_product(forward, upn);
-	//Cross(camera_right, camera_direction)
     t_vector true_up = cross_product(left, forward);
     t_matrix *orientation = _identity(4);
     orientation->mtx[0][0] = left.x;
@@ -510,10 +510,10 @@ t_camera_fn	set_camera(t_camera cam)
 {
 	t_camera_fn	c;
 
-	printf("set_camera.fov = %f\n", cam.fov);
+	// printf("set_camera.fov = %f\n", cam.fov);
 	c = camera(WIDTH, HEIGHT, cam.fov * (M_PI / 180));
-	printf ("cam.view_point = (%f, %f, %f)\n", cam.view_point.x, cam.view_point.y, cam.view_point.z);
-	printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
+	// printf ("cam.view_point = (%f, %f, %f)\n", cam.view_point.x, cam.view_point.y, cam.view_point.z);
+	// printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
 	c.transform = view_transform(cam.view_point, \
 					add_tuples(cam.view_point, cam.orientation), \
 					_point(0, 1, 0));
@@ -593,25 +593,16 @@ void	set_transformations(t_obj_lst *lst)
 	while (lst)
 	{
 		p = get_obj_point(lst->obj);
-		// p = multiply_tuple_scalar(0.5f, p);
-		scale = get_diameter(lst->obj) / 2.0f;
+		scale = get_diameter(lst->obj);
 		if (lst->obj->type == SPHERE)
 		{
 			lst->obj->sp->org = _point(0, 0, 0);
-			lst->obj->sp->radius = 1;
 			lst->obj->transform = inverse(translation(p.x, p.y, p.z));
-			set_transform(&lst->obj, inverse(scaling_mtx(scale, scale, scale)));
 		}
 		else if (lst->obj->type == CYLINDER)
 		{
 			lst->obj->cy->center = _point(0, 0, 0);
-			// lst->obj->cy->diameter = 1;
-			// lst->obj->cy->max = lst->obj->cy->max / 2.0f;
-			// lst->obj->cy->min =  -lst->obj->cy->max;
-			// printf("max_cylinder = %f \n min_cylinder = %f \n", lst->obj->cy->max, lst->obj->cy->min);
-			// printf("axis_cylinder(%f, %f, %f)\n", lst->obj->cy->axis.x, lst->obj->cy->axis.y, lst->obj->cy->axis.z);
 			lst->obj->transform = _identity(4);
-			// set_transform(&lst->obj, inverse(scaling_mtx(scale, scale, scale)));/* problem in hight !! */
 			set_transform(&lst->obj, inverse(translation(p.x, p.y, p.z)));
 			set_transform(&lst->obj, inverse(axis_cylinder(lst->obj->cy->axis)));
 		}
@@ -629,10 +620,10 @@ void vv(void)
 
 int	main(int ac, char **av)
 {
-	mlx_image_t	*image;
-	mlx_t		*mlx;
-	t_pars		*conf;
-	t_scene		*scene;
+	mlx_image_t	*image = NULL;
+	mlx_t		*mlx = NULL;
+	t_pars		*conf  = NULL;
+	t_scene		*scene = NULL;
 	t_camera_fn	cam;
 
 	// atexit (vv);

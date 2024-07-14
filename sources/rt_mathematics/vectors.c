@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:35:57 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/03 15:49:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/14 01:17:49 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ t_vector	vec_normalize(t_vector vec)
 	t_vector	unit_vec;
 
 	modulus = vec_magnitude(vec);
-	// if (!modulus)
-	// {
-	// 	printf("U cannot normalize a vector of modulus 0\n");
-	// 	exit(EXIT_FAILURE);
-	// }
+	if (!modulus)
+	{
+		printf("U cannot normalize a vector of modulus 0\n");
+		return _vector(0, 0, 0);
+	}
 	unit_vec.x = vec.x / modulus;
 	unit_vec.y = vec.y / modulus;
 	unit_vec.z = vec.z / modulus;

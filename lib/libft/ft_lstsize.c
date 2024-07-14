@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 11:48:55 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/15 01:31:28 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/14 01:15:38 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_lstsize(t_pars *lst)
 {
-	t_pars	*j;
+	t_pars	*j = NULL;
 	int		i;
 
 	if (!lst)

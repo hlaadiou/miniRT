@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/13 03:29:04 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/14 00:28:20 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,9 @@ t_object	*check_sp_data(t_pars *conf)
 		put_error("Invalid sphere diameter\n");
 	rgb = parse_color(conf->elements[3]);
 	pt.w = 1.0;
-	sp = _sphere(pt, ft_atof(conf->elements[2]), _color01(rgb));
+	sp = _sphere(pt, ft_atof(conf->elements[2]) / 2.0f, _color01(rgb));
+	printf("sphere diameter == %f\n", sp->sp->radius);
+	
 	if (!sp)
 		put_error("Fatal, unable to create object\n");
 	return (sp);

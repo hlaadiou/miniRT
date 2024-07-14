@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/08 17:55:15 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/14 01:12:08 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ float	mtx_determinant(t_matrix *a)
 
 t_matrix	*inverse(t_matrix *a)
 {
-	t_matrix	*b;
+	t_matrix	*b = NULL;
 	int			row;
 	int			col;
 	float		c;

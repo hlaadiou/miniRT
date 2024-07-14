@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/06/11 02:35:14 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/14 01:15:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_free_struct(t_pars *pars)
 void	ft_pars(char *av, t_pars **pars)
 {
 	int		fd;
-	char	*line;
+	char	*line = NULL;
 
 	fd = open(av, O_RDONLY);
 	if (fd != -1)

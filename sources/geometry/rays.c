@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:26:14 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/13 01:25:24 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/14 01:13:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_inter	**_intersection(t_roots roots, t_object *obj)
 
 t_ray	*_ray(t_point org, t_vector vec)
 {
-	t_ray	*ray;
+	t_ray	*ray = NULL;
 
 	ray = (t_ray *)malloc(sizeof(t_ray));
 	if (!ray)
