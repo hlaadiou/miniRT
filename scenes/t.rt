@@ -9,12 +9,12 @@ A 			1		255,255,255
 # CAMERA
 # View Point (x, y, z) | Orientation Vec (x, y, z) : [-1, 1] | FOV [0, 180]
 
-C 		-1.5,1,-14.0 				-0.1,0,1							45
+C 		-5,4.5,-14.0 				0.5,-0.5,1							45
 
 # LIGHT
 # Light Point (x, y, z) | Brightness [0.0, 1.0] | RGB [0, 255]
 
-L 		0,3,-7.0 				1 				255,255,255
+L 		1.9,3,-7.0 				1 				255,255,255
 
 # SPHERES
 # Sphere center (x, y, z) | Diameter | RGB [0, 255]

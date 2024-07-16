@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 11:51:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 16:48:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,27 +95,6 @@ void	ft_pars(char *av, t_pars **pars)
 	return ;
 }
 
-// void	print_lst(t_pars *pars)
-// {
-// 	int		i;
-// 	t_pars	*tmp;
-
-// 	i = 0;
-// 	tmp = pars;
-// 	while (tmp != NULL)
-// 	{
-// 		printf("%d ", tmp->flag);
-// 		i = 0;
-// 		while (tmp->elements[i])
-// 		{
-// 			printf("%s ", tmp->elements[i]);
-// 			i++;
-// 		}
-// 		printf("\n");
-// 		tmp = tmp->next;
-// 	}
-// }
-
 void print_lstobj(t_obj_lst *lst)
 {
 	t_obj_lst	*tmp;
@@ -184,17 +163,11 @@ void	free_obj_lst(t_obj_lst *lst)
 		tmp = lst;
 		lst = lst->next;
 		if (tmp->obj->type == SPHERE)
-		{
 			free(tmp->obj->sp);
-		}
 		else if (tmp->obj->type == PLANE)
-		{
 			free(tmp->obj->pl);
-		}
 		else if (tmp->obj->type == CYLINDER)
-		{
 			free(tmp->obj->cy);
-		}
 		free_f_mtx(tmp->obj->transform->mtx, tmp->obj->transform->size);
 		free(tmp->obj->transform);
 		free(tmp->obj);

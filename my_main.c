@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 11:46:25 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 16:59:21 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b)
 {
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
-}
-
-t_matrix *translationMatrix(float tx, float ty, float tz) {
-    t_matrix *mat = _identity(4);
-	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(mat));
-    mat->mtx[0][3] = tx;
-    mat->mtx[1][3] = ty;
-    mat->mtx[2][3] = tz;
-    return mat;
 }
 
 /**
@@ -257,16 +248,16 @@ t_lst_inter *intersect_world(t_scene *w, t_ray r)
             r1 = transform_ray(r, obj->obj->transform);
             xs = intersect_caps(obj->obj, r1);
             _intersections(&lst, xs);
-			free(xs);
+			if (xs)
+				free(xs);
             xs = local_intersect(obj->obj, r1);
         }
         else if (obj->obj->type == SPHERE)
             xs = intersect_sp(r, obj->obj);
         if (xs)
-		{
             _intersections(&lst, xs);
+		if (xs)
 			free(xs);
-		}
         obj = obj->next;
     }
     lst = lst_sort(lst);
@@ -434,6 +425,9 @@ void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
  */
 t_matrix *view_transform(t_point from, t_point to, t_vector up)
 {
+	t_vector left;
+	t_matrix *orientation;
+	t_vector forward;
 	if (compare_f(up.x, fabs(subtract_tuples(to, from).x)) && \
 		compare_f(up.y, fabs(subtract_tuples(to, from).y)) && \
 		compare_f(up.z, fabs(subtract_tuples(to, from).z)))
@@ -443,17 +437,17 @@ t_matrix *view_transform(t_point from, t_point to, t_vector up)
 		else
 			up = _vector(0,0,-1);
 	}
-    t_vector forward = vec_normalize(subtract_tuples(to, from));
-    t_vector upn = vec_normalize(up);
-    t_vector left = cross_product(forward, upn);
-    t_vector true_up = cross_product(left, forward);
-    t_matrix *orientation = _identity(4);
+    forward = vec_normalize(subtract_tuples(to, from));
+    up = vec_normalize(up);
+    left = cross_product(forward, up);
+    up = cross_product(left, forward);
+    orientation = _identity(4);
     orientation->mtx[0][0] = left.x;
     orientation->mtx[0][1] = left.y;
     orientation->mtx[0][2] = left.z;
-    orientation->mtx[1][0] = true_up.x;
-    orientation->mtx[1][1] = true_up.y;
-    orientation->mtx[1][2] = true_up.z;
+    orientation->mtx[1][0] = up.x;
+    orientation->mtx[1][1] = up.y;
+    orientation->mtx[1][2] = up.z;
     orientation->mtx[2][0]= -forward.x;
     orientation->mtx[2][1]= -forward.y;
     orientation->mtx[2][2] = -forward.z;
@@ -500,11 +494,11 @@ int	compare_ff(float a, float b)
  */
 int	is_shadowed(t_scene *w, t_point p)
 {
-    t_vector v;
-    float distance;
-    t_ray r;
-    t_inter *h = NULL;
-    t_lst_inter *lst = NULL;
+    t_vector 	v;
+    float 		distance;
+    t_ray 		r;
+    t_inter 	*h;
+    t_lst_inter *lst;
 
     v = subtract_tuples(w->light.position, p);
     distance = vec_magnitude(v);
@@ -533,10 +527,9 @@ t_camera_fn	set_camera(t_camera cam)
 	t_camera_fn	c;
 
 	c = camera(WIDTH, HEIGHT, cam.fov * (M_PI / 180));
-	c.transform = view_transform(cam.view_point, \
+	c.transform = inverse(view_transform(cam.view_point, \
 					add_tuples(cam.view_point, cam.orientation), \
-					_point(0, 1, 0));
-	c.transform = inverse(c.transform);
+					_point(0, 1, 0)));
 	return (c);
 }
 
@@ -565,7 +558,6 @@ t_matrix *axis_to_matrix(t_vector up, t_vector forw, t_vector right)
 	t_matrix *res;
 
 	res = _identity(4);
-	
 	res->mtx[0][0] = up.x;
 	res->mtx[1][0] = up.y;
 	res->mtx[2][0] = up.z;

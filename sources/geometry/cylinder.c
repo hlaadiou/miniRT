@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/16 11:17:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 15:15:37 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,25 +133,34 @@ t_vector local_normal_at(t_object *cy, t_point world_point)
     t_point object_point;
     t_vector normal;
     float dist;
+    t_matrix *transpose;
 
 
     object_point = mtx_tuple_prod(cy->transform, world_point);
     dist = powf(object_point.x, 2) + powf(object_point.z, 2);
-    // normal.w = 0;
     if (dist < 1 && object_point.y >= cy->cy->max - EPSILON)
     {
         normal = (t_vector){0, 1, 0, 1};
-        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
+        transpose = mtx_transpose(cy->transform);
+        normal = mtx_tuple_prod(transpose, normal);
+        free_f_mtx(transpose->mtx, transpose->size);
+        free(transpose);
     }
     else if (dist < 1 && object_point.y <= cy->cy->min + EPSILON)
     {
         normal = (t_vector){0, -1, 0, 1};
-        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
+        transpose = mtx_transpose(cy->transform);
+        normal = mtx_tuple_prod(transpose, normal);
+        free_f_mtx(transpose->mtx, transpose->size);
+        free(transpose);
     }
     else
     {
         normal = (t_vector){object_point.x, 0, object_point.z, 1};
-        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
+        transpose = mtx_transpose(cy->transform);
+        normal = mtx_tuple_prod(transpose, normal);
+        free_f_mtx(transpose->mtx, transpose->size);
+        free(transpose);
     }
     return (normal);
 }

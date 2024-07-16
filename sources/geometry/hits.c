@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/16 11:28:17 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 16:59:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ t_inter	*hit(t_lst_inter *lst)
 	while (lst)
 	{
 		if (lst->inter && lst->inter->t >= EPSILON)
-		{
 			return (lst->inter);
-		}
 		lst = lst->next;
 	}
 	return (NULL);
