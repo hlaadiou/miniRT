@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hits.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/13 01:45:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 10:49:13 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@ t_inter	*hit(t_lst_inter *lst)
 	return (NULL);
 }
 
-t_inter **local_intersect(t_object *cy, t_ray *r) 
+t_inter **local_intersect(t_object *cy, t_ray r) 
 {
     t_inter **inter = malloc(sizeof(t_inter *) * 2);
     if (inter == NULL) {
         perror("Memory allocation failed");
         exit(EXIT_FAILURE);
     }
-    float a = (r->dir.x * r->dir.x) + (r->dir.z * r->dir.z);
-    if (fabs(a) < 0 || fabs(r->dir.y) < 0) 
+    float a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
+    if (fabs(a) < 0 || fabs(r.dir.y) < 0) 
     {
         free(inter);
         return (NULL);
     }
-    float b = 2 * ((r->dir.x * r->org.x) + (r->dir.z * r->org.z));
-    float c = (r->org.x * r->org.x) + (r->org.z * r->org.z) - (powf(cy->cy->diameter, 2) / 4.0f);
+    float b = 2 * ((r.dir.x * r.org.x) + (r.dir.z * r.org.z));
+    float c = (r.org.x * r.org.x) + (r.org.z * r.org.z) - (powf(cy->cy->diameter, 2) / 4.0f);
     float discriminant = b * b - 4 * a * c;
     if (discriminant < 0)
     {
@@ -72,13 +72,13 @@ t_inter **local_intersect(t_object *cy, t_ray *r)
         t1 = t2;
         t2 = tmp;
     }
-    float y0 = r->org.y + t1 * r->dir.y;
+    float y0 = r.org.y + t1 * r.dir.y;
     if (cy->cy->min < y0 && y0 < cy->cy->max)
     {
         inter[0]->t = t1;
         inter[0]->obj = cy;
     }
-    float y1 = r->org.y + t2 * r->dir.y;
+    float y1 = r.org.y + t2 * r.dir.y;
     if (cy->cy->min < y1 && y1 < cy->cy->max)
     {
         inter[1]->t = t2;

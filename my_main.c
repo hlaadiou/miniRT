@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/14 01:14:21 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:20:12 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,8 @@ t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 
 	c.vsize = vsize;
 	c.hsize = hsize;
+	if (field_of_view >= (179.5f * (M_PI / 180)))
+		field_of_view = 179.5f * (M_PI / 180);
 	hview = tan(field_of_view / 2.0f);
 	aspect = (float)hsize / (float)vsize;
 	if (aspect >= 1.0f)
@@ -185,7 +187,7 @@ t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 <<<*********************************-THE OLD VR-*********************************>>>
 */
 
-t_ray *ray_for_pixel(t_camera_fn c, int px, int py)
+t_ray	ray_for_pixel(t_camera_fn c, int px, int py)
 {
     float world_x;
     float world_y;
@@ -240,12 +242,12 @@ t_lst_inter *lst_sort(t_lst_inter *lst)
  * 
  * @return A pointer to the list of intersection points
  */
-t_lst_inter *intersect_world(t_scene *w, t_ray *r)
+t_lst_inter *intersect_world(t_scene *w, t_ray r)
 {
     t_lst_inter *lst = NULL;
     t_inter **xs = NULL;
     t_obj_lst *obj = w->lst;
-    t_ray *r1;
+    t_ray r1;
     while (obj != NULL)
     {
         if (obj->obj->type == PLANE)
@@ -262,7 +264,7 @@ t_lst_inter *intersect_world(t_scene *w, t_ray *r)
             xs = intersect_sp(r, obj->obj);
         if (xs)
             _intersections(&lst, xs);
-        r1 = NULL;
+        r1 = (t_ray){0};
         obj = obj->next;
     }
     lst = lst_sort(lst);
@@ -280,7 +282,7 @@ t_lst_inter *intersect_world(t_scene *w, t_ray *r)
  * 
  * @return A pointer to the prepared intersection information (comps)
  */
-t_comps *prepare_computations(t_inter *inter, t_ray *ray)
+t_comps *prepare_computations(t_inter *inter, t_ray ray)
 {
     t_comps *comps;
 
@@ -290,7 +292,7 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
     comps->t = inter->t;
     comps->obj = inter->obj;
     comps->point = _position(ray, comps->t);
-    comps->eyev = multiply_tuple_scalar(-1, ray->dir);
+    comps->eyev = multiply_tuple_scalar(-1, ray.dir);
     if (comps->obj->type == SPHERE)
         comps->normalv = normal_at(comps->obj, comps->point);
     else if (comps->obj->type == CYLINDER) 
@@ -321,7 +323,7 @@ t_comps *prepare_computations(t_inter *inter, t_ray *ray)
  * 
  * @return The color at the intersection point
  */
-t_color color_at(t_scene *w, t_ray *r)
+t_color color_at(t_scene *w, t_ray r)
 {
     t_lst_inter *lst = NULL;
     t_inter *h = NULL;
@@ -352,7 +354,8 @@ t_color shade_hit(t_scene *world, t_comps *copms)
     return(illuminate(copms, world->light, shadowed));
 }
 
-t_color normalizeColor(t_color colorValue) {
+t_color normalizeColor(t_color colorValue)
+{
     float max_val = fmax(colorValue.r, fmax(colorValue.g, colorValue.b));
     if (max_val > 1) {
         colorValue.r = colorValue.r / max_val;
@@ -374,8 +377,8 @@ t_color normalizeColor(t_color colorValue) {
  */
 
 void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
-{	
-    t_ray *r = NULL;
+{
+	t_ray	r = (t_ray){0};
     t_color color;
     int32_t color_int;
     int y = 0;
@@ -409,7 +412,6 @@ void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
  * @param from The point representing the camera's position in the world
  * @param to The point representing the position the camera is looking at
  * @param up The vector representing the upward direction of the camera
- * 
  * @return A pointer to the view transformation matrix
  */
 t_matrix *view_transform(t_point from, t_point to, t_vector up)
@@ -434,8 +436,8 @@ t_matrix *view_transform(t_point from, t_point to, t_vector up)
     orientation->mtx[1][0] = true_up.x;
     orientation->mtx[1][1] = true_up.y;
     orientation->mtx[1][2] = true_up.z;
-    orientation->mtx[2][0]= -forward.x;
-    orientation->mtx[2][1]= -forward.y;
+    orientation->mtx[2][0] = -forward.x;
+    orientation->mtx[2][1] = -forward.y;
     orientation->mtx[2][2] = -forward.z;
     t_matrix *translation_mtx = translation(-from.x, -from.y, -from.z);
     t_matrix *res = mtx_multiply(orientation, translation_mtx);
@@ -486,7 +488,7 @@ int	is_shadowed(t_scene *w, t_point p)
 {
     t_vector v;
     float distance;
-    t_ray *r = NULL;
+    t_ray	r = (t_ray){0};
     t_inter *h = NULL;
     t_lst_inter *lst = NULL;
 
@@ -495,14 +497,10 @@ int	is_shadowed(t_scene *w, t_point p)
     r = _ray(p, vec_normalize(v));
     lst = intersect_world(w, r);
     h = hit(lst);
-	if (h != NULL && (compare_ff(fabs(h->t - distance), 0)))
-		return 1;
+	if (h != NULL && (compare_ff(fabs(h->t - distance), 0))) // ??
+		return (1);
     if (h != NULL && (h->t < distance))
-    {
-        free(r);
         return (1);
-    }
-    free(r);
     return (0);
 }
 
@@ -510,10 +508,7 @@ t_camera_fn	set_camera(t_camera cam)
 {
 	t_camera_fn	c;
 
-	// printf("set_camera.fov = %f\n", cam.fov);
 	c = camera(WIDTH, HEIGHT, cam.fov * (M_PI / 180));
-	// printf ("cam.view_point = (%f, %f, %f)\n", cam.view_point.x, cam.view_point.y, cam.view_point.z);
-	// printf("cam.orientation = (%f, %f, %f)\n", cam.orientation.x, cam.orientation.y, cam.orientation.z);
 	c.transform = view_transform(cam.view_point, \
 					add_tuples(cam.view_point, cam.orientation), \
 					_point(0, 1, 0));
@@ -626,7 +621,6 @@ int	main(int ac, char **av)
 	t_scene		*scene = NULL;
 	t_camera_fn	cam;
 
-	// atexit (vv);
 	conf = create_conf(ac, av);
 	if (!conf)
 		return (1);
@@ -635,7 +629,6 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
 		return (1);
-	// print_scene(scene); // To remove later
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
 	render(cam, scene, &image);
@@ -644,105 +637,3 @@ int	main(int ac, char **av)
 	mlx_terminate(mlx);
 	return (0);
 }
-
-// int main ()
-// {
-//     // Create objects in the scene
-//     // t_object *floor = _plane(_point(0, 0, 0), _vector(0, 1, 0), _color(1, 1, 1));
-
-//     // t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 0, 0), 1, 2, 0, _color(1, 0, 0));
-//     // middle->specs.diffuse = 0.7;
-//     // middle->specs.specular = 0;
-//     // middle->transform = inverse(translation(0, 1, 5));
-//     // set_transform(&middle, rotation_x(M_PI_4));
-
-//     t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
-//     right->specs.diffuse = 0.7;
-//     right->specs.specular = 0;
-//     right->transform = inverse(translation(3, 1, 3));
-
-//     t_object *left = _sphere(_point(0, 0, 0), 1, _color(0.5, 1, 0.1));
-//     left->specs.diffuse = 0.7;
-//     left->specs.specular = 0;
-//     left->transform = inverse(mtx_multiply(translation(-2, 1, 2), scaling_mtx(1, 1, 1)));
-
-//     t_scene *w = malloc(sizeof(t_scene));
-//     w->light = _light(_point(10, 10, -10), 1, _color(1.0, 1.0, 1.0));
-//     // w->obj_lst = malloc(sizeof(t_obj_lst));
-//     // w->obj_lst->obj = floor;
-//     // w->obj_lst->next = malloc(sizeof(t_obj_lst));
-//     // w->obj_lst->next->obj = middle;
-//     w->lst = malloc(sizeof(t_obj_lst));
-//     w->lst->obj = right;
-//     w->lst->next = malloc(sizeof(t_obj_lst));
-//     w->lst->next->obj = left;
-//     w->lst->next->next = NULL;
-
-//     t_camera_fn c = camera(WIDTH, HEIGHT, M_PI / 3);
-//     c.transform = view_transform(_point(0, 1.5, -5), _point(0, 1, 0), _vector(0, 1, 0));
-//     c.transform = inverse(c.transform);
-// 	w->camera = c;
-//     mlx_image_t *image;
-//     mlx_t *mlx;
-//     if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
-//         return (EXIT_FAILURE);
-
-//     render(c, w, &image);
-
-//     mlx_loop_hook(mlx, ft_hook, mlx);
-//     mlx_loop(mlx);
-//     mlx_terminate(mlx);
-
-//     return (0);
-// }
-/*
-int main ()
-{
-	// Create objects in the scene
-	t_object *floor = _plane(_point(0, 0, 0), _vector(0, 1, 0), _color(0.643, 0.929, 0.094));
-
-	t_object *middle = _cylinder(_point(0, 0, 0), _vector(0, 0, 0), 1, 2, 0, _color(0, 0, 1));
-	middle->specs.diffuse = 0.7;
-	middle->specs.specular = 0;
-	middle->transform = inverse(translation(0, 1, 5));
-	set_transform(&middle, rotation_x(M_PI_4));
-
-	t_object *right = _sphere(_point(0, 0, 0), 1, _color(0.09, 0.929, 0.847));
-	right->specs.diffuse = 0.7;
-	right->specs.specular = 0;
-	right->transform = inverse(translation(3, 1, 3));
-
-	t_object *left = _sphere(_point(0, 0, 0), 1, _color(0.929, 0.09, 0.89));
-	left->specs.diffuse = 0.7;
-	left->specs.specular = 0;
-	left->transform = inverse(mtx_multiply(translation(-2, 1, 2), scaling_mtx(1, 1, 1)));
-
-	t_world *w = malloc(sizeof(t_world));
-	w->light = _light(_point(0, 10, 0), 1, _color(1.0, 1.0, 1.0));
-	w->obj_lst = malloc(sizeof(t_obj_lst));
-	w->obj_lst->obj = floor;
-	w->obj_lst->next = malloc(sizeof(t_obj_lst));
-	w->obj_lst->next->obj = middle;
-	w->obj_lst->next->next = malloc(sizeof(t_obj_lst));
-	w->obj_lst->next->next->obj = right;
-	w->obj_lst->next->next->next = malloc(sizeof(t_obj_lst));
-	w->obj_lst->next->next->next->obj = left;
-	w->obj_lst->next->next->next->next = NULL;
-
-	t_camera_fn c = camera(WIDTH, HEIGHT, M_PI / 4);
-	c.transform = view_transform(_point(0, 1.5, -5), _point(0, 1, 0), _vector(0, 1, 0));
-	c.transform = inverse(c.transform);
-	mlx_image_t *image;
-	mlx_t *mlx;
-	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-
-	render(c, w, &image);
-
-	mlx_loop_hook(mlx, ft_hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-
-	return (0);
-}
-*/

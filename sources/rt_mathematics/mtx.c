@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mtx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/14 01:12:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 01:40:43 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_matrix	*_mtx(int size)
 
 	mtx = (t_matrix	*)malloc(sizeof(t_matrix));
 	mtx->size = size;
-	mtx->mtx= (float **)malloc(sizeof(float *) * size);
+	mtx->mtx = (float **)malloc(sizeof(float *) * size);
 	i = -1;
 	while (++i < size)
 		mtx->mtx[i] = (float *)malloc(sizeof(float) * size);

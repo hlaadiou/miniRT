@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/13 01:38:16 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:26:29 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_object	*_cylinder(t_point pt, t_vector axis, float d, float max,float min, t_c
 	return (_obj(cy, c, CYLINDER));
 }
 
-t_inter    **intersect_pl(t_ray *ray, t_object *plane)
+t_inter    **intersect_pl(t_ray ray, t_object *plane)
 {
     t_inter         **inter;
     t_roots         roots;
@@ -40,22 +40,22 @@ t_inter    **intersect_pl(t_ray *ray, t_object *plane)
     float           prod;
 
     inter = NULL;
-    if (!dot_product(ray->dir, plane->pl->vec))
+    if (!dot_product(ray.dir, plane->pl->vec))
         return (NULL);
-    x = subtract_tuples(ray->org, plane->pl->pt);
-    prod = dot_product(ray->dir, plane->pl->vec) * dot_product(x, plane->pl->vec);
+    x = subtract_tuples(ray.org, plane->pl->pt);
+    prod = dot_product(ray.dir, plane->pl->vec) * dot_product(x, plane->pl->vec);
     if (prod < EPSILON)
     {
         roots.counter = 1;
         roots.t1 = dot_product(multiply_tuple_scalar(-1.0, x), plane->pl->vec) \
-        / dot_product(ray->dir, plane->pl->vec);
+        / dot_product(ray.dir, plane->pl->vec);
         roots.t2 = roots.t1;
         inter = _intersection(roots, plane);
     }
     return (inter);
 }
 
-t_inter **intersect_caps(t_object *cy, t_ray *r) {
+t_inter **intersect_caps(t_object *cy, t_ray r) {
     t_inter **inter = malloc(sizeof(t_inter *) * 2);
     float t;
     int count = 0;
@@ -64,7 +64,7 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
         perror("Memory allocation failed");
         exit(EXIT_FAILURE);
     }
-
+	
     inter[0] = malloc(sizeof(t_inter));
     inter[1] = malloc(sizeof(t_inter));
 
@@ -76,7 +76,7 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
         exit(EXIT_FAILURE);
     }
 
-    if (compare_f(r->dir.y, EPSILON)) {
+    if (compare_f(r.dir.y, EPSILON)) {
         free(inter[0]);
         free(inter[1]);
         free(inter);
@@ -84,7 +84,7 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
     }
 
     // Check intersection with the lower cap
-    t = (cy->cy->min - r->org.y) / r->dir.y;
+    t = (cy->cy->min - r.org.y) / r.dir.y;
     if (check_cap(r, t, cy)) {
         inter[count]->t = t;
         inter[count]->obj = cy;
@@ -92,7 +92,7 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
     }
 
     // Check intersection with the upper cap
-    t = (cy->cy->max - r->org.y) / r->dir.y;
+    t = (cy->cy->max - r.org.y) / r.dir.y;
     if (check_cap(r, t, cy)) {
         inter[count]->t = t;
         inter[count]->obj = cy;
@@ -116,13 +116,13 @@ t_inter **intersect_caps(t_object *cy, t_ray *r) {
     return inter;
 }
 
-int check_cap(t_ray *r, float t, t_object *cy)
+int check_cap(t_ray r, float t, t_object *cy)
 {
     float x;
     float z;;
 
-    x = r->org.x + (t * r->dir.x);
-    z = r->org.z + (t * r->dir.z);
+    x = r.org.x + (t * r.dir.x);
+    z = r.org.z + (t * r.dir.z);
     if (((x * x) + (z * z)) <= (powf(cy->cy->diameter, 2) / 4.0f))
         return (1);
     return (0);
