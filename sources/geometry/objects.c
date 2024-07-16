@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:46:44 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/14 00:38:54 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:23:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ t_object	*_obj(void *obj, t_color c, t_types type)
 	return (o);
 }
 
-t_ray *transform_ray(t_ray *ray, t_matrix *a)
+t_ray transform_ray(t_ray ray, t_matrix *a)
 {
-    t_ray *b;
+    t_ray b;
 
 	// printf("***************2***************\n");
-    b = _ray(ray->org, ray->dir);
-    b->org =  mtx_tuple_prod(a, ray->org);
-    b->dir =  mtx_tuple_prod(a, ray->dir);
+    b = _ray(ray.org, ray.dir);
+    b.org =  mtx_tuple_prod(a, ray.org);
+    b.dir =  mtx_tuple_prod(a, ray.dir);
     return (b);
 }

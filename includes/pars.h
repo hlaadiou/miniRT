@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/13 01:35:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:26:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void			free_tab(char	**tab);
 int				ft_lstsize(t_pars *lst);
 void			ft_free_struct(t_pars *pars);
 void			free_f_mtx(float **mtx, int size);
-int 			check_cap(t_ray *r, float t, t_object *cy);
+int 			check_cap(t_ray r, float t, t_object *cy);
 t_vector		local_normal_at(t_object *cy, t_point world_point);
 t_matrix 		*view_transform(t_point from, t_point to, t_vector up);
 
@@ -136,11 +136,11 @@ t_collector		*ft_lstnew_clctr(void *lst);
 void			ft_free_collector(t_collector **lst);
 void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
 t_world			*init_world(t_scene *scene);
-t_comps 		*prepare_computations(t_inter *inter, t_ray *ray);
+t_comps 		*prepare_computations(t_inter *inter, t_ray ray);
 t_color 		shade_hit(t_scene *world, t_comps *copms);
-t_color			color_at(t_scene *w, t_ray *r);
+t_color			color_at(t_scene *w, t_ray r);
 void			render(t_camera_fn c, t_scene *w, mlx_image_t **image);
-t_inter 		**local_intersect(t_object *cy, t_ray *r);
+t_inter 		**local_intersect(t_object *cy, t_ray r);
 
 
 //HLAADIOU
@@ -178,5 +178,7 @@ void 			print_scene(t_scene *scene); // Remove later
 void			ft_free_tab(char **tab);
 void			free_f_mtx(float **mtx, int size);
 void			ft_free_struct(t_pars *pars);
+void			free_scene(t_scene *scene);
+
 
 #endif

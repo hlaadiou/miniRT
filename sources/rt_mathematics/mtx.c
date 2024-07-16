@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/14 01:12:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:13:35 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,16 @@ t_matrix	*_mtx(int size)
 	int			i;
 
 	mtx = (t_matrix	*)malloc(sizeof(t_matrix));
+	// ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(mtx));
 	mtx->size = size;
 	mtx->mtx= (float **)malloc(sizeof(float *) * size);
+	// ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(mtx->mtx));
 	i = -1;
 	while (++i < size)
+	{
 		mtx->mtx[i] = (float *)malloc(sizeof(float) * size);
+		// ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(mtx->mtx[i]));
+	}
 	return (mtx);
 }
 
@@ -35,6 +40,7 @@ t_matrix	*submatrix(t_matrix *a, int r, int c)
 	int			col;
 
 	sub = _mtx(a->size - 1);
+	// ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(sub));
 	i = -1;
 	row = 0;
 	while (++i < a->size)
@@ -64,6 +70,7 @@ t_matrix	*_identity(int size)
 
 	i = 0;
 	a = _mtx(size);
+	// ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(a));
 	while(i < size)
 	{
 		j = 0;
@@ -134,6 +141,7 @@ t_matrix	*inverse(t_matrix *a)
 		return (NULL);
 	row = 0;
 	b = _mtx(a->size);
+	// ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(b));
 	while (row < a->size)
 	{
 		col = 0;

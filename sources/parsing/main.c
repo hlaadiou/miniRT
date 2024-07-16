@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/14 01:15:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:51:37 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ t_pars	*create_conf(int ac, char **av)
 // 	return (world);
 // }
 
-// t_comps *prepare_computations(t_inter *inter, t_ray *ray)
+// t_comps *prepare_computations(t_inter *inter, t_ray ray)
 // {
 // 	t_comps	*comps;
 
