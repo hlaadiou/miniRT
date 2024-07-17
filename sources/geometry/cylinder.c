@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/16 15:15:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 01:15:19 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_object	*_cylinder(t_point pt, t_vector axis, float d, float max,float min, t_c
 {
 	t_cylinder	*cy;
 
-	cy = (t_cylinder *)malloc(sizeof(t_cylinder));
+	cy = (t_cylinder *)ft_malloc(sizeof(t_cylinder));
 	if (!cy)
 		return (NULL);
 	*cy = (t_cylinder){pt, axis, d, min, max};
@@ -56,7 +56,7 @@ t_inter    **intersect_pl(t_ray ray, t_object *plane)
 }
 
 t_inter **intersect_caps(t_object *cy, t_ray r) {
-    t_inter **inter = malloc(sizeof(t_inter *) * 2);
+    t_inter **inter = ft_malloc(sizeof(t_inter *) * 2);
     float t;
     int count = 0;
 
@@ -65,21 +65,18 @@ t_inter **intersect_caps(t_object *cy, t_ray r) {
         exit(EXIT_FAILURE);
     }
 
-    inter[0] = malloc(sizeof(t_inter));
-    inter[1] = malloc(sizeof(t_inter));
+    inter[0] = ft_malloc(sizeof(t_inter));
+    inter[1] = ft_malloc(sizeof(t_inter));
 
     if (inter[0] == NULL || inter[1] == NULL) {
         perror("Memory allocation failed");
-        free(inter[0]); // Free allocated memory before exiting
-        free(inter[1]);
-        free(inter);
         exit(EXIT_FAILURE);
     }
 
     if (compare_f(r.dir.y, EPSILON)) {
-        free(inter[0]);
-        free(inter[1]);
-        free(inter);
+        // free(inter[0]);
+        // free(inter[1]);
+        // free(inter);
         return NULL;
     }
 
@@ -101,9 +98,9 @@ t_inter **intersect_caps(t_object *cy, t_ray r) {
 
     // If there are no valid intersections, free memory and return NULL
     if (count == 0) {
-        free(inter[0]);
-        free(inter[1]);
-        free(inter);
+        // free(inter[0]);
+        // free(inter[1]);
+        // free(inter);
         return NULL;
     }
 
@@ -133,7 +130,6 @@ t_vector local_normal_at(t_object *cy, t_point world_point)
     t_point object_point;
     t_vector normal;
     float dist;
-    t_matrix *transpose;
 
 
     object_point = mtx_tuple_prod(cy->transform, world_point);
@@ -141,26 +137,17 @@ t_vector local_normal_at(t_object *cy, t_point world_point)
     if (dist < 1 && object_point.y >= cy->cy->max - EPSILON)
     {
         normal = (t_vector){0, 1, 0, 1};
-        transpose = mtx_transpose(cy->transform);
-        normal = mtx_tuple_prod(transpose, normal);
-        free_f_mtx(transpose->mtx, transpose->size);
-        free(transpose);
+        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
     }
     else if (dist < 1 && object_point.y <= cy->cy->min + EPSILON)
     {
         normal = (t_vector){0, -1, 0, 1};
-        transpose = mtx_transpose(cy->transform);
-        normal = mtx_tuple_prod(transpose, normal);
-        free_f_mtx(transpose->mtx, transpose->size);
-        free(transpose);
+        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
     }
     else
     {
         normal = (t_vector){object_point.x, 0, object_point.z, 1};
-        transpose = mtx_transpose(cy->transform);
-        normal = mtx_tuple_prod(transpose, normal);
-        free_f_mtx(transpose->mtx, transpose->size);
-        free(transpose);
+        normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
     }
     return (normal);
 }

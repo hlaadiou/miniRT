@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/16 01:14:49 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 01:21:25 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,17 +206,17 @@ t_tuple	parse_coordinates(char *str)
 	{
 		if (!valid_float(strs[i]))
 		{
-			free_tab(strs);
+			// free_tab(strs);
 			put_error("Invalid coordinates data\n");
 		}
 	}
 	if (i != 3)
 	{
-		free_tab(strs);
+		// free_tab(strs);
 		put_error("Invalid coordinates data\n");
 	}
 	coords = (t_tuple){ft_atof(strs[0]), ft_atof(strs[1]), ft_atof(strs[2]), 0.0};
-	return (free_tab(strs), coords);
+	return (coords);
 }
 
 t_rgb255	parse_color(char *str)
@@ -229,18 +229,18 @@ t_rgb255	parse_color(char *str)
 	strs = ft_split(str, ',');
 	if (ft_tab_size(strs) != 3 || !isnumber(strs) || !is_int(strs))
 	{
-		free_tab(strs);
+		// free_tab(strs);
 		put_error("Invalid color data\n");
 	}
 	if (ft_atoi(strs[0]) < 0 || ft_atoi(strs[0]) > 255 \
 	|| ft_atoi(strs[1]) < 0 || ft_atoi(strs[1]) > 255 \
 	|| ft_atoi(strs[2]) < 0 || ft_atoi(strs[2]) > 255)
 	{
-		free_tab(strs);
+		// free_tab(strs);
 		put_error("Invalid color data\n");
 	}
 	rgb = (t_rgb255){ft_atoi(strs[0]), ft_atoi(strs[1]), ft_atoi(strs[2])};
-	return (free_tab(strs), rgb);
+	return (rgb);
 }
 
 // t_pars needs to freed in case of error as well as object list and scene
@@ -251,7 +251,7 @@ t_scene	*parse_scene(t_pars *conf)
 	scene = NULL;
 	if (!check_required_elements(conf))
 		return (NULL);
-	scene = (t_scene *)malloc(sizeof(t_scene));
+	scene = (t_scene *)ft_malloc(sizeof(t_scene));
 	if (!scene)
 		return (NULL);
 	scene->ambient = get_ambient_data(conf);

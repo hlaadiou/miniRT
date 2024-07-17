@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 16:59:21 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 18:11:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ void ft_free_tab(char **tab)
 	int i = 0;
 	while (tab[i])
 	{
-		free(tab[i]);
+		// free(tab[i]);
 		i++;
 	}
-	free(tab);
+	// free(tab);
 }
 
 /**
@@ -119,9 +119,9 @@ void	ft_free_struct(t_pars *pars)
 	{
 		tmp = pars;
 		pars = pars->next;
-		if (tmp->elements)
-			ft_free_tab(tmp->elements);
-		free(tmp);
+		// if (tmp->elements)
+			// ft_free_tab(tmp->elements);
+		// free(tmp);
 	}
 }
 
@@ -144,6 +144,8 @@ t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 
 	c.vsize = vsize;
 	c.hsize = hsize;
+	if (field_of_view >= 179.5f)
+		field_of_view = 179.5f;
 	hview = tan(field_of_view / 2.0f);
 	aspect = (float)hsize / (float)vsize;
 	if (aspect >= 1.0f)
@@ -157,7 +159,6 @@ t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 		c.hheight = hview;
 	}
 	c.pixel_size = (c.hwidth * 2.0f) / hsize;
-	c.transform = _identity(4);
 	return (c);
 }
 
@@ -244,20 +245,19 @@ t_lst_inter *intersect_world(t_scene *w, t_ray r)
             xs = intersect_pl(r, obj->obj);
         else if (obj->obj->type == CYLINDER) /* r1 to be testet for remouving it AYGAOUA  */
         {
-			// printf("***************1***************\n");
             r1 = transform_ray(r, obj->obj->transform);
             xs = intersect_caps(obj->obj, r1);
             _intersections(&lst, xs);
-			if (xs)
-				free(xs);
+			// free(xs);
             xs = local_intersect(obj->obj, r1);
         }
         else if (obj->obj->type == SPHERE)
             xs = intersect_sp(r, obj->obj);
         if (xs)
+		{
             _intersections(&lst, xs);
-		if (xs)
-			free(xs);
+			// free(xs);
+		}
         obj = obj->next;
     }
     lst = lst_sort(lst);
@@ -279,9 +279,7 @@ t_comps *prepare_computations(t_inter *inter, t_ray ray)
 {
     t_comps *comps;
 
-    comps = malloc(sizeof(t_comps));
-    if (!comps)
-        return (NULL);
+    comps = ft_malloc(sizeof(t_comps));
 	comps->inside = 0;
     comps->t = inter->t;
     comps->obj = inter->obj;
@@ -307,16 +305,16 @@ t_comps *prepare_computations(t_inter *inter, t_ray ray)
 }
 
 
-int free_lst_inter(t_lst_inter *lst)
-{
-	while(lst)
-	{
-		t_lst_inter *tmp = lst;
-        lst = lst->next;
-        free(tmp);
-	}
-	return (0);
-}
+// int free_lst_inter(t_lst_inter *lst)
+// {
+// 	while(lst)
+// 	{
+// 		t_lst_inter *tmp = lst;
+//         lst = lst->next;
+//         // free(tmp);
+// 	}
+// 	return (0);
+// }
 
 /**
  * @brief Calculates the color at a given intersection point using ray tracing
@@ -340,9 +338,9 @@ t_color color_at(t_scene *w, t_ray r)
         return (_color(0, 0, 0));
 	t_comps *comps = prepare_computations(h, r);
     t_color color = shade_hit(w, comps);
-	free_lst_inter(lst);
-	free(h);
-	free(comps);
+	// free_lst_inter(lst);
+	// free(h);
+	// free(comps);
     return (color);
 }
 
@@ -425,9 +423,12 @@ void render(t_camera_fn c, t_scene *w, mlx_image_t **image)
  */
 t_matrix *view_transform(t_point from, t_point to, t_vector up)
 {
-	t_vector left;
 	t_matrix *orientation;
+	t_matrix *translation_mtx;
+	t_matrix *res;
+	t_vector left;
 	t_vector forward;
+
 	if (compare_f(up.x, fabs(subtract_tuples(to, from).x)) && \
 		compare_f(up.y, fabs(subtract_tuples(to, from).y)) && \
 		compare_f(up.z, fabs(subtract_tuples(to, from).z)))
@@ -451,8 +452,8 @@ t_matrix *view_transform(t_point from, t_point to, t_vector up)
     orientation->mtx[2][0]= -forward.x;
     orientation->mtx[2][1]= -forward.y;
     orientation->mtx[2][2] = -forward.z;
-    t_matrix *translation_mtx = translation(-from.x, -from.y, -from.z);
-    t_matrix *res = mtx_multiply(orientation, translation_mtx);
+    translation_mtx = translation(-from.x, -from.y, -from.z);
+	res = mtx_multiply(orientation, translation_mtx);
     return (res);
 }
 
@@ -506,19 +507,9 @@ int	is_shadowed(t_scene *w, t_point p)
     lst = intersect_world(w, r);
     h = hit(lst);
 	if (h != NULL && (compare_ff(fabs(h->t - distance), 0)))
-	{
-		free_lst_inter(lst);
-		free(h);
 		return 1;
-	}
     if (h != NULL && (h->t < distance))
-    {
-        free_lst_inter(lst);
-		free(h);
         return (1);
-    }
-    free_lst_inter(lst);
-	free(h);
     return (0);
 }
 
@@ -576,9 +567,6 @@ t_matrix *axis_cylinder(t_vector orie)
 	t_vector	forw;
 	t_vector	right;
 
-	up = vec_normalize(orie); /* to removed !!*/
-	forw = vec_normalize(cross_product(_vector(0, 1, 0), up));
-	right = cross_product(up, forw);
 	if (orie.x == 0 && orie.z == 0)
 	{
 		if (orie.y >= 0)
@@ -592,6 +580,12 @@ t_matrix *axis_cylinder(t_vector orie)
 			right = _vector(-1, 0, 0);
 		}
 		forw = _vector(0, 0, 1);
+	}
+	else
+	{
+		up = vec_normalize(orie); /* to removed !!*/
+		forw = vec_normalize(cross_product(_vector(0, 1, 0), up));
+		right = cross_product(up, forw);
 	}
 	return (axis_to_matrix(right, up, forw));
 }
@@ -645,7 +639,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
 		return (1);
-	print_scene(scene); // To remove later
+	// print_scene(scene); // To remove later
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
 	render(cam, scene, &image);
@@ -653,9 +647,7 @@ int	main(int ac, char **av)
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	ft_free_struct(conf);
-	free_scene(scene);
-	free_f_mtx(cam.transform->mtx, cam.transform->size);
-	free(cam.transform);
+	printf("%d\n", ft_lst_add_front_clctr(ft_collector(), NULL));
+	ft_free_collector(ft_collector());
 	return (0);
 }

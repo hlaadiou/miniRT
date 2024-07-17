@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/14 00:28:20 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 01:13:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,8 +228,8 @@ t_obj_lst	*get_objs_data(t_pars *conf)
 			{
 				if (obj_list_add(&lst, obj))
 				{
-					free_object(obj);
-					object_fatal(lst);
+					// free_object(obj);
+					// object_fatal(lst);
 				}
 			}
 		}

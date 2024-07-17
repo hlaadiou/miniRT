@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:40:36 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 01:11:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 17:34:55 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(const char *s1)
 
 	i = 0;
 	len = ft_strlen(s1);
-	p = (char *)malloc(len + 1);
+	p = (char *)ft_malloc(len + 1);
 	if (!p)
 		return (0);
 	while (i < len)

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:36 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/16 01:14:13 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 00:16:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_object	*_plane(t_point pt, t_vector vec, t_color c)
 {
 	t_plane	*pl;
 
-	pl = (t_plane *)malloc(sizeof(t_plane));
+	pl = (t_plane *)ft_malloc(sizeof(t_plane));
 	if (!pl)
 		return (NULL);
 	*pl = (t_plane){pt, vec, PLANE}; 

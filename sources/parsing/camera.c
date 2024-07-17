@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:52:17 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 01:14:30 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 01:00:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**str_split(char *str, char *seps)
 	char	**tab;
 
 	init_int(&i, &j, &len, 0);
-	tab = (char **)malloc(sizeof(char *) * (count_words(str, seps) + 1));
+	tab = (char **)ft_malloc(sizeof(char *) * (count_words(str, seps) + 1));
 	while (str[i] && j < count_words(str, seps))
 	{
 		while (str[i] && ft_strchr(seps, str[i]))

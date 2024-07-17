@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 09:20:07 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 01:14:37 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 00:17:29 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_pars	*ft_lstnew(char *content, char **elms, int flag)
 {
 	t_pars	*new;
 
-	new = (t_pars *)malloc(sizeof(t_pars));
+	new = (t_pars *)ft_malloc(sizeof(t_pars));
 	if (!new)
 		return (0);
 	new -> identifier = content;

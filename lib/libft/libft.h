@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/25 20:19:41 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:18:07 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10
 # endif
 
 # include <unistd.h>

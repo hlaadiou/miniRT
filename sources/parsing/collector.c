@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collector.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:36:00 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/31 06:59:07 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/17 18:08:57 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_collector	**ft_collector(void)
 {
 	static t_collector	*colctr;
-
 	return (&colctr);
 }
 
@@ -26,45 +25,49 @@ t_collector	*ft_lstnew_clctr(void *lst)
 	new = malloc(sizeof(t_collector));
 	if (!new)
 		return (0);
-	ft_lstadd_back_clctr(ft_collector(), new);
 	new->ptr = lst;
 	new->next = NULL;
+	// ft_lst_add_front_clctr(ft_collector(), new);
 	return (new);
 }
 
-void	ft_free_collector(t_collector **lst)
+void ft_free_collector(t_collector **lst)
 {
-	t_collector	*head;
-	t_collector	*tmp;
+    t_collector *tmp;
+    t_collector *current;
+	t_collector *next_loop;
+	int			i = 0;
 
-	if (!lst || !*lst)
-		return ;
-	head = *lst;
-	while (*lst)
-	{
-		tmp = head->next;
-		free(head->ptr);
-		free(head);
-		head = tmp;
-	}
+    current = *lst;
+	next_loop = NULL;
+    if (!lst || !*lst)
+        return;
+
+    while (current)
+    {
+        tmp = current;
+        current = current->next;
+		if (tmp && tmp->ptr)
+		{
+			next_loop = tmp->next;
+			free(tmp->ptr);
+			free(tmp);
+		}
+		i++;
+    }
+    *lst = NULL;        // Update the head pointer to indicate the list is now empty
 }
 
-void	ft_lstadd_back_clctr(t_collector **lst, t_collector *new)
-{
-	t_collector	*last;
 
-	if (!lst)
-		return ;
-	last = *lst;
-	if (!*lst)
-		*lst = new;
-	else
-	{
-		while (last->next != NULL)
-			last = last->next;
-		last->next = new;
-	}
-	new->next = NULL;
+int	ft_lst_add_front_clctr(t_collector **lst, t_collector *new)
+{
+	static int i;
+	if (!lst || !new)
+		return (i);
+	new -> next = *lst;
+	*lst = new;
+	i++;
+	return (i);
 }
 
 void	*ft_malloc(size_t size)
@@ -77,7 +80,6 @@ void	*ft_malloc(size_t size)
 		ft_free_collector(ft_collector());
 		put_error("Unexpected malloc fail\n");
 	}
-	else
-    	ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(ptr));
+    ft_lst_add_front_clctr(ft_collector(), ft_lstnew_clctr(ptr));
     return (ptr);
 }

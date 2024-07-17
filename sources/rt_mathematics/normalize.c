@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:59:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 13:28:00 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 01:15:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,10 @@ t_vector normal_at(t_object *sp, t_point pnt)
 	t_tuple object_point;
 	t_tuple object_normal;
 	t_tuple world_normal;
-	t_matrix *transpose;
 
 	object_point = mtx_tuple_prod(sp->transform, pnt);
 	object_normal = subtract_tuples(object_point, _point(0, 0, 0));
-	transpose = mtx_transpose(sp->transform);
-	world_normal = mtx_tuple_prod(transpose, object_normal);
-	free_f_mtx(transpose->mtx, transpose->size);
-	free(transpose);
+	world_normal = mtx_tuple_prod(mtx_transpose(sp->transform), object_normal);
 	world_normal.w = 0;
 	return (vec_normalize(world_normal));
 

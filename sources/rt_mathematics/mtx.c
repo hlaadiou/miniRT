@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 13:31:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 15:13:05 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ t_matrix	*_mtx(int size)
 	t_matrix	*mtx;
 	int			i;
 
-	mtx = (t_matrix	*)malloc(sizeof(t_matrix));
+	mtx = (t_matrix	*)ft_malloc(sizeof(t_matrix));
 	mtx->size = size;
-	mtx->mtx= (float **)malloc(sizeof(float *) * size);
+	mtx->mtx= (float **)ft_malloc(sizeof(float *) * size);
 	i = -1;
 	while (++i < size)
-		mtx->mtx[i] = (float *)malloc(sizeof(float) * size);
+		mtx->mtx[i] = (float *)ft_malloc(sizeof(float) * size);
 	return (mtx);
 }
 
@@ -35,7 +35,6 @@ t_matrix	*submatrix(t_matrix *a, int r, int c)
 	int			col;
 
 	sub = _mtx(a->size - 1);
-	// ft_lstadd_back_clctr(ft_collector(), ft_lstnew_clctr(sub));
 	i = -1;
 	row = 0;
 	while (++i < a->size)
@@ -101,10 +100,6 @@ t_matrix	*mtx_multiply(t_matrix *a,t_matrix *b)
 				c->mtx[i][j] += a->mtx[i][k] * b->mtx[k][j];
 		}
 	}
-	free_f_mtx(a->mtx, a->size);
-	free(a);
-	free_f_mtx(b->mtx, b->size);
-	free(b);
 	return (c);
 }
 
@@ -150,8 +145,6 @@ t_matrix	*inverse(t_matrix *a)
 		}
 		row++;
 	}
-	free_f_mtx(a->mtx, a->size);
-	free(a);
 	return (b);
 }
 
@@ -161,9 +154,8 @@ float	minor(t_matrix *a, int r, int c)
 	float	minor_value;
 
 	sub = submatrix(a, r, c);
+    // ft_lst_add_front_clctr(ft_collector(), ft_lstnew_clctr(sub));
 	minor_value = mtx_determinant(sub);
-	free_f_mtx(sub->mtx, sub->size);
-	free(sub);
 	return (minor_value);
 }
 
@@ -180,7 +172,7 @@ t_matrix *mtx_transpose(t_matrix  *a)
 
 	r = -1;
 	c = _mtx(a->size);
-	while (++r < 4)
+	while (++r < a->size)
 	{
 		col = -1;
 		while (++col < c->size)

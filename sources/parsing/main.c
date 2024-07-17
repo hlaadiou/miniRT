@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 16:54:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 16:48:42 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 01:31:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ void	free_obj_lst(t_obj_lst *lst)
 {
 	t_obj_lst	*tmp;
 
+	while (lst->prev != NULL)
+		lst = lst->prev;
 	while (lst)
 	{
 		tmp = lst;
