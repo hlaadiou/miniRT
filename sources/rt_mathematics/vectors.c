@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vectors.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:35:57 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/14 01:17:49 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 14:28:31 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ t_vector	vec_normalize(t_vector vec)
 	modulus = vec_magnitude(vec);
 	if (!modulus)
 	{
-		printf("U cannot normalize a vector of modulus 0\n");
-		return _vector(0, 0, 0);
+		printf("Vec (%f, %f, %f, %f)\n", vec.x, vec.y, vec.z, vec.w);
+		printf("U cannot normalize a directionless vector (Null)\n");
+		return (_vector(0, 0, 0));
 	}
 	unit_vec.x = vec.x / modulus;
 	unit_vec.y = vec.y / modulus;

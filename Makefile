@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
+#    By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/07/14 01:16:27 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/07/17 08:52:48 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ libobj 		= lib/libft/get_next_line_utils.o	\
 			lib/libft/ft_putendl_fd.o		\
 			lib/libft/ft_putnbr_fd.o
 
-SRCS		=	my_main.c \
+SRCS		=	main.c \
 				sources/parsing/ambient_lightning.c \
 				sources/parsing/atof.c \
 				sources/parsing/camera.c \

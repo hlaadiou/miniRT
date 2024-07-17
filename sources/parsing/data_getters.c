@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_getters.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/14 00:28:20 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 13:10:51 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,7 @@ t_object	*check_sp_data(t_pars *conf)
 		put_error("Invalid sphere diameter\n");
 	rgb = parse_color(conf->elements[3]);
 	pt.w = 1.0;
-	sp = _sphere(pt, ft_atof(conf->elements[2]) / 2.0f, _color01(rgb));
-	printf("sphere diameter == %f\n", sp->sp->radius);
-	
+	sp = _sphere(pt, ft_atof(conf->elements[2]), _color01(rgb));
 	if (!sp)
 		put_error("Fatal, unable to create object\n");
 	return (sp);
@@ -167,7 +165,7 @@ t_object	*check_cy_data(t_pars *conf)
 		put_error("Invalid cylinder diameter/height\n");
 	rgb = parse_color(conf->elements[5]);
 	cy = _cylinder(pt, vec, ft_atof(conf->elements[3]), \
-					(ft_atof(conf->elements[4]) / 2.0f), (-1 * (ft_atof(conf->elements[4]) / 2.0f)), _color01(rgb)); /* to fix !!*/
+					(ft_atof(conf->elements[4]) / 2.0f), (-1 * (ft_atof(conf->elements[4]) / 2.0f)), _color01(rgb)); /* to fix !! */
 	if (!cy)
 		put_error("Fatal, unable to create object\n");
 	return (cy);

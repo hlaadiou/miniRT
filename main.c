@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_main.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 11:20:12 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:52:07 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b)
 {
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
-}
-
-t_matrix *translationMatrix(float tx, float ty, float tz) {
-    t_matrix *mat = _identity(4);
-    mat->mtx[0][3] = tx;
-    mat->mtx[1][3] = ty;
-    mat->mtx[2][3] = tz;
-    return mat;
 }
 
 /**
@@ -189,14 +181,16 @@ t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 
 t_ray	ray_for_pixel(t_camera_fn c, int px, int py)
 {
-    float world_x;
-    float world_y;
-    t_tuple pixel;
+    float		world_x;
+    float		world_y;
+    t_tuple		pixel;
+	t_vector	test_vec;
 
     world_x = c.hwidth - (px + 0.5) * c.pixel_size;
     world_y = c.hheight - (py + 0.5) * c.pixel_size;
     pixel = mtx_tuple_prod(c.transform, _point(world_x, world_y, -1));
-    return (_ray(mtx_tuple_prod(c.transform, _point(0, 0, 0)), vec_normalize(subtract_tuples(pixel, mtx_tuple_prod(c.transform, _point(0, 0, 0))))));
+	test_vec = vec_normalize(subtract_tuples(pixel, mtx_tuple_prod(c.transform, _point(0, 0, 0))));
+    return (_ray(mtx_tuple_prod(c.transform, _point(0, 0, 0)), test_vec));
 }
 
 /**
@@ -426,7 +420,11 @@ t_matrix *view_transform(t_point from, t_point to, t_vector up)
 			up = _vector(0,0,-1);
 	}
     t_vector forward = vec_normalize(subtract_tuples(to, from));
+	if (!forward.x && !forward.y && !forward.z)
+		printf("forward --- (%f, %f, %f, %f)\n", forward.x, forward.y, forward.z, forward.w);
     t_vector upn = vec_normalize(up);
+	if (!upn.x && !upn.y && !upn.z)
+		printf("upn --- (%f, %f, %f, %f)\n", upn.x, upn.y, upn.z, upn.w);
     t_vector left = cross_product(forward, upn);
     t_vector true_up = cross_product(left, forward);
     t_matrix *orientation = _identity(4);
@@ -494,6 +492,8 @@ int	is_shadowed(t_scene *w, t_point p)
 
     v = subtract_tuples(w->light.position, p);
     distance = vec_magnitude(v);
+	if (!v.x && !v.y && !v.z)
+		printf("v~(is_shadowed) --- (%f, %f, %f, %f)\n", v.x, v.y, v.z, v.w);
     r = _ray(p, vec_normalize(v));
     lst = intersect_world(w, r);
     h = hit(lst);
@@ -559,8 +559,12 @@ t_matrix *axis_cylinder(t_vector orie)
 	t_vector	forw;
 	t_vector	right;
 
-	up = vec_normalize(orie); /* to removed !!*/
+	up = vec_normalize(orie); /* to be removed !! */
+	if (!up.x && !up.y && !up.z)
+	printf("up~(axis_cylinder) --- (%f, %f, %f, %f)\n", up.x, up.y, up.z, up.w);
 	forw = vec_normalize(cross_product(_vector(0, 1, 0), up));
+	if (!forw.x && !forw.y && !forw.z)
+	printf("forw~(axis_cylinder) --- (%f, %f, %f, %f)\n", forw.x, forw.y, forw.z, forw.w);
 	right = cross_product(up, forw);
 	if (orie.x == 0 && orie.z == 0)
 	{

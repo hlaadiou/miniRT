@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normalize.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 20:59:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/05 22:15:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 15:55:26 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_vector normal_at(t_object *sp, t_point pnt)
 	object_normal = subtract_tuples(object_point, _point(0, 0, 0));
 	world_normal = mtx_tuple_prod(mtx_transpose(sp->transform), object_normal);
 	world_normal.w = 0;
+	if (!world_normal.x && !world_normal.y && !world_normal.z)
+		printf("world_normal~(normal_at) --- (%f, %f, %f, %f)\n", world_normal.x, world_normal.y, world_normal.z, world_normal.w);
 	return (vec_normalize(world_normal));
-
 }
 
