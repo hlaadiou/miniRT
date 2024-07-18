@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tuple_mtx_ops.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:51:56 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/14 01:12:47 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/18 13:04:24 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_tuple	extract_tuple_mtx(int row, t_matrix *m)
 	t_tuple	tup;
     
     if (!m) {
-        fprintf(stderr, "Error: Null matrix pointer\n");
+        fprintf(stderr, "Error: Null matrix pointer\n"); //Forbidden
         return (t_tuple){0, 0, 0, 0};
     }
 	tup.x = m->mtx[row][0];

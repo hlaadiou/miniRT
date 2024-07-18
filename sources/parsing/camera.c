@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:52:17 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/30 00:50:16 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/18 09:17:35 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	**str_split(char *str, char *seps)
 
 	init_int(&i, &j, &len, 0);
 	tab = (char **)malloc(sizeof(char *) * (count_words(str, seps) + 1));
+	if (!tab)
+		return (NULL);
 	while (str[i] && j < count_words(str, seps))
 	{
 		while (str[i] && ft_strchr(seps, str[i]))

@@ -6,23 +6,41 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 01:40:43 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:35:04 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
+// No Protection ?
 t_matrix	*_mtx(int size)
 {
 	t_matrix	*mtx;
 	int			i;
 
 	mtx = (t_matrix	*)malloc(sizeof(t_matrix));
+	if (!mtx)
+	{
+		put_error("Fatal: Cannot allocate enough memory\n");
+		return (NULL);
+	}
 	mtx->size = size;
 	mtx->mtx = (float **)malloc(sizeof(float *) * size);
+	if (!(mtx->mtx))
+	{
+		put_error("Fatal: Cannot allocate enough memory\n");
+		return (NULL);
+	}
 	i = -1;
 	while (++i < size)
+	{
 		mtx->mtx[i] = (float *)malloc(sizeof(float) * size);
+		if (!(mtx->mtx[i]))
+		{
+			put_error("Fatal: Cannot allocate enough memory\n");
+			return (NULL);
+		}
+	}
 	return (mtx);
 }
 

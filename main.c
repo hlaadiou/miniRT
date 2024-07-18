@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/17 15:52:07 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/18 10:47:07 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -420,11 +420,7 @@ t_matrix *view_transform(t_point from, t_point to, t_vector up)
 			up = _vector(0,0,-1);
 	}
     t_vector forward = vec_normalize(subtract_tuples(to, from));
-	if (!forward.x && !forward.y && !forward.z)
-		printf("forward --- (%f, %f, %f, %f)\n", forward.x, forward.y, forward.z, forward.w);
     t_vector upn = vec_normalize(up);
-	if (!upn.x && !upn.y && !upn.z)
-		printf("upn --- (%f, %f, %f, %f)\n", upn.x, upn.y, upn.z, upn.w);
     t_vector left = cross_product(forward, upn);
     t_vector true_up = cross_product(left, forward);
     t_matrix *orientation = _identity(4);
@@ -492,12 +488,10 @@ int	is_shadowed(t_scene *w, t_point p)
 
     v = subtract_tuples(w->light.position, p);
     distance = vec_magnitude(v);
-	if (!v.x && !v.y && !v.z)
-		printf("v~(is_shadowed) --- (%f, %f, %f, %f)\n", v.x, v.y, v.z, v.w);
     r = _ray(p, vec_normalize(v));
     lst = intersect_world(w, r);
     h = hit(lst);
-	if (h != NULL && (compare_ff(fabs(h->t - distance), 0))) // ??
+	if (h != NULL && (compare_ff(fabs(h->t - distance), 0)))
 		return (1);
     if (h != NULL && (h->t < distance))
         return (1);
@@ -553,34 +547,60 @@ t_matrix *axis_to_matrix(t_vector up, t_vector forw, t_vector right)
 	return (res);
 }
 
+// t_matrix *axis_cylinder(t_vector orie)
+// {
+// 	t_vector	up;
+// 	t_vector	forw;
+// 	t_vector	right;
+
+// 	up = vec_normalize(orie); // Should be removed when 'orie' is guaranteed to be normalized from conf.
+// 	forw = vec_normalize(cross_product(_vector(0, 1, 0), up));
+// 	right = cross_product(up, forw);
+// 	if (orie.x == 0 && orie.z == 0)
+// 	{
+// 		if (orie.y >= 0)
+// 		{
+// 			up = _vector(0, 1, 0);
+// 			right = _vector(1, 0, 0);
+// 		}
+// 		else
+// 		{
+// 			up = _vector(0, -1, 0);
+// 			right = _vector(-1, 0, 0);
+// 		}
+// 		forw = _vector(0, 0, 1);
+// 	}
+// 	return (axis_to_matrix(right, up, forw));
+// }
+
+// New version of the axis_cylinder function.
 t_matrix *axis_cylinder(t_vector orie)
 {
-	t_vector	up;
-	t_vector	forw;
-	t_vector	right;
+    t_vector up;
+    t_vector forw;
+    t_vector right;
 
-	up = vec_normalize(orie); /* to be removed !! */
-	if (!up.x && !up.y && !up.z)
-	printf("up~(axis_cylinder) --- (%f, %f, %f, %f)\n", up.x, up.y, up.z, up.w);
-	forw = vec_normalize(cross_product(_vector(0, 1, 0), up));
-	if (!forw.x && !forw.y && !forw.z)
-	printf("forw~(axis_cylinder) --- (%f, %f, %f, %f)\n", forw.x, forw.y, forw.z, forw.w);
-	right = cross_product(up, forw);
-	if (orie.x == 0 && orie.z == 0)
-	{
-		if (orie.y >= 0)
-		{
-			up = _vector(0, 1, 0);
-			right = _vector(1, 0, 0);
-		}
-		else
-		{
-			up = _vector(0, -1, 0);
-			right = _vector(-1, 0, 0);
-		}
-		forw = _vector(0, 0, 1);
-	}
-	return (axis_to_matrix(right, up, forw));
+    if (orie.x == 0 && orie.z == 0)
+    {
+        if (orie.y >= 0)
+        {
+            up = _vector(0, 1, 0);
+            right = _vector(1, 0, 0);
+        }
+        else
+        {
+            up = _vector(0, -1, 0);
+            right = _vector(-1, 0, 0);
+        }
+        forw = _vector(0, 0, 1);
+    }
+    else
+    {
+        up = vec_normalize(orie);
+        forw = vec_normalize(cross_product(_vector(0, 1, 0), up));
+        right = cross_product(up, forw);
+    }
+    return axis_to_matrix(right, up, forw);
 }
 
 void	set_transformations(t_obj_lst *lst)
@@ -636,8 +656,9 @@ int	main(int ac, char **av)
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
 	render(cam, scene, &image);
-	mlx_loop_hook(mlx, ft_hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	printf("Done\n");
+	// mlx_loop_hook(mlx, ft_hook, mlx);
+	// mlx_loop(mlx);
+	// mlx_terminate(mlx);
 	return (0);
 }

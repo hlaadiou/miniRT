@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/17 15:54:20 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:07:06 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,10 @@ t_phong	_phong(t_object *obj, t_point px, t_light light, t_point cam)
 		phong.n = local_normal_at(obj, px);
 	}
 	else if (obj->type == PLANE)
-	{
 		phong.n = vec_normalize(obj->pl->vec);
-		if (!phong.n.x && !phong.n.y && !phong.n.z)
-			printf("phong.n~(_phong) --- (%f, %f, %f, %f)\n", phong.n.x, phong.n.y, phong.n.z, phong.n.w);
-	}
 	phong.l = vec_normalize(subtract_tuples(light.position, px));
-	if (!phong.l.x && !phong.l.y && !phong.l.z)
-		printf("phong.l~(_phong) --- (%f, %f, %f, %f)\n", phong.l.x, phong.l.y, phong.l.z, phong.l.w);
 	phong.r = reflect(multiply_tuple_scalar(-1, phong.l), phong.n);
 	phong.e = vec_normalize(subtract_tuples(cam, px));
-	if (!phong.e.x && !phong.e.y && !phong.e.z)
-		printf("phong.e~(_phong) --- (%f, %f, %f, %f)\n", phong.e.x, phong.e.y, phong.e.z, phong.e.w);
 	return (phong);
 }
 
