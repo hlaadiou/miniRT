@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/16 10:49:13 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:16:59 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ t_inter	*hit(t_lst_inter *lst)
 	while (lst)
 	{
 		if (lst->inter && lst->inter->t >= EPSILON)
-		{
 			return (lst->inter);
-		}
 		lst = lst->next;
 	}
 	return (NULL);
@@ -32,35 +30,26 @@ t_inter	*hit(t_lst_inter *lst)
 
 t_inter **local_intersect(t_object *cy, t_ray r) 
 {
-    t_inter **inter = malloc(sizeof(t_inter *) * 2);
+    t_inter **inter = ft_malloc(sizeof(t_inter *) * 2);
     if (inter == NULL) {
         perror("Memory allocation failed");
         exit(EXIT_FAILURE);
     }
     float a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
     if (fabs(a) < 0 || fabs(r.dir.y) < 0) 
-    {
-        free(inter);
         return (NULL);
-    }
     float b = 2 * ((r.dir.x * r.org.x) + (r.dir.z * r.org.z));
     float c = (r.org.x * r.org.x) + (r.org.z * r.org.z) - (powf(cy->cy->diameter, 2) / 4.0f);
     float discriminant = b * b - 4 * a * c;
     if (discriminant < 0)
-    {
-        free(inter);
         return (NULL);
-    }
     float sqrt_discriminant = sqrt(discriminant);
     float t1 = (-b - sqrt_discriminant) / (2 * a);
     float t2 = (-b + sqrt_discriminant) / (2 * a);
     if (t1 < 0 && t2 < 0)
-    {
-        free(inter);
         return (NULL);
-    }
-    inter[0] = malloc(sizeof(t_inter));
-    inter[1] = malloc(sizeof(t_inter));
+    inter[0] = ft_malloc(sizeof(t_inter));
+    inter[1] = ft_malloc(sizeof(t_inter));
     if (inter[0] == NULL || inter[1] == NULL)
     {
         perror("Memory allocation failed");

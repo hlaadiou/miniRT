@@ -6,7 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:46:44 by hlaadiou          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/16 10:42:58 by hlaadiou         ###   ########.fr       */
+=======
+/*   Updated: 2024/07/17 00:16:24 by azgaoua          ###   ########.fr       */
+>>>>>>> J-9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +23,7 @@ t_object	*_obj(void *obj, t_color c, t_types type)
 
 	if (!obj)
 		return (NULL);
-	o = (t_object*)malloc(sizeof(t_object));
+	o = (t_object*)ft_malloc(sizeof(t_object));
 	if (!o)
 		return (NULL);
 	if (type == SPHERE)
@@ -42,7 +46,7 @@ t_object	*_obj(void *obj, t_color c, t_types type)
 
 t_ray transform_ray(t_ray ray, t_matrix *a)
 {
-    t_ray	b;
+    t_ray b;
 
     b = _ray(ray.org, ray.dir);
     b.org =  mtx_tuple_prod(a, ray.org);

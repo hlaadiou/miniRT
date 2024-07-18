@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 23:14:46 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/11 16:01:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 17:34:38 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*ft_itoa(int n)
 
 	j = 0;
 	i = talloc(n);
-	s = malloc(i);
+	s = ft_malloc(i);
 	if (!s)
 		return (0);
 	i = n;

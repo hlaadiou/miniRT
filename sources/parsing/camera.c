@@ -6,7 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:52:17 by azgaoua           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/18 09:17:35 by hlaadiou         ###   ########.fr       */
+=======
+/*   Updated: 2024/07/17 01:00:29 by azgaoua          ###   ########.fr       */
+>>>>>>> J-9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +51,13 @@ char	**str_split(char *str, char *seps)
 	char	**tab;
 
 	init_int(&i, &j, &len, 0);
+<<<<<<< HEAD
 	tab = (char **)malloc(sizeof(char *) * (count_words(str, seps) + 1));
 	if (!tab)
 		return (NULL);
+=======
+	tab = (char **)ft_malloc(sizeof(char *) * (count_words(str, seps) + 1));
+>>>>>>> J-9
 	while (str[i] && j < count_words(str, seps))
 	{
 		while (str[i] && ft_strchr(seps, str[i]))

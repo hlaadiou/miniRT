@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 13:55:46 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/04/03 06:49:51 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 00:57:34 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_lst_inter	*new_intersection(t_inter *inter)
 {
 	t_lst_inter	*node;
 
-	node = (t_lst_inter *)malloc(sizeof(t_lst_inter));
+	node = (t_lst_inter *)ft_malloc(sizeof(t_lst_inter));
 	if (!node)
 		return (NULL);
 	node->inter = inter;
@@ -54,9 +54,9 @@ int	_intersections(t_lst_inter **lst, t_inter **i)
 	if (!i)
 		return (-1);
 	if (inter_list_add(lst, i[0]))
-		return (free(i[0]), free(i[1]), free(i), 1);
+		return (1);
 	if (inter_list_add(lst, i[1]))
-		return (free(i[1]), free(i), 1);
+		return (1);
 	return (0);
 }
 

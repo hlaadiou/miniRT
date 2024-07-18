@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/18 16:10:46 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:18:40 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,12 @@ t_matrix	*_mtx(int size)
 	t_matrix	*mtx;
 	int			i;
 
-	mtx = (t_matrix	*)malloc(sizeof(t_matrix));
-	if (!mtx)
-	{
-		put_error("Cannot allocate enough memory\n");
-		return (NULL);
-	}
+	mtx = (t_matrix	*)ft_malloc(sizeof(t_matrix));
 	mtx->size = size;
-	mtx->mtx = (float **)malloc(sizeof(float *) * size);
-	if (!(mtx->mtx))
-	{
-		put_error("Cannot allocate enough memory\n");
-		return (NULL);
-	}
+	mtx->mtx= (float **)ft_malloc(sizeof(float *) * size);
 	i = -1;
 	while (++i < size)
-	{
-		mtx->mtx[i] = (float *)malloc(sizeof(float) * size);
-		if (!(mtx->mtx[i]))
-		{
-			put_error("Cannot allocate enough memory\n");
-			return (NULL);
-		}
-	}
+		mtx->mtx[i] = (float *)ft_malloc(sizeof(float) * size);
 	return (mtx);
 }
 
@@ -168,7 +151,13 @@ t_matrix	*inverse(t_matrix *a)
 
 float	minor(t_matrix *a, int r, int c)
 {
-	return (mtx_determinant(submatrix(a, r, c)));
+	t_matrix *sub;
+	float	minor_value;
+
+	sub = submatrix(a, r, c);
+    // ft_lst_add_front_clctr(ft_collector(), ft_lstnew_clctr(sub));
+	minor_value = mtx_determinant(sub);
+	return (minor_value);
 }
 
 float	cofactor(t_matrix *a, int r, int c)
@@ -186,7 +175,7 @@ t_matrix *mtx_transpose(t_matrix  *a)
 
 	r = -1;
 	c = _mtx(a->size);
-	while (++r < 4)
+	while (++r < a->size)
 	{
 		col = -1;
 		while (++col < c->size)

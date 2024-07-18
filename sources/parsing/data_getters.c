@@ -6,7 +6,11 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/07/17 13:10:51 by hlaadiou         ###   ########.fr       */
+=======
+/*   Updated: 2024/07/18 16:40:57 by azgaoua          ###   ########.fr       */
+>>>>>>> J-9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +230,8 @@ t_obj_lst	*get_objs_data(t_pars *conf)
 			{
 				if (obj_list_add(&lst, obj))
 				{
-					free_object(obj);
-					object_fatal(lst);
+					// free_object(obj);
+					// object_fatal(lst);
 				}
 			}
 		}

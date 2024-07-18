@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 21:00:06 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/25 21:31:11 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/17 00:20:46 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_obj_lst	*new_obj_node(t_object *obj)
 {
 	t_obj_lst	*node;
 
-	node = (t_obj_lst *)malloc(sizeof(t_obj_lst));
+	node = (t_obj_lst *)ft_malloc(sizeof(t_obj_lst));
 	if (!node)
 		return (NULL);
 	node->obj = obj;

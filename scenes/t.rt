@@ -11,7 +11,7 @@ C 		0,1,-6.0 				0,0,1							45
 # LIGHT
 # Light Point (x, y, z) | Brightness [0.0, 1.0] | RGB [0, 255]
 
-L 		0,3,-7.0 				1 				255,255,255
+L 		1.9,3,-7.0 				1 				255,255,255
 
 # SPHERES
 # Sphere center (x, y, z) | Diameter | RGB [0, 255]

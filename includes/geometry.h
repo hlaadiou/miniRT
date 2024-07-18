@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/16 10:42:19 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:13:30 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,6 @@ t_inter 		**intersect_caps(t_object *cy, t_ray r);
 t_ray			transform_ray(t_ray ray, t_matrix *a);
 t_matrix		*axis_cylinder(t_vector orie);
 t_matrix		*axis_to_matrix(t_vector up, t_vector forw, t_vector right);
+int				free_lst_inter(t_lst_inter *lst);
 
 #endif

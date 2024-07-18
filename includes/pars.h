@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 11:21:42 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:14:03 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void			*ft_malloc(size_t size);
 t_collector		**ft_collector(void);
 t_collector		*ft_lstnew_clctr(void *lst);
 void			ft_free_collector(t_collector **lst);
-void			ft_lstadd_back_clctr(t_collector **lst, t_collector *new);
+int			ft_lst_add_front_clctr(t_collector **lst, t_collector *new);
 t_world			*init_world(t_scene *scene);
 t_comps 		*prepare_computations(t_inter *inter, t_ray ray);
 t_color 		shade_hit(t_scene *world, t_comps *copms);
@@ -177,6 +177,7 @@ t_pars			*create_conf(int ac, char **av);
 void 			print_scene(t_scene *scene); // Remove later
 void			ft_free_tab(char **tab);
 void			free_f_mtx(float **mtx, int size);
-void			ft_free_struct(t_pars *pars);
+void			free_scene(t_scene *scene);
+
 
 #endif
