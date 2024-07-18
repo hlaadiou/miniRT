@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/18 10:47:07 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:38:17 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ int	ft_mlx(mlx_t **mlx, mlx_image_t **image)
 	if (!((*image) = mlx_new_image((*mlx), w, h))) 
 	{
 		mlx_close_window(*mlx);  
-		puts(mlx_strerror(mlx_errno));  
+		puts(mlx_strerror(mlx_errno));   // !!
 		return (EXIT_FAILURE); 
 	}
 	if (mlx_image_to_window((*mlx), (*image), 0, 0) == -1) 
 	{
 		mlx_close_window(*mlx);  
-		puts(mlx_strerror(mlx_errno));  
+		puts(mlx_strerror(mlx_errno));  // !!
 		return (EXIT_FAILURE);  
 	}
 	return (EXIT_SUCCESS);  
@@ -656,9 +656,8 @@ int	main(int ac, char **av)
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
 	render(cam, scene, &image);
-	printf("Done\n");
-	// mlx_loop_hook(mlx, ft_hook, mlx);
-	// mlx_loop(mlx);
-	// mlx_terminate(mlx);
+	mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
 	return (0);
 }

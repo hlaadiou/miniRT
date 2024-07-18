@@ -6,7 +6,7 @@
 /*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/18 10:35:04 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:10:46 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ t_matrix	*_mtx(int size)
 	mtx = (t_matrix	*)malloc(sizeof(t_matrix));
 	if (!mtx)
 	{
-		put_error("Fatal: Cannot allocate enough memory\n");
+		put_error("Cannot allocate enough memory\n");
 		return (NULL);
 	}
 	mtx->size = size;
 	mtx->mtx = (float **)malloc(sizeof(float *) * size);
 	if (!(mtx->mtx))
 	{
-		put_error("Fatal: Cannot allocate enough memory\n");
+		put_error("Cannot allocate enough memory\n");
 		return (NULL);
 	}
 	i = -1;
@@ -37,7 +37,7 @@ t_matrix	*_mtx(int size)
 		mtx->mtx[i] = (float *)malloc(sizeof(float) * size);
 		if (!(mtx->mtx[i]))
 		{
-			put_error("Fatal: Cannot allocate enough memory\n");
+			put_error("Cannot allocate enough memory\n");
 			return (NULL);
 		}
 	}
@@ -171,9 +171,11 @@ float	minor(t_matrix *a, int r, int c)
 	return (mtx_determinant(submatrix(a, r, c)));
 }
 
-float cofactor(t_matrix *a, int r, int c)
+float	cofactor(t_matrix *a, int r, int c)
 {
-	return (((r + c) % 2 == 0) ? minor(a, r, c) : (minor(a, r, c) * -1));
+	if (!((r + c) % 2))
+		return (minor(a, r, c));
+	return (minor(a, r, c) * -1);
 }
 
 t_matrix *mtx_transpose(t_matrix  *a)
