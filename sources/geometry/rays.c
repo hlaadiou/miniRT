@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:26:14 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/17 01:04:08 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/17 18:23:38 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,12 @@ t_inter	**_intersection(t_roots roots, t_object *obj)
 	inter = (t_inter **)ft_malloc(sizeof(t_inter *) * 2);
 	if (!inter)
 		return (NULL);
-	// ft_lst_add_front_clctr(ft_collector(), ft_lstnew_clctr(inter));
 	inter[0] = (t_inter *)ft_malloc(sizeof(t_inter));
 	if (!inter[0])
 		return (NULL);
-	// ft_lst_add_front_clctr(ft_collector(), ft_lstnew_clctr(inter[0]));
 	inter[1] = (t_inter *)ft_malloc(sizeof(t_inter));
 	if (!inter[1])
 		return (NULL);
-	// ft_lst_add_front_clctr(ft_collector(), ft_lstnew_clctr(inter[1]));
 	*inter[0] = (t_inter){roots.t1, obj};
 	*inter[1] = (t_inter){roots.t2, obj};
 	return (inter);
