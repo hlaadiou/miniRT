@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/18 16:43:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/19 01:01:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -630,7 +630,7 @@ int	main(int ac, char **av)
 	t_scene			*scene = NULL;
 	t_camera_fn		cam;
 
-	atexit (vv);
+	// atexit (vv);
 	conf = create_conf(ac, av);
 	if (!conf)
 		return (1);
@@ -639,7 +639,7 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_mlx(&mlx, &image) == EXIT_FAILURE)
 		return (1);
-	// print_scene(scene); // To remove later
+	print_scene(scene); // To remove later
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst); // Review later (Will be probably removed or moved)
 	render(cam, scene, &image);
@@ -647,7 +647,6 @@ int	main(int ac, char **av)
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
-	printf("%d\n", ft_lst_add_front_clctr(ft_collector(), NULL));
 	ft_free_collector(ft_collector());
 	return (0);
 }

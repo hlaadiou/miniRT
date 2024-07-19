@@ -1,0 +1,185 @@
+==88417== Memcheck, a memory error detector
+==88417== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==88417== Using Valgrind-3.23.0.GIT-lbmacos-93191c15fd-20240210 and LibVEX; rerun with -h for copyright info
+==88417== Command: ./miniRT scenes/42.rt
+==88417== Parent PID: 88341
+==88417== 
+--88417-- 
+--88417-- Valgrind options:
+--88417--    --leak-check=full
+--88417--    --show-leak-kinds=all
+--88417--    --track-origins=yes
+--88417--    --verbose
+--88417--    --log-file=valgrind-out.txt
+--88417-- Output from sysctl({CTL_KERN,KERN_VERSION}):
+--88417--   Darwin Kernel Version 19.6.0: Tue Jun 21 21:18:39 PDT 2022; root:xnu-6153.141.66~1/RELEASE_X86_64
+--88417-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--88417-- Page sizes: currently 4096, max supported 4096
+--88417-- Valgrind library directory: /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind
+--88417-- /usr/lib/dyld (rx at 0x100034000, rw at 0x1000c7000)
+--88417--    reading syms   from primary file (5 2729)
+--88417-- Scheduler: using generic scheduler lock implementation.
+--88417-- Reading suppressions file: /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/default.supp
+==88417== embedded gdbserver: reading from /var/folders/zz/zyxvpxvq6csfxvn_n000cjrh0034f4/T//vgdb-pipe-from-vgdb-to-88417-by-azgaoua-on-???
+==88417== embedded gdbserver: writing to   /var/folders/zz/zyxvpxvq6csfxvn_n000cjrh0034f4/T//vgdb-pipe-to-vgdb-from-88417-by-azgaoua-on-???
+==88417== embedded gdbserver: shared mem   /var/folders/zz/zyxvpxvq6csfxvn_n000cjrh0034f4/T//vgdb-pipe-shared-mem-vgdb-88417-by-azgaoua-on-???
+==88417== 
+==88417== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==88417== don't want to do, unless you know exactly what you're doing,
+==88417== or are doing some strange experiment):
+==88417==   /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/../../bin/vgdb --pid=88417 ...command...
+==88417== 
+==88417== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==88417==   /path/to/gdb ./miniRT
+==88417== and then give GDB the following command
+==88417==   target remote | /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/../../bin/vgdb --pid=88417
+==88417== --pid is optional if only one valgrind process is running
+==88417== 
+--88417-- REDIR: 0x100086340 (dyld:strcmp) redirected to 0x2580598a7 (???)
+--88417-- REDIR: 0x100080614 (dyld:arc4random) redirected to 0x258059945 (???)
+--88417-- REDIR: 0x100085720 (dyld:strlen) redirected to 0x258059876 (???)
+--88417-- REDIR: 0x100086640 (dyld:strcpy) redirected to 0x2580598c3 (???)
+--88417-- REDIR: 0x1000837ba (dyld:strcat) redirected to 0x258059887 (???)
+--88417-- REDIR: 0x10008551a (dyld:strlcat) redirected to 0x2580598e0 (???)
+--88417-- /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/vgpreload_core-amd64-darwin.so (rx at 0x10013a000, rw at 0x10013e000)
+--88417--    reading syms   from primary file (3 53)
+--88417--    dSYM= /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/vgpreload_core-amd64-darwin.so.dSYM/Contents/Resources/DWARF/vgpreload_core-amd64-darwin.so
+--88417-- /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so (rx at 0x100146000, rw at 0x100152000)
+--88417--    reading syms   from primary file (138 63)
+--88417--    dSYM= /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so.dSYM/Contents/Resources/DWARF/vgpreload_memcheck-amd64-darwin.so
+--88417-- /usr/lib/libSystem.B.dylib (rx at 0x10015e000, rw at 0x100160000)
+--88417--    reading syms   from primary file (29 8)
+--88417-- /Users/azgaoua/.brew/Cellar/glfw/3.3.9/lib/libglfw.3.3.dylib (rx at 0x100168000, rw at 0x10018c000)
+--88417--    reading syms   from primary file (128 299)
+--88417--    dSYM= /Users/azgaoua/.brew/Cellar/glfw/3.3.9/lib/libglfw.3.3.dylib.dSYM/Contents/Resources/DWARF/libglfw.3.3.dylib
+--88417-- /usr/lib/system/libcache.dylib (rx at 0x1001a4000, rw at 0x1001aa000)
+--88417--    reading syms   from primary file (32 29)
+--88417-- /usr/lib/system/libcommonCrypto.dylib (rx at 0x1001b1000, rw at 0x1001bd000)
+--88417--    reading syms   from primary file (241 173)
+--88417-- /usr/lib/system/libcompiler_rt.dylib (rx at 0x1001cd000, rw at 0x1001d5000)
+--88417--    reading syms   from primary file (505 8)
+--88417-- /usr/lib/system/libcopyfile.dylib (rx at 0x1001e5000, rw at 0x1001ef000)
+--88417--    reading syms   from primary file (11 38)
+--88417-- /usr/lib/system/libcorecrypto.dylib (rx at 0x1001f7000, rw at 0x10028a000)
+--88417--    reading syms   from primary file (586 845)
+--88417-- /usr/lib/system/libdispatch.dylib (rx at 0x1002aa000, rw at 0x1002eb000)
+--88417--    reading syms   from primary file (328 1607)
+--88417-- /usr/lib/system/libdyld.dylib (rx at 0x100328000, rw at 0x10035f000)
+--88417--    reading syms   from primary file (119 1467)
+--88417-- /usr/lib/system/libkeymgr.dylib (rx at 0x100388000, rw at 0x100389000)
+--88417--    reading syms   from primary file (11 2)
+--88417-- /usr/lib/system/libmacho.dylib (rx at 0x100398000, rw at 0x10039e000)
+--88417--    reading syms   from primary file (105 2)
+--88417-- /usr/lib/system/libquarantine.dylib (rx at 0x1003a6000, rw at 0x1003a9000)
+--88417--    reading syms   from primary file (91 12)
+--88417-- /usr/lib/system/libremovefile.dylib (rx at 0x1003b1000, rw at 0x1003b3000)
+--88417--    reading syms   from primary file (12 8)
+--88417-- /usr/lib/system/libsystem_asl.dylib (rx at 0x1003ba000, rw at 0x1003d2000)
+--88417--    reading syms   from primary file (219 234)
+--88417-- /usr/lib/system/libsystem_blocks.dylib (rx at 0x1003e2000, rw at 0x1003e3000)
+--88417--    reading syms   from primary file (21 8)
+--88417-- /usr/lib/system/libsystem_c.dylib (rx at 0x1003ea000, rw at 0x100472000)
+--88417--    reading syms   from primary file (1346 892)
+--88417-- /usr/lib/system/libsystem_configuration.dylib (rx at 0x1004a2000, rw at 0x1004a6000)
+--88417--    reading syms   from primary file (36 68)
+--88417-- /usr/lib/system/libsystem_coreservices.dylib (rx at 0x1004af000, rw at 0x1004b3000)
+--88417--    reading syms   from primary file (14 47)
+--88417-- /usr/lib/system/libsystem_darwin.dylib (rx at 0x1004bb000, rw at 0x1004c4000)
+--88417--    reading syms   from primary file (63 562)
+--88417-- /usr/lib/system/libsystem_dnssd.dylib (rx at 0x1004d3000, rw at 0x1004db000)
+--88417--    reading syms   from primary file (40 26)
+--88417-- /usr/lib/system/libsystem_featureflags.dylib (rx at 0x1004e3000, rw at 0x1004e5000)
+--88417--    reading syms   from primary file (1 12)
+--88417-- /usr/lib/system/libsystem_info.dylib (rx at 0x1004ec000, rw at 0x10053a000)
+--88417--    reading syms   from primary file (427 715)
+--88417-- /usr/lib/system/libsystem_m.dylib (rx at 0x100552000, rw at 0x10059a000)
+--88417--    reading syms   from primary file (811 1)
+--88417-- /usr/lib/system/libsystem_malloc.dylib (rx at 0x1005ab000, rw at 0x1005d3000)
+--88417--    reading syms   from primary file (98 470)
+--88417-- /usr/lib/system/libsystem_networkextension.dylib (rx at 0x1005e3000, rw at 0x1005f1000)
+--88417--    reading syms   from primary file (118 242)
+--88417-- /usr/lib/system/libsystem_notify.dylib (rx at 0x100601000, rw at 0x10060b000)
+--88417--    reading syms   from primary file (23 1)
+--88417-- /usr/lib/system/libsystem_sandbox.dylib (rx at 0x100613000, rw at 0x100618000)
+--88417--    reading syms   from primary file (112 23)
+--88417-- /usr/lib/system/libsystem_secinit.dylib (rx at 0x100621000, rw at 0x100624000)
+--88417--    reading syms   from primary file (5 20)
+--88417-- /usr/lib/system/libsystem_kernel.dylib (rx at 0x10062b000, rw at 0x100658000)
+--88417--    reading syms   from primary file (1362 230)
+--88417-- /usr/lib/system/libsystem_platform.dylib (rx at 0x100677000, rw at 0x100680000)
+--88417--    reading syms   from primary file (168 103)
+--88417-- /usr/lib/system/libsystem_pthread.dylib (rx at 0x10068a000, rw at 0x100695000)
+--88417--    reading syms   from primary file (189 143)
+--88417-- /usr/lib/system/libsystem_symptoms.dylib (rx at 0x1006a2000, rw at 0x1006aa000)
+--88417--    reading syms   from primary file (10 86)
+--88417-- /usr/lib/system/libsystem_trace.dylib (rx at 0x1006b2000, rw at 0x1006c9000)
+--88417--    reading syms   from primary file (131 274)
+--88417-- /usr/lib/system/libunwind.dylib (rx at 0x1006da000, rw at 0x1006e0000)
+--88417--    reading syms   from primary file (102 52)
+--88417-- /usr/lib/system/libxpc.dylib (rx at 0x1006e9000, rw at 0x10071f000)
+--88417--    reading syms   from primary file (627 1467)
+--88417-- /usr/lib/libobjc.A.dylib (rx at 0x10074d000, rw at 0x100781000)
+--88417--    reading syms   from primary file (382 771)
+--88417-- /usr/lib/libc++abi.dylib (rx at 0x1007a5000, rw at 0x1007bb000)
+--88417--    reading syms   from primary file (366 704)
+--88417-- /usr/lib/libc++.1.dylib (rx at 0x1007d9000, rw at 0x10082c000)
+--88417--    reading syms   from primary file (2088 1160)
+
+valgrind: m_debuginfo/readmacho.c:759 (Bool vgModuleLocal_read_macho_debug_info(struct _DebugInfo *)): Assertion 'di->fsm.rw_map_count' failed.
+
+host stacktrace:
+==88417==    at 0x25804410F: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x258044483: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x258044466: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x2580907E4: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x258071FD0: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x2580D7380: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x2580BA96F: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x2580BA138: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x2580B85C7: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x2580B64E4: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+==88417==    by 0x2580C7815: ??? (in /goinfre/azgaoua/homebrew/Cellar/valgrind/HEAD-93191c1/libexec/valgrind/memcheck-amd64-darwin)
+
+sched status:
+  running_tid=1
+
+Thread 1: status = VgTs_Runnable syscall unix:197 (lwpid 771)
+==88417==    at 0x10008A2CA: __mmap (in /usr/lib/dyld)
+==88417==    by 0x1000888F9: mmap (in /usr/lib/dyld)
+==88417==    by 0x10004FE78: ImageLoaderMachO::mapSegments(int, unsigned long long, unsigned long long, unsigned long long, ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==88417==    by 0x1000535D4: ImageLoaderMachOCompressed::instantiateFromFile(char const*, int, unsigned char const*, unsigned long, unsigned long long, unsigned long long, stat const&, unsigned int, unsigned int, linkedit_data_command const*, encryption_info_command const*, ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==88417==    by 0x10004C7A7: ImageLoaderMachO::instantiateFromFile(char const*, int, unsigned char const*, unsigned long, unsigned long long, unsigned long long, stat const&, ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==88417==    by 0x100037EE4: dyld::loadPhase6(int, stat const&, char const*, dyld::LoadContext const&) (in /usr/lib/dyld)
+==88417==    by 0x10003FCCC: dyld::loadPhase5(char const*, char const*, dyld::LoadContext const&, unsigned int&, std::__1::vector<char const*, std::__1::allocator<char const*> >*) (in /usr/lib/dyld)
+==88417==    by 0x10003F6DC: dyld::loadPhase4(char const*, char const*, dyld::LoadContext const&, unsigned int&, std::__1::vector<char const*, std::__1::allocator<char const*> >*) (in /usr/lib/dyld)
+==88417==    by 0x10003F446: dyld::loadPhase3(char const*, char const*, dyld::LoadContext const&, unsigned int&, std::__1::vector<char const*, std::__1::allocator<char const*> >*) (in /usr/lib/dyld)
+==88417==    by 0x10003EB00: dyld::loadPhase1(char const*, char const*, dyld::LoadContext const&, unsigned int&, std::__1::vector<char const*, std::__1::allocator<char const*> >*) (in /usr/lib/dyld)
+==88417==    by 0x100037A7C: dyld::loadPhase0(char const*, char const*, dyld::LoadContext const&, unsigned int&, std::__1::vector<char const*, std::__1::allocator<char const*> >*) (in /usr/lib/dyld)
+==88417==    by 0x100037639: dyld::load(char const*, dyld::LoadContext const&, unsigned int&) (in /usr/lib/dyld)
+==88417==    by 0x100040460: dyld::libraryLocator(char const*, bool, char const*, ImageLoader::RPathChain const*, unsigned int&) (in /usr/lib/dyld)
+==88417==    by 0x1000486F8: ImageLoader::recursiveLoadLibraries(ImageLoader::LinkContext const&, bool, ImageLoader::RPathChain const&, char const*) (in /usr/lib/dyld)
+==88417==    by 0x1000489CF: ImageLoader::recursiveLoadLibraries(ImageLoader::LinkContext const&, bool, ImageLoader::RPathChain const&, char const*) (in /usr/lib/dyld)
+==88417==    by 0x10004731B: ImageLoader::link(ImageLoader::LinkContext const&, bool, bool, bool, ImageLoader::RPathChain const&, char const*) (in /usr/lib/dyld)
+==88417==    by 0x100039A00: dyld::link(ImageLoader*, bool, bool, ImageLoader::RPathChain const&, unsigned int) (in /usr/lib/dyld)
+==88417==    by 0x10003B98F: dyld::_main(macho_header const*, unsigned long, int, char const**, char const**, char const**, unsigned long*) (in /usr/lib/dyld)
+==88417==    by 0x100035226: dyldbootstrap::start(dyld3::MachOLoaded const*, int, char const**, dyld3::MachOLoaded const*, unsigned long*) (in /usr/lib/dyld)
+==88417==    by 0x100035024: _dyld_start (in /usr/lib/dyld)
+==88417==    by 0x1: ???
+==88417==    by 0x104939796: ???
+==88417==    by 0x10493979F: ???
+client stack range: [0x10413A000 0x104939FFF] client SP: 0x10492F478
+valgrind stack range: [0x700006DB2000 0x700006EB1FFF] top usage: 16768 of 1048576
+
+
+Note: see also the FAQ in the source distribution.
+It contains workarounds to several common problems.
+In particular, if Valgrind aborted or crashed after
+identifying problems in your program, there's a good chance
+that fixing those problems will prevent Valgrind aborting or
+crashing, especially if it happened in m_mallocfree.c.
+
+If that doesn't help, please report this bug to: www.valgrind.org
+
+In the bug report, send all the above text, the valgrind
+version, and what OS and version you are using.  Thanks.
+

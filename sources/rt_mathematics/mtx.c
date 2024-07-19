@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 10:24:48 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/17 15:13:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/19 01:01:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,6 @@ float	minor(t_matrix *a, int r, int c)
 	float	minor_value;
 
 	sub = submatrix(a, r, c);
-    // ft_lst_add_front_clctr(ft_collector(), ft_lstnew_clctr(sub));
 	minor_value = mtx_determinant(sub);
 	return (minor_value);
 }
