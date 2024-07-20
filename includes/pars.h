@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/20 17:01:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/20 18:29:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include "../lib/libft/libft.h"
 # include "miniRT.h"
 # include <limits.h>
-
 
 typedef struct s_collector
 {
@@ -66,14 +65,7 @@ typedef struct s_camera
 	float		fov;
 }	t_camera;
 
-// typedef struct s_light_src
-// {
-// 	t_point		position;
-// 	float		brightness;
-// 	t_color		color;
-// }	t_light_src;
-
-typedef t_light t_light_src;
+typedef t_light	t_light_src;
 
 typedef struct s_obj_lst
 {
@@ -83,12 +75,11 @@ typedef struct s_obj_lst
 }	t_obj_lst;
 
 // TO REMOVE
-typedef struct		s_world
+typedef struct s_world
 {
 	t_light		light;
 	t_obj_lst	*obj_lst;
 }				t_world;
-
 
 typedef struct s_scene
 {
@@ -101,9 +92,9 @@ typedef struct s_scene
 typedef struct s_camera_fn
 {
 	float		hsize;
-	float       vsize;
+	float		vsize;
 	float		hwidth;
-	float   	hheight;
+	float		hheight;
 	float		fov;
 	float		pixel_size;
 	t_matrix	*transform;
@@ -124,9 +115,9 @@ void			free_tab(char	**tab);
 int				ft_lstsize(t_pars *lst);
 void			ft_free_struct(t_pars *pars);
 void			free_f_mtx(float **mtx, int size);
-int 			check_cap(t_ray r, float t, t_object *cy);
+int				check_cap(t_ray r, float t, t_object *cy);
 t_vector		local_normal_at(t_object *cy, t_point world_point);
-t_matrix 		*view_transform(t_point from, t_point to, t_vector up);
+t_matrix		*view_transform(t_point from, t_point to, t_vector up);
 
 /* g_collector */
 
@@ -136,19 +127,18 @@ t_collector		*ft_lstnew_clctr(void *lst);
 void			ft_free_collector(t_collector **lst);
 void			ft_lst_add_front_clctr(t_collector **lst, t_collector *new);
 t_world			*init_world(t_scene *scene);
-t_comps 		*prepare_computations(t_inter *inter, t_ray ray);
-t_color 		shade_hit(t_scene *world, t_comps *copms);
+t_comps			*prepare_computations(t_inter *inter, t_ray ray);
+t_color			shade_hit(t_scene *world, t_comps *copms);
 t_color			color_at(t_scene *w, t_ray r);
 void			render(t_camera_fn c, t_scene *w, mlx_image_t **image);
-t_inter 		**local_intersect(t_object *cy, t_ray r);
-
+t_inter			**local_intersect(t_object *cy, t_ray r);
 
 //HLAADIOU
-int 			check_al(t_pars *conf);
-int 			check_camera(t_pars *conf);
-int 			check_light(t_pars *conf);
-int 			check_objects(t_pars *conf);
-int 			check_required_elements(t_pars *conf);
+int				check_al(t_pars *conf);
+int				check_camera(t_pars *conf);
+int				check_light(t_pars *conf);
+int				check_objects(t_pars *conf);
+int				check_required_elements(t_pars *conf);
 
 float			ft_atof(char *str);
 int				valid_float(char *str);
@@ -158,29 +148,28 @@ int				is_int(char **str);
 t_light_src		check_light_data(t_pars *conf);
 t_object		*check_objs_data(t_pars *conf);
 int				normalized_range(t_vector vec);
-t_tuple 		parse_coordinates(char *str);
+t_tuple			parse_coordinates(char *str);
 t_rgb255		parse_color(char *str);
 
-t_obj_lst   	*new_obj_node(t_object *obj);
-int 			obj_list_add(t_obj_lst **list, t_object *obj);
-t_obj_lst   	*obj_lst_last(t_obj_lst *objs);
+t_obj_lst		*new_obj_node(t_object *obj);
+int				obj_list_add(t_obj_lst **list, t_object *obj);
+t_obj_lst		*obj_lst_last(t_obj_lst *objs);
 
-t_ambient   	get_ambient_data(t_pars *conf);
-t_camera    	get_camera_data(t_pars *conf);
-t_light_src 	get_light_data(t_pars *conf);
-t_obj_lst   	*get_objs_data(t_pars *conf);
+t_ambient		get_ambient_data(t_pars *conf);
+t_camera		get_camera_data(t_pars *conf);
+t_light_src		get_light_data(t_pars *conf);
+t_obj_lst		*get_objs_data(t_pars *conf);
 
 void			put_error(char *str);
 void			free_object(t_object *obj);
 void			object_fatal(t_obj_lst *lst);
 
-t_scene 		*parse_scene(t_pars *conf);
+t_scene			*parse_scene(t_pars *conf);
 t_pars			*create_conf(int ac, char **av);
 
-void 			print_scene(t_scene *scene); // Remove later
+void			print_scene(t_scene *scene); // Remove later
 void			ft_free_tab(char **tab);
 void			free_f_mtx(float **mtx, int size);
 void			free_scene(t_scene *scene);
-
 
 #endif
