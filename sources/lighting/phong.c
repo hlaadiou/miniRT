@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/16 11:40:35 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/20 01:40:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ t_phong	_phong(t_object *obj, t_point px, t_light light, t_point cam)
 	if (obj->type == SPHERE)
 		phong.n = normal_at(obj, px);
 	else if (obj->type == CYLINDER)
-	{
 		phong.n = local_normal_at(obj, px);
-	}
 	else if (obj->type == PLANE)
 		phong.n = vec_normalize(obj->pl->vec);
 	phong.l = vec_normalize(subtract_tuples(light.position, px));
@@ -80,7 +78,7 @@ t_color	illuminate(t_comps *comps,t_light light, int in_shadow)
 	if (in_shadow || compare_f(light.brightness , 0))
 		return (ph.ambient);
 	light_dot_normal = dot_product(ph.l, ph.n);
-	if (light_dot_normal < 0 && comps->inside == 0)
+	if ((light_dot_normal < 0 && comps->inside == 0) || (comps->obj->type == PLANE && comps->inside != 0))
 		return (ph.ambient);
 	else if (light_dot_normal < 0)
 		light_dot_normal = -light_dot_normal;
