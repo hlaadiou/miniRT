@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:28:05 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/01 10:57:28 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:21:35 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // r(RADIANS)
 t_matrix	*rotation_x(float r)
 {
-	t_matrix *a;
+	t_matrix	*a;
 
 	a = _identity(4);
 	a->mtx[1][1] = cos(r);
@@ -27,7 +27,8 @@ t_matrix	*rotation_x(float r)
 
 t_matrix	*rotation_y(float r)
 {
-	t_matrix *a;
+	t_matrix	*a;
+
 	a = _identity(4);
 	a->mtx[0][0] = cos(r);
 	a->mtx[0][2] = sin(r);
@@ -38,7 +39,7 @@ t_matrix	*rotation_y(float r)
 
 t_matrix	*rotation_z(float r)
 {
-	t_matrix *a;
+	t_matrix	*a;
 
 	a = _identity(4);
 	a->mtx[0][0] = cos(r);

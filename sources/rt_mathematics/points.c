@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   points.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:44:03 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/01 10:56:48 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/20 17:21:13 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ t_point	_point(float x, float y, float z)
 	pt.w = 1;
 	return (pt);
 }
-

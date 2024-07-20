@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 18:28:43 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/09 15:56:48 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/20 17:27:59 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,11 @@ t_color	schur_product(t_color col1, t_color col2)
 	blend.g = col1.g * col2.g;
 	blend.b = col1.b * col2.b;
 	return (blend);
+}
+
+/* DOT PRODUCT  (vec1 . vec2) */
+float	dot_product(t_vector vec1, t_vector vec2)
+{
+	return (vec1.x * vec2.x + vec1.y * vec2.y + \
+				vec1.z * vec2.z + vec1.w * vec2.w);
 }

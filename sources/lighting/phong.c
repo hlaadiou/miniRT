@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/20 01:40:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/20 16:43:57 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ t_color	rtn_phong(t_color a, t_color d)
 	return (res);
 }
 
-//     return(illuminate(copms->obj, copms->point, world->light, copms->eyev, shadowed));
-
-t_color	illuminate(t_comps *comps,t_light light, int in_shadow)
+t_color	illuminate(t_comps *comps, t_light light, int in_shadow)
 {
 	t_phong		ph;
 	float		light_dot_normal;
@@ -75,10 +73,11 @@ t_color	illuminate(t_comps *comps,t_light light, int in_shadow)
 	if (!comps)
 		return (_color(0, 0, 0));
 	ph = _phong(comps->obj, comps->over_point, light, comps->eyev);
-	if (in_shadow || compare_f(light.brightness , 0))
+	if (in_shadow || compare_f(light.brightness, 0))
 		return (ph.ambient);
 	light_dot_normal = dot_product(ph.l, ph.n);
-	if ((light_dot_normal < 0 && comps->inside == 0) || (comps->obj->type == PLANE && comps->inside != 0))
+	if ((light_dot_normal < 0 && comps->inside == 0) || \
+			(comps->obj->type == PLANE && comps->inside != 0))
 		return (ph.ambient);
 	else if (light_dot_normal < 0)
 		light_dot_normal = -light_dot_normal;

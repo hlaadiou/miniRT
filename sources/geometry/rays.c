@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:26:14 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/17 18:23:38 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/20 16:39:05 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_inter	**_intersection(t_roots roots, t_object *obj)
 t_ray	_ray(t_point org, t_vector vec)
 {
 	t_ray	ray;
+
 	ray = (t_ray){org, vec};
 	return (ray);
 }
@@ -66,8 +67,8 @@ t_inter	**intersect_sp(t_ray ray, t_object *sp)
 	t_inter			**inter;
 	t_quadratic		quad;
 	t_roots			r;
-	
-	quad = discriminant_sp(transform(ray, sp->transform), sp); /* change the  discriminant_sp(^ray, sp) by discriminant_sp(^ray2, sp) */
+
+	quad = discriminant_sp(transform(ray, sp->transform), sp);
 	if (quad.delta < 0)
 		r = (t_roots){0.0, 0.0, 0};
 	else
@@ -76,6 +77,6 @@ t_inter	**intersect_sp(t_ray ray, t_object *sp)
 		r.t2 = ((-1 * quad.b) + sqrt(quad.delta)) / (2 * quad.a);
 		r.counter = 2;
 	}
-	inter = _intersection(r, sp); /* returns an array of two inters, or NULL */
+	inter = _intersection(r, sp);
 	return (inter);
 }

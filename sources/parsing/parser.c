@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/17 01:21:25 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/20 17:33:24 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,52 +68,73 @@ void	ft_pars(char *av, t_pars **pars)
 	return ;
 }
 
-void print_lstobj(t_obj_lst *lst)
+void	print_lstobj(t_obj_lst *lst)
 {
 	t_obj_lst	*tmp;
+
 	tmp = lst;
 	while (tmp)
 	{
 		if (tmp->obj->type == SPHERE)
 		{
 			printf("Sphere\n\n");
-			printf("Center: %.2f %.2f %.2f\n", tmp->obj->sp->org.x, tmp->obj->sp->org.y, tmp->obj->sp->org.z);
+			printf("Center: %.2f %.2f %.2f\n", tmp->obj->sp->org.x, \
+						tmp->obj->sp->org.y, tmp->obj->sp->org.z);
 			printf("Radius: %.2f\n", tmp->obj->sp->radius);
-			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, tmp->obj->color.g, tmp->obj->color.b);
+			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, \
+						tmp->obj->color.g, tmp->obj->color.b);
 		}
 		else if (tmp->obj->type == PLANE)
 		{
 			printf("Plane\n\n");
-			printf("Point: %.2f %.2f %.2f\n", tmp->obj->pl->pt.x, tmp->obj->pl->pt.y, tmp->obj->pl->pt.z);
-			printf("Vector: %.2f %.2f %.2f\n", tmp->obj->pl->vec.x, tmp->obj->pl->vec.y, tmp->obj->pl->vec.z);
-			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, tmp->obj->color.g, tmp->obj->color.b);
+			printf("Point: %.2f %.2f %.2f\n", \
+				tmp->obj->pl->pt.x, tmp->obj->pl->pt.y, \
+					tmp->obj->pl->pt.z);
+			printf("Vector: %.2f %.2f %.2f\n", \
+				tmp->obj->pl->vec.x, tmp->obj->pl->vec.y, \
+					tmp->obj->pl->vec.z);
+			printf("Color: %.2f %.2f %.2f\n\n", \
+				tmp->obj->color.r, tmp->obj->color.g, \
+					tmp->obj->color.b);
 		}
 		else if (tmp->obj->type == CYLINDER)
 		{
 			printf("Cylinder\n\n");
-			printf("Center: %.2f %.2f %.2f\n", tmp->obj->cy->center.x, tmp->obj->cy->center.y, tmp->obj->cy->center.z);
-			printf("Axis: %.2f %.2f %.2f\n", tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, tmp->obj->cy->axis.z);
+			printf("Center: %.2f %.2f %.2f\n", \
+				tmp->obj->cy->center.x, tmp->obj->cy->center.y, \
+					tmp->obj->cy->center.z);
+			printf("Axis: %.2f %.2f %.2f\n", \
+				tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, \
+						tmp->obj->cy->axis.z);
 			printf("Diameter: %.2f\n", tmp->obj->cy->diameter);
-			printf("Height: %.2f\n", fabs(tmp->obj->cy->max - tmp->obj->cy->min));
-			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, tmp->obj->color.g, tmp->obj->color.b);
+			printf("Height: %.2f\n", \
+				fabs(tmp->obj->cy->max - tmp->obj->cy->min));
+			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, \
+						tmp->obj->color.g, tmp->obj->color.b);
 		}
 		tmp = tmp->next;
 	}
 }
 
-void print_scene(t_scene *scene)
+void	print_scene(t_scene *scene)
 {
 	printf("Ambient\n\n");
-	printf("Color: %f %f %f\n", scene->ambient.color.r, scene->ambient.color.g, scene->ambient.color.b);
+	printf("Color: %f %f %f\n", scene->ambient.color.r, \
+				scene->ambient.color.g, scene->ambient.color.b);
 	printf("Ratio: %.2f\n\n", scene->ambient.scale);
 	printf("Camera\n\n");
-	printf("view_point: %.2f %.2f %.2f\n", scene->camera.view_point.x, scene->camera.view_point.y, scene->camera.view_point.z);
-	printf("Orientation: %.2f %.2f %.2f\n", scene->camera.orientation.x, scene->camera.orientation.y, scene->camera.orientation.z);
+	printf("view_point: %.2f %.2f %.2f\n", \
+			scene->camera.view_point.x, scene->camera.view_point.y, \
+					scene->camera.view_point.z);
+	printf("Orientation: %.2f %.2f %.2f\n", scene->camera.orientation.x, \
+			scene->camera.orientation.y, scene->camera.orientation.z);
 	printf("FOV: %.2f\n\n", scene->camera.fov);
 	printf("Light\n\n");
-	printf("position: %f %f %f\n", scene->light.position.x, scene->light.position.y, scene->light.position.z);
+	printf("position: %f %f %f\n", scene->light.position.x, \
+				scene->light.position.y, scene->light.position.z);
 	printf("Brightness: %.2f\n", scene->light.brightness);
-	printf("Color: %f %f %f\n\n", scene->light.color.r, scene->light.color.g, scene->light.color.b);
+	printf("Color: %f %f %f\n\n", scene->light.color.r, \
+				scene->light.color.g, scene->light.color.b);
 	print_lstobj(scene->lst);
 }
 
@@ -144,7 +165,7 @@ void	free_obj_lst(t_obj_lst *lst)
 	}
 }
 
-void free_scene(t_scene *scene)
+void	free_scene(t_scene *scene)
 {
 	free_obj_lst(scene->lst);
 	free(scene);
@@ -165,98 +186,4 @@ t_pars	*create_conf(int ac, char **av)
 	if ((ft_lstsize(pars) < 4 && pars))
 		return (ft_putstr_fd("Error\nWrong number of identifiers\n", 2), NULL);
 	return (pars);
-}
-
-void	put_error(char *str)
-{
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(str, 2);
-	exit(EXIT_FAILURE);
-}
-
-int	multiple_sep(char *str, char c)
-{
-	int	i;
-	int count;
-
-	i = 0;
-	count = 0;
-	while (str && str[i])
-	{
-		if (str[i] == c)
-			count++;
-		i++;
-	}
-	if (count != 2)
-		return (1);
-	return (0);
-}
-
-t_tuple	parse_coordinates(char *str)
-{
-	int		i;
-	char	**strs;
-	t_tuple	coords;
-
-	i = -1;
-	if (multiple_sep(str, ','))
-		put_error("Invalid coordinates format\n");
-	strs = ft_split(str, ',');
-	while (strs[++i])
-	{
-		if (!valid_float(strs[i]))
-		{
-			// free_tab(strs);
-			put_error("Invalid coordinates data\n");
-		}
-	}
-	if (i != 3)
-	{
-		// free_tab(strs);
-		put_error("Invalid coordinates data\n");
-	}
-	coords = (t_tuple){ft_atof(strs[0]), ft_atof(strs[1]), ft_atof(strs[2]), 0.0};
-	return (coords);
-}
-
-t_rgb255	parse_color(char *str)
-{
-	char		**strs;
-	t_rgb255	rgb;
-
-	if (multiple_sep(str, ','))
-		put_error("Invalid color format\n");
-	strs = ft_split(str, ',');
-	if (ft_tab_size(strs) != 3 || !isnumber(strs) || !is_int(strs))
-	{
-		// free_tab(strs);
-		put_error("Invalid color data\n");
-	}
-	if (ft_atoi(strs[0]) < 0 || ft_atoi(strs[0]) > 255 \
-	|| ft_atoi(strs[1]) < 0 || ft_atoi(strs[1]) > 255 \
-	|| ft_atoi(strs[2]) < 0 || ft_atoi(strs[2]) > 255)
-	{
-		// free_tab(strs);
-		put_error("Invalid color data\n");
-	}
-	rgb = (t_rgb255){ft_atoi(strs[0]), ft_atoi(strs[1]), ft_atoi(strs[2])};
-	return (rgb);
-}
-
-// t_pars needs to freed in case of error as well as object list and scene
-t_scene	*parse_scene(t_pars *conf)
-{
-	t_scene		*scene;
-
-	scene = NULL;
-	if (!check_required_elements(conf))
-		return (NULL);
-	scene = (t_scene *)ft_malloc(sizeof(t_scene));
-	if (!scene)
-		return (NULL);
-	scene->ambient = get_ambient_data(conf);
-	scene->camera = get_camera_data(conf);
-	scene->light = get_light_data(conf);
-	scene->lst = get_objs_data(conf);
-	return (scene);
 }

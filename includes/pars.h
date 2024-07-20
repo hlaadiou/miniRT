@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/17 16:44:20 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/20 17:01:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void			*ft_malloc(size_t size);
 t_collector		**ft_collector(void);
 t_collector		*ft_lstnew_clctr(void *lst);
 void			ft_free_collector(t_collector **lst);
-int			ft_lst_add_front_clctr(t_collector **lst, t_collector *new);
+void			ft_lst_add_front_clctr(t_collector **lst, t_collector *new);
 t_world			*init_world(t_scene *scene);
 t_comps 		*prepare_computations(t_inter *inter, t_ray ray);
 t_color 		shade_hit(t_scene *world, t_comps *copms);
@@ -155,6 +155,9 @@ int				valid_float(char *str);
 int				isnumber(char **str);
 int				is_int(char **str);
 
+t_light_src		check_light_data(t_pars *conf);
+t_object		*check_objs_data(t_pars *conf);
+int				normalized_range(t_vector vec);
 t_tuple 		parse_coordinates(char *str);
 t_rgb255		parse_color(char *str);
 

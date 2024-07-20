@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/07/19 20:14:44 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/07/20 17:23:12 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,10 +56,13 @@ SRCS		=	my_main.c \
 				sources/parsing/collector.c \
 				sources/parsing/cylinder_pars.c \
 				sources/parsing/data_getters.c \
+				sources/parsing/data_getters_1.c \
+				sources/parsing/data_getters_2.c \
 				sources/parsing/data_validation.c \
 				sources/parsing/light.c \
 				sources/parsing/object_list.c \
 				sources/parsing/parser.c \
+				sources/parsing/parser_1.c \
 				sources/parsing/plane_pars.c \
 				sources/parsing/sphere_pars.c \
 				sources/geometry/cylinder.c \
@@ -78,7 +81,6 @@ SRCS		=	my_main.c \
 				sources/rt_mathematics/points.c \
 				sources/rt_mathematics/rotation.c \
 				sources/rt_mathematics/scaling.c \
-				sources/rt_mathematics/shearing.c \
 				sources/rt_mathematics/transformation.c \
 				sources/rt_mathematics/translation.c \
 				sources/rt_mathematics/tuple_mtx_ops.c \

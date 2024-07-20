@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 17:34:52 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/03/26 09:39:12 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:49:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	check_al(t_pars *conf)
 	if (!counter)
 		return (ft_putstr_fd("Error\nAmbient lighting not defined\n", 2), 0);
 	else if (counter > 1)
-		return (ft_putstr_fd("Error\nAmbient lighting defined many times\n", 2), 0);
+		return (ft_putstr_fd("Error\nAmbient lighting defined many times\n", \
+																		2), 0);
 	else
 		return (1);
 }
@@ -82,7 +83,8 @@ int	check_objects(t_pars *conf)
 		conf = conf->next;
 	}
 	if (!counter)
-		return (ft_putstr_fd("Error\nScene should contain at least one object\n", 2), 0);
+		return (ft_putstr_fd \
+				("Error\nScene should contain at least one object\n", 2), 0);
 	else
 		return (counter);
 }
