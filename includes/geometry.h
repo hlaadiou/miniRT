@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/20 18:24:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/24 17:11:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,5 +155,6 @@ t_ray			transform_ray(t_ray ray, t_matrix *a);
 t_matrix		*axis_cylinder(t_vector orie);
 t_matrix		*axis_to_matrix(t_vector up, t_vector forw, t_vector right);
 int				free_lst_inter(t_lst_inter *lst);
+int				compare_ff(float a, float b);
 
 #endif

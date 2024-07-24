@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/20 16:16:01 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/23 18:41:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,12 @@ t_vector	local_normal_at(t_object *cy, t_point world_point)
 
 	object_point = mtx_tuple_prod(cy->transform, world_point);
 	dist = powf(object_point.x, 2) + powf(object_point.z, 2);
-	if (dist < 1 && object_point.y >= cy->cy->max - EPSILON)
+	if (dist < powf(cy->cy->diameter / 2.0f, 2.0f) && object_point.y >= cy->cy->max - EPSILON)
 	{
 		normal = (t_vector){0, 1, 0, 1};
 		normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
 	}
-	else if (dist < 1 && object_point.y <= cy->cy->min + EPSILON)
+	else if (dist < powf(cy->cy->diameter / 2.0f, 2.0f) && object_point.y <= cy->cy->min + EPSILON)
 	{
 		normal = (t_vector){0, -1, 0, 1};
 		normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);

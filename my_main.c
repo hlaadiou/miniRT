@@ -6,11 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/20 01:11:52 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/24 17:20:36 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/miniRT.h"
+#include "includes/pars.h"
+#include "includes/geometry.h"
+
 
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b)
 {
@@ -61,8 +64,8 @@ t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 
 	c.vsize = vsize;
 	c.hsize = hsize;
-	if (field_of_view >= 179.5f)
-		field_of_view = 179.5f;
+	if (field_of_view >= (179.5f * (M_PI / 180)))
+		field_of_view = 179.5f * (M_PI / 180);
 	hview = tan(field_of_view / 2.0f);
 	aspect = (float)hsize / (float)vsize;
 	if (aspect >= 1.0f)
@@ -93,6 +96,18 @@ t_ray ray_for_pixel(t_camera_fn c, int px, int py)
 				mtx_tuple_prod(c.transform, _point(0, 0, 0))))));
 }
 
+void print_lst(t_lst_inter *lst)
+{
+	t_lst_inter *tmp = lst;
+
+	while (tmp)
+	{
+		if (tmp && tmp->inter && tmp->inter->t > 20)
+			printf("t = %.2f\n", tmp->inter->t);
+		tmp = tmp->next;
+	}
+}
+
 t_lst_inter *lst_sort(t_lst_inter *lst)
 {
 	t_lst_inter	*tmp;
@@ -116,6 +131,9 @@ t_lst_inter *lst_sort(t_lst_inter *lst)
 		}
 		tmp = tmp->next;
 	}
+	// printf("*****start*****\n");
+	// print_lst(lst);
+	// printf("*****end*****\n");
 	return (lst);
 }
 
@@ -155,7 +173,7 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 	t_comps	*comps;
 
 	comps = ft_malloc(sizeof(t_comps));
-	comps->inside = 0;
+	comps->inside = -1;
 	comps->t = inter->t;
 	comps->obj = inter->obj;
 	comps->point = _position(ray, comps->t);
@@ -163,20 +181,20 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 	if (comps->obj->type == SPHERE)
 		comps->normalv = normal_at(comps->obj, comps->point);
 	else if (comps->obj->type == CYLINDER)
-	{
 		comps->normalv = local_normal_at(comps->obj, comps->point);
-	}
 	else if (comps->obj->type == PLANE)
 		comps->normalv = comps->obj->pl->vec;
-	if (dot_product(comps->normalv, comps->eyev) < EPSILON)
+	if (dot_product(comps->normalv, comps->eyev) < 0)
 	{
 		comps->inside = 1;
 		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
 	}
 	else
 		comps->inside = 0;
-	comps->over_point = add_tuples(comps->point, \
-						multiply_tuple_scalar(EPSILON, comps->normalv));
+	comps->point = add_tuples(comps->point, \
+						multiply_tuple_scalar(0.00001f, comps->normalv));
+	if (comps->inside != 0 && comps->inside != 1)
+		printf("inside == %d\n", comps->inside);
 	return (comps);
 }
 
@@ -193,6 +211,7 @@ t_color	color_at(t_scene *w, t_ray r)
 		return (_color(0, 0, 0));
 	comps = prepare_computations(h, r);
 	color = shade_hit(w, comps);
+	// printf("inside == %d\n", comps->inside);
 	return (color);
 }
 
@@ -200,7 +219,7 @@ t_color shade_hit(t_scene *world, t_comps *copms)
 {
 	int	shadowed;
 
-	shadowed = is_shadowed(world, copms->over_point);
+	shadowed = is_shadowed(world, copms->point);
 	return (illuminate(copms, world->light, shadowed));
 }
 
@@ -442,7 +461,7 @@ int	main(int ac, char **av)
 	t_scene			*scene;
 	t_camera_fn		cam;
 
-	atexit (vv);
+	// atexit (vv);
 	conf = create_conf(ac, av);
 	if (!conf)
 		return (1);

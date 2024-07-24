@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:46:44 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/20 16:37:57 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/23 20:28:03 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ t_object	*_obj(void *obj, t_color c, t_types type)
 	if (type == SPHERE)
 	{
 		*o = (t_object){SPHERE, (t_sphere *)obj, NULL, NULL, _identity(4), \
-		_specs(0.1, 0.9, 0.9, 200.0), c};
+		_specs(0.1, 0.9, 0.9, 200.0f), c};
 	}
 	else if (type == CYLINDER)
 	{
 		*o = (t_object){CYLINDER, NULL, (t_cylinder *)obj, NULL, _identity(4), \
-		_specs(0.1, 0.9, 0.9, 200.0), c};
+		_specs(0.1, 0.9, 0.9, 200.0f), c};
 	}
 	else if (type == PLANE)
 	{
 		*o = (t_object){PLANE, NULL, NULL, (t_plane *)obj, _identity(4), \
-		_specs(0.1, 0.9, 0.9, 200.0), c};
+		_specs(0.1, 0.9, 0.9, 200.0f), c};
 	}
 	return (o);
 }
