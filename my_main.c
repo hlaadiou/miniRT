@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/25 11:49:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:28:18 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 		comps->normalv = local_normal_at(comps->obj, comps->point);
 	else if (comps->obj->type == PLANE)
 		comps->normalv = comps->obj->pl->vec;
-	if (dot_product(comps->normalv, comps->eyev) < 0)
+	if (dot_product(comps->normalv, comps->eyev) < 0 && fabs(dot_product(comps->normalv, comps->eyev)) > 0.1f)
 	{
 		comps->inside = 1;
 		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
@@ -192,7 +192,7 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 	else
 		comps->inside = 0;
 	if (((comps->obj->type == SPHERE && (comps->obj->sp->radius * comps->t) >= 3.0f) || \
-		(comps->obj->type == CYLINDER && (comps->obj->cy->diameter * comps->t) >= 3.0f)) && comps->inside == 0)
+		(comps->obj->type == CYLINDER && ((comps->obj->cy->diameter / 2) * comps->t) >= 3.0f)) && comps->inside == 0)
 	{
 		comps->point = add_tuples(comps->point, \
 						multiply_tuple_scalar(EPSILON, comps->normalv));
@@ -202,8 +202,6 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 		comps->point = add_tuples(comps->point, \
 							multiply_tuple_scalar(0.00001f, comps->normalv));
 	}
-	if (comps->inside != 0 && comps->inside != 1)
-		printf("inside == %d\n", comps->inside);
 	return (comps);
 }
 
@@ -216,11 +214,10 @@ t_color	color_at(t_scene *w, t_ray r)
 
 	lst = intersect_world(w, r);
 	h = hit(lst);
-	if (h == NULL)
+	if (h == NULL || ((h->obj && (h->t < EPSILON || compare_f(h->t, 0.0f)))) || !h->obj)
 		return (_color(0, 0, 0));
 	comps = prepare_computations(h, r);
 	color = shade_hit(w, comps);
-	// printf("inside == %d\n", comps->inside);
 	return (color);
 }
 
