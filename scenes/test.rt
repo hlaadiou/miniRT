@@ -16,7 +16,7 @@ L         -10,10,-10                  1                 255,255,255
 # CYLINDERS
 # Cy Center (x, y, z) | Axis Vec (x, y, z) : [-1, 1] | Diameter | Height | RGB [0, 255]
 
-cy      0,0,0            0.0,0.0,1.0                     3         3           255,0,0
+cy      0,0,0            0.0,1.0,1.0                     3         3           255,0,0
 
 # PLANES
 # Plane point (x, y, z) | Normal Vec (x, y, z) : [-1, 1] | RGB [0, 255]

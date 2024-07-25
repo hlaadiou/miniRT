@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/23 18:41:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:54:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ t_inter	**intersect_caps(t_object *cy, t_ray r)
 	count = 0;
 	inter[0] = ft_malloc(sizeof(t_inter));
 	inter[1] = ft_malloc(sizeof(t_inter));
-	if (compare_f(r.dir.y, EPSILON))
+	inter[0]->obj = NULL;
+	inter[1]->obj = NULL;
+	if (inter[0]->obj)
+		printf("*obj = %p\n", inter[0]->obj);
+	if (compare_f(r.dir.y, 0))
 		return (NULL);
 	t = (cy->cy->min - r.org.y) / r.dir.y;
 	if (check_cap(r, t, cy))
@@ -86,7 +90,7 @@ t_inter	**intersect_caps(t_object *cy, t_ray r)
 	if (count == 0)
 		return (NULL);
 	if (count == 1)
-		inter[1] = (NULL);
+		inter[1] = inter[0];
 	return (inter);
 }
 
