@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsser_1.c                                        :+:      :+:    :+:   */
+/*   parser_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 17:17:27 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/20 17:18:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:14:49 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_scene	*parse_scene(t_pars *conf)
 	scene = (t_scene *)ft_malloc(sizeof(t_scene));
 	if (!scene)
 		return (NULL);
+	
 	scene->ambient = get_ambient_data(conf);
 	scene->camera = get_camera_data(conf);
 	scene->light = get_light_data(conf);

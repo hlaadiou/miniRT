@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/25 15:28:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:16:15 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ t_lst_inter *lst_sort(t_lst_inter *lst)
 		tmp = tmp->next;
 	}
 	// printf("*****start*****\n");
-	// print_lst(lst);
+	print_lst(lst);
 	// printf("*****end*****\n");
 	return (lst);
 }
@@ -155,7 +155,8 @@ t_lst_inter *intersect_world(t_scene *w, t_ray r)
 		{
 			r1 = transform_ray(r, obj->obj->transform);
 			xs = intersect_caps(obj->obj, r1);
-			_intersections(&lst, xs);
+			if (xs)
+				_intersections(&lst, xs);
 			xs = local_intersect(obj->obj, r1);
 		}
 		else if (obj->obj->type == SPHERE)

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/20 18:29:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 16:24:36 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct s_camera_fn
 	float		vsize;
 	float		hwidth;
 	float		hheight;
-	float		fov;
 	float		pixel_size;
 	t_matrix	*transform;
 }	t_camera_fn;
