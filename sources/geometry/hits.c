@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/25 11:12:23 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 19:50:14 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_inter	**ft_local_intersect_2(float a, t_object *cy, float c, t_ray r)
 		return (NULL);
 	inter[0] = ft_malloc(sizeof(t_inter));
 	inter[1] = ft_malloc(sizeof(t_inter));
+	inter[0]->obj = NULL;
+	inter[1]->obj = NULL;
 	if (t1 > t2)
 	{
 		sqrt_discriminant = t1;

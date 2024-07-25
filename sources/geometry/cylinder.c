@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/25 16:54:53 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 20:34:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ t_inter	**intersect_pl(t_ray ray, t_object *plane)
 	t_vector		x;
 	float			prod;
 
-	inter = NULL;
+	inter = ft_malloc(sizeof(t_inter *) * 2);
+	inter[0] = ft_malloc(sizeof(t_inter));
+	inter[1] = ft_malloc(sizeof(t_inter));
+	inter[0]->obj = NULL;
+	inter[1]->obj = NULL;
 	if (!dot_product(ray.dir, plane->pl->vec))
 		return (NULL);
 	x = subtract_tuples(ray.org, plane->pl->pt);
@@ -69,8 +73,6 @@ t_inter	**intersect_caps(t_object *cy, t_ray r)
 	inter[1] = ft_malloc(sizeof(t_inter));
 	inter[0]->obj = NULL;
 	inter[1]->obj = NULL;
-	if (inter[0]->obj)
-		printf("*obj = %p\n", inter[0]->obj);
 	if (compare_f(r.dir.y, 0))
 		return (NULL);
 	t = (cy->cy->min - r.org.y) / r.dir.y;
@@ -90,7 +92,7 @@ t_inter	**intersect_caps(t_object *cy, t_ray r)
 	if (count == 0)
 		return (NULL);
 	if (count == 1)
-		inter[1] = inter[0];
+		inter[1] = NULL;
 	return (inter);
 }
 

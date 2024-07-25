@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/25 16:16:15 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 22:12:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,10 @@ void print_lst(t_lst_inter *lst)
 	while (tmp)
 	{
 		if (tmp && tmp->inter && tmp->inter->t > 20)
-			printf("t = %.2f\n", tmp->inter->t);
+		{
+			// printf("t = %.2f\n", tmp->inter->t);
+			// printf("lst *obj = %p\n", tmp->inter->obj);
+		}
 		tmp = tmp->next;
 	}
 }
@@ -132,7 +135,7 @@ t_lst_inter *lst_sort(t_lst_inter *lst)
 		tmp = tmp->next;
 	}
 	// printf("*****start*****\n");
-	print_lst(lst);
+	// print_lst(lst);
 	// printf("*****end*****\n");
 	return (lst);
 }
@@ -185,7 +188,7 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 		comps->normalv = local_normal_at(comps->obj, comps->point);
 	else if (comps->obj->type == PLANE)
 		comps->normalv = comps->obj->pl->vec;
-	if (dot_product(comps->normalv, comps->eyev) < 0 && fabs(dot_product(comps->normalv, comps->eyev)) > 0.1f)
+	if (dot_product(comps->normalv, comps->eyev) < 0 && fabs(dot_product(comps->normalv, comps->eyev)) > 0.5f)
 	{
 		comps->inside = 1;
 		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
@@ -193,7 +196,8 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 	else
 		comps->inside = 0;
 	if (((comps->obj->type == SPHERE && (comps->obj->sp->radius * comps->t) >= 3.0f) || \
-		(comps->obj->type == CYLINDER && ((comps->obj->cy->diameter / 2) * comps->t) >= 3.0f)) && comps->inside == 0)
+			(comps->obj->type == CYLINDER && \
+			((comps->obj->cy->diameter / 2) * comps->t) >= 3.0f)) && comps->inside == 0)
 	{
 		comps->point = add_tuples(comps->point, \
 						multiply_tuple_scalar(EPSILON, comps->normalv));
@@ -203,6 +207,8 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 		comps->point = add_tuples(comps->point, \
 							multiply_tuple_scalar(0.00001f, comps->normalv));
 	}
+	// if (comps->inside)
+	// 	printf("inside = %.2f\n", dot_product(comps->normalv, comps->eyev));
 	return (comps);
 }
 
@@ -215,7 +221,7 @@ t_color	color_at(t_scene *w, t_ray r)
 
 	lst = intersect_world(w, r);
 	h = hit(lst);
-	if (h == NULL || ((h->obj && (h->t < EPSILON || compare_f(h->t, 0.0f)))) || !h->obj)
+	if (h == NULL || (h->obj && compare_f(h->t, 0.0f)) || h->obj == NULL)
 		return (_color(0, 0, 0));
 	comps = prepare_computations(h, r);
 	color = shade_hit(w, comps);
@@ -254,6 +260,7 @@ void	render(t_camera_fn c, t_scene *w, mlx_image_t **image)
 	int			x;
 
 	y = -1;
+	printf("\n");
 	while (++y < HEIGHT)
 	{
 		x = 0;
@@ -270,6 +277,17 @@ void	render(t_camera_fn c, t_scene *w, mlx_image_t **image)
 			mlx_put_pixel((*image), x, y, color_int);
 			x++;
 		}
+		if (((float)((y *100)/ HEIGHT)) > 20.0f)
+			printf("\r##--------");
+		if (((float)((y *100)/ HEIGHT) * 100) > 40.0f)
+		    printf("\r####------");
+		if (((float)((y *100)/ HEIGHT) * 100) > 60.0f)
+		    printf("\r######----");
+		if (((float)((y *100)/ HEIGHT) * 100) > 80.0f)
+		    printf("\r########--");
+		if (((float)((y *100)/ HEIGHT) * 100) > 100.0f)
+			printf("\r##########");
+		
 	}
 }
 
