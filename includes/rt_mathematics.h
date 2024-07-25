@@ -6,14 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/23 17:07:56 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 11:37:25 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_MATHEMATICS_H
 # define RT_MATHEMATICS_H
 
-# define EPSILON 0.0001f
+# define EPSILON 0.001f
 
 /*
  * USER DEFINED DATA TYPES

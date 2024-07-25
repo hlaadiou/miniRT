@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/24 17:20:36 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/25 11:49:02 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,8 +191,17 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 	}
 	else
 		comps->inside = 0;
-	comps->point = add_tuples(comps->point, \
-						multiply_tuple_scalar(0.00001f, comps->normalv));
+	if (((comps->obj->type == SPHERE && (comps->obj->sp->radius * comps->t) >= 3.0f) || \
+		(comps->obj->type == CYLINDER && (comps->obj->cy->diameter * comps->t) >= 3.0f)) && comps->inside == 0)
+	{
+		comps->point = add_tuples(comps->point, \
+						multiply_tuple_scalar(EPSILON, comps->normalv));
+	}
+	else
+	{
+		comps->point = add_tuples(comps->point, \
+							multiply_tuple_scalar(0.00001f, comps->normalv));
+	}
 	if (comps->inside != 0 && comps->inside != 1)
 		printf("inside == %d\n", comps->inside);
 	return (comps);
