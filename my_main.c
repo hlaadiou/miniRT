@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/25 22:12:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/26 17:56:31 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,7 +233,7 @@ t_color shade_hit(t_scene *world, t_comps *copms)
 	int	shadowed;
 
 	shadowed = is_shadowed(world, copms->point);
-	return (illuminate(copms, world->light, shadowed));
+	return (illuminate(copms, world, shadowed));
 }
 
 t_color normalize_color(t_color colorValue)
@@ -277,18 +277,20 @@ void	render(t_camera_fn c, t_scene *w, mlx_image_t **image)
 			mlx_put_pixel((*image), x, y, color_int);
 			x++;
 		}
-		if (((float)((y *100)/ HEIGHT)) > 20.0f)
-			printf("\r##--------");
-		if (((float)((y *100)/ HEIGHT) * 100) > 40.0f)
-		    printf("\r####------");
-		if (((float)((y *100)/ HEIGHT) * 100) > 60.0f)
-		    printf("\r######----");
-		if (((float)((y *100)/ HEIGHT) * 100) > 80.0f)
-		    printf("\r########--");
-		if (((float)((y *100)/ HEIGHT) * 100) > 100.0f)
-			printf("\r##########");
-		
+		if (((float)(y)/ (HEIGHT) * 100) < 20.0f)
+			printf("\r[##--------][%.2f%%] rendering... ", (float)((y *100)/ (HEIGHT)));
+		else if (((float)(y)/ (HEIGHT) * 100) < 40.0f && ((float)((y *100)/ (HEIGHT))) > 20.0f)
+		    printf("\r[####------][%.2f%%] rendering... ", (float)((y *100)/ (HEIGHT)));
+		else if (((float)(y)/ (HEIGHT) * 100) < 60.0f && ((float)((y *100)/ (HEIGHT))) > 40.0f)
+		    printf("\r[######----][%.2f%%] rendering... ", (float)((y *100)/ (HEIGHT)));
+		else if (((float)(y)/ (HEIGHT) * 100) < 80.0f && ((float)((y *100)/ (HEIGHT))) > 60.0f)
+		    printf("\r[########--][%.2f%%] rendering... ", (float)((y *100)/ (HEIGHT)));
+		else if (((float)(y)/ (HEIGHT) * 100) < 90.0f && ((float)((y *100)/ (HEIGHT))) > 80.0f)
+			printf("\r[#########-][%.2f%%] rendering... ", (float)((y *100)/ (HEIGHT)));
+		else if (((float)(y)/ (HEIGHT) * 100) < 100.0f && ((float)((y *100)/ (HEIGHT))) > 90.0f)
+			printf("\r[##########][%.2f%%] rendering... ", (float)((y *100)/ (HEIGHT)));
 	}
+	printf("\n[##########][100.0%%] rendering is done!!\n");
 }
 
 t_matrix	*view_transform(t_point from, t_point to, t_vector up)
@@ -498,7 +500,6 @@ int	main(int ac, char **av)
 	cam = set_camera(scene->camera);
 	set_transformations(scene->lst);
 	render(cam, scene, &image);
-	printf("done\n");
 	mlx_loop_hook(mlx, ft_hook, mlx);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

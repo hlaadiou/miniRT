@@ -11,14 +11,14 @@ C         0,0,-9                 0,0,1                        45
 # LIGHT
 # Light Point (x, y, z) | Brightness [0.0, 1.0] | RGB [0, 255]
 
-L         0,0,0                  1                 255,255,255
+L         10,10,-10                  1                 255,255,255
 
 # CYLINDERS
 # Cy Center (x, y, z) | Axis Vec (x, y, z) : [-1, 1] | Diameter | Height | RGB [0, 255]
 
-cy      0,0,0            0.0,1.0,0.0                     30         30           255,0,0
-sp      -1,2,3           1       255,0,255
-sp      -1,3,3           1       255,0,255
+# cy      0,0,0            0.0,1.0,0.0                     30         30           255,0,0
+sp      0,0,0           1       255,0,0
+sp      -1,0,0           1       255,0,255
 # PLANES
 # Plane point (x, y, z) | Normal Vec (x, y, z) : [-1, 1] | RGB [0, 255]
 

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/25 14:44:56 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/26 18:26:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_phong	_phong(t_object *obj, t_point px, t_light light, t_point cam)
 	t_phong	phong;
 
 	phong.px_color = schur_product(obj->color, light.color);
-	phong.ambient = multiply_color_scalar(obj->specs.ambient, phong.px_color);
+	// phong.ambient = multiply_color_scalar(obj->specs.ambient, phong.px_color);
 	phong.diffuse = _color(0, 0, 0);
 	phong.specular = _color(0, 0, 0);
 	if (obj->type == SPHERE)
@@ -90,7 +90,7 @@ t_color	rtn_phong(t_color a, t_color d)
 // }
 
 
-t_color	illuminate(t_comps *comps, t_light light, int in_shadow)
+t_color	illuminate(t_comps *comps, t_scene *world, int in_shadow)
 {
     t_phong		ph;
     float		light_dot_normal;
@@ -101,9 +101,9 @@ t_color	illuminate(t_comps *comps, t_light light, int in_shadow)
     if (!comps)
         return (_color(0, 0, 0));
     
-    ph = _phong(comps->obj, comps->point, light, comps->eyev);
-    
-    if (in_shadow || compare_f(light.brightness, 0))
+    ph = _phong(comps->obj, comps->point, world->light, comps->eyev);
+    ph.ambient = schur_product(multiply_color_scalar(world->ambient.scale, world->ambient.color), ph.px_color);
+    if (in_shadow || compare_f(world->light.brightness, 0))
         return (ph.ambient);
     
     light_dot_normal = dot_product(ph.l, ph.n);
@@ -120,10 +120,10 @@ t_color	illuminate(t_comps *comps, t_light light, int in_shadow)
     // Calculate specular component
     // reflect_dot_eye = dot_product(ph.r, ph.e);
     // if (reflect_dot_eye > 0) {
-    //     specular_factor = powf(reflect_dot_eye, comps->obj->specs.phong_factor);
-    //     specular_color = multiply_color_scalar(comps->obj->specs.specular * specular_factor, light.color);
+    //     specular_factor = powf(reflect_dot_eye, 0.6);
+    //     specular_color = multiply_color_scalar(comps->obj->specs.specular * specular_factor, world->light.color);
     //     ph.specular = specular_color;
     // }
-
-    return (rtn_phong(ph.ambient, ph.diffuse));
+    // return (rtn_phong(rtn_phong(ph.ambient, ph.diffuse), ph.specular));
+	return (rtn_phong(ph.ambient, ph.diffuse));
 }
