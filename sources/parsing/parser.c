@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/20 17:33:24 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/27 18:06:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,75 +68,75 @@ void	ft_pars(char *av, t_pars **pars)
 	return ;
 }
 
-void	print_lstobj(t_obj_lst *lst)
-{
-	t_obj_lst	*tmp;
+// void	print_lstobj(t_obj_lst *lst)
+// {
+// 	t_obj_lst	*tmp;
 
-	tmp = lst;
-	while (tmp)
-	{
-		if (tmp->obj->type == SPHERE)
-		{
-			printf("Sphere\n\n");
-			printf("Center: %.2f %.2f %.2f\n", tmp->obj->sp->org.x, \
-						tmp->obj->sp->org.y, tmp->obj->sp->org.z);
-			printf("Radius: %.2f\n", tmp->obj->sp->radius);
-			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, \
-						tmp->obj->color.g, tmp->obj->color.b);
-		}
-		else if (tmp->obj->type == PLANE)
-		{
-			printf("Plane\n\n");
-			printf("Point: %.2f %.2f %.2f\n", \
-				tmp->obj->pl->pt.x, tmp->obj->pl->pt.y, \
-					tmp->obj->pl->pt.z);
-			printf("Vector: %.2f %.2f %.2f\n", \
-				tmp->obj->pl->vec.x, tmp->obj->pl->vec.y, \
-					tmp->obj->pl->vec.z);
-			printf("Color: %.2f %.2f %.2f\n\n", \
-				tmp->obj->color.r, tmp->obj->color.g, \
-					tmp->obj->color.b);
-		}
-		else if (tmp->obj->type == CYLINDER)
-		{
-			printf("Cylinder\n\n");
-			printf("Center: %.2f %.2f %.2f\n", \
-				tmp->obj->cy->center.x, tmp->obj->cy->center.y, \
-					tmp->obj->cy->center.z);
-			printf("Axis: %.2f %.2f %.2f\n", \
-				tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, \
-						tmp->obj->cy->axis.z);
-			printf("Diameter: %.2f\n", tmp->obj->cy->diameter);
-			printf("Height: %.2f\n", \
-				fabs(tmp->obj->cy->max - tmp->obj->cy->min));
-			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, \
-						tmp->obj->color.g, tmp->obj->color.b);
-		}
-		tmp = tmp->next;
-	}
-}
+// 	tmp = lst;
+// 	while (tmp)
+// 	{
+// 		if (tmp->obj->type == SPHERE)
+// 		{
+// 			printf("Sphere\n\n");
+// 			printf("Center: %.2f %.2f %.2f\n", tmp->obj->sp->org.x, \
+// 						tmp->obj->sp->org.y, tmp->obj->sp->org.z);
+// 			printf("Radius: %.2f\n", tmp->obj->sp->radius);
+// 			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, \
+// 						tmp->obj->color.g, tmp->obj->color.b);
+// 		}
+// 		else if (tmp->obj->type == PLANE)
+// 		{
+// 			printf("Plane\n\n");
+// 			printf("Point: %.2f %.2f %.2f\n", \
+// 				tmp->obj->pl->pt.x, tmp->obj->pl->pt.y, \
+// 					tmp->obj->pl->pt.z);
+// 			printf("Vector: %.2f %.2f %.2f\n", \
+// 				tmp->obj->pl->vec.x, tmp->obj->pl->vec.y, \
+// 					tmp->obj->pl->vec.z);
+// 			printf("Color: %.2f %.2f %.2f\n\n", \
+// 				tmp->obj->color.r, tmp->obj->color.g, \
+// 					tmp->obj->color.b);
+// 		}
+// 		else if (tmp->obj->type == CYLINDER)
+// 		{
+// 			printf("Cylinder\n\n");
+// 			printf("Center: %.2f %.2f %.2f\n", \
+// 				tmp->obj->cy->center.x, tmp->obj->cy->center.y, \
+// 					tmp->obj->cy->center.z);
+// 			printf("Axis: %.2f %.2f %.2f\n", \
+// 				tmp->obj->cy->axis.x, tmp->obj->cy->axis.y, \
+// 						tmp->obj->cy->axis.z);
+// 			printf("Diameter: %.2f\n", tmp->obj->cy->diameter);
+// 			printf("Height: %.2f\n", \
+// 				fabs(tmp->obj->cy->max - tmp->obj->cy->min));
+// 			printf("Color: %.2f %.2f %.2f\n\n", tmp->obj->color.r, \
+// 						tmp->obj->color.g, tmp->obj->color.b);
+// 		}
+// 		tmp = tmp->next;
+// 	}
+// }
 
-void	print_scene(t_scene *scene)
-{
-	printf("Ambient\n\n");
-	printf("Color: %f %f %f\n", scene->ambient.color.r, \
-				scene->ambient.color.g, scene->ambient.color.b);
-	printf("Ratio: %.2f\n\n", scene->ambient.scale);
-	printf("Camera\n\n");
-	printf("view_point: %.2f %.2f %.2f\n", \
-			scene->camera.view_point.x, scene->camera.view_point.y, \
-					scene->camera.view_point.z);
-	printf("Orientation: %.2f %.2f %.2f\n", scene->camera.orientation.x, \
-			scene->camera.orientation.y, scene->camera.orientation.z);
-	printf("FOV: %.2f\n\n", scene->camera.fov);
-	printf("Light\n\n");
-	printf("position: %f %f %f\n", scene->light.position.x, \
-				scene->light.position.y, scene->light.position.z);
-	printf("Brightness: %.2f\n", scene->light.brightness);
-	printf("Color: %f %f %f\n\n", scene->light.color.r, \
-				scene->light.color.g, scene->light.color.b);
-	print_lstobj(scene->lst);
-}
+// void	print_scene(t_scene *scene)
+// {
+// 	printf("Ambient\n\n");
+// 	printf("Color: %f %f %f\n", scene->ambient.color.r, \
+// 				scene->ambient.color.g, scene->ambient.color.b);
+// 	printf("Ratio: %.2f\n\n", scene->ambient.scale);
+// 	printf("Camera\n\n");
+// 	printf("view_point: %.2f %.2f %.2f\n", \
+// 			scene->camera.view_point.x, scene->camera.view_point.y, \
+// 					scene->camera.view_point.z);
+// 	printf("Orientation: %.2f %.2f %.2f\n", scene->camera.orientation.x, \
+// 			scene->camera.orientation.y, scene->camera.orientation.z);
+// 	printf("FOV: %.2f\n\n", scene->camera.fov);
+// 	printf("Light\n\n");
+// 	printf("position: %f %f %f\n", scene->light.position.x, \
+// 				scene->light.position.y, scene->light.position.z);
+// 	printf("Brightness: %.2f\n", scene->light.brightness);
+// 	printf("Color: %f %f %f\n\n", scene->light.color.r, \
+// 				scene->light.color.g, scene->light.color.b);
+// 	print_lstobj(scene->lst);
+// }
 
 void	free_obj_lst(t_obj_lst *lst)
 {

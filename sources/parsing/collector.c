@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 21:36:00 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/20 16:52:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/27 16:16:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_free_collector(t_collector **lst)
 		return ;
 	while (current)
 	{
+		ft_declare_freeing(i);
 		tmp = current;
 		current = current->next;
 		if (tmp && tmp->ptr)
@@ -55,6 +56,7 @@ void	ft_free_collector(t_collector **lst)
 		}
 		i++;
 	}
+	printf("\nFreeing is Done!!\n");
 	*lst = NULL;
 }
 

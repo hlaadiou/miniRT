@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   data_getters_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:58:13 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/27 14:40:40 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/27 18:08:27 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pars.h"
-#include "../../includes/lighting.h" 
+#include "../../includes/miniRT.h"
 
 t_light_src	get_light_data(t_pars *conf)
 {
@@ -73,6 +73,7 @@ t_object	*check_cy_data(t_pars *conf)
 	t_point		pt;
 	t_vector	vec;
 	t_rgb255	rgb;
+
 	pt = parse_coordinates(conf->elements[1]);
 	vec = parse_coordinates(conf->elements[2]);
 	if (!normalized_range(vec))
@@ -81,8 +82,9 @@ t_object	*check_cy_data(t_pars *conf)
 	|| ft_atof(conf->elements[3]) < 0.0f || ft_atof(conf->elements[4]) < 0.0f)
 		put_error("Invalid cylinder diameter/height\n");
 	rgb = parse_color(conf->elements[5]);
-	cy = _cylinder(pt, vec, ft_atof(conf->elements[3]), \
-					(ft_atof(conf->elements[4]) / 2.0f), (-1 * (ft_atof(conf->elements[4]) / 2.0f)), _color01(rgb)); /* to fix !! */
+	cy = _cylinder(pt, vec, (t_attributes){ft_atof(conf->elements[3]), \
+					(ft_atof(conf->elements[4]) / 2.0f), \
+					(-1 * (ft_atof(conf->elements[4]) / 2.0f))}, _color01(rgb));
 	if (!cy)
 		put_error("Fatal, unable to create object\n");
 	return (cy);

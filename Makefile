@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+         #
+#    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/07/27 14:24:55 by hlaadiou         ###   ########.fr        #
+#    Updated: 2024/07/27 20:43:38 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,14 @@ libobj 		=	lib/libft/get_next_line_utils.o	\
 				lib/libft/ft_putnbr_fd.o
 
 SRCS		=	sources/main.c \
+				sources/main_1.c \
+				sources/main_2.c \
+				sources/main_3.c \
+				sources/main_4.c \
+				sources/main_5.c \
 				sources/parsing/ambient_lightning.c \
 				sources/parsing/atof.c \
+				sources/parsing/progress_bar.c \
 				sources/parsing/camera.c \
 				sources/parsing/check_elements.c \
 				sources/parsing/collector.c \
@@ -59,6 +65,7 @@ SRCS		=	sources/main.c \
 				sources/parsing/data_getters_1.c \
 				sources/parsing/data_getters_2.c \
 				sources/parsing/data_validation.c \
+				sources/parsing/data_validation_1.c \
 				sources/parsing/light.c \
 				sources/parsing/object_list.c \
 				sources/parsing/parser.c \
@@ -66,6 +73,7 @@ SRCS		=	sources/main.c \
 				sources/parsing/plane_pars.c \
 				sources/parsing/sphere_pars.c \
 				sources/geometry/cylinder.c \
+				sources/geometry/cylinder_1.c \
 				sources/geometry/hits.c \
 				sources/geometry/lists.c \
 				sources/geometry/objects.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/27 14:42:34 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:44:06 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,13 @@ typedef struct s_camera_fn
 	t_matrix	*transform;
 }	t_camera_fn;
 
+typedef struct s_attributes
+{
+	float	d;
+	float	max;
+	float	min;
+}	t_attributes;
+
 // AZGAOUA
 char			**str_split(char *str, char *seps);
 int				ft_tab_size(char	**tab);
@@ -174,5 +181,16 @@ void			print_scene(t_scene *scene); // Remove later
 void			ft_free_tab(char **tab);
 void			free_f_mtx(float **mtx, int size);
 void			free_scene(t_scene *scene);
+void			ft_declare_freeing(int i);
+void			ft_render_progress(int y);
+t_camera_fn		set_camera(t_camera cam);
+void			set_transformations(t_obj_lst *lst);
+t_lst_inter		*intersect_world(t_scene *w, t_ray r);
+t_ray			ray_for_pixel(t_camera_fn c, int px, int py);
+int32_t			ft_pixel(int32_t r, int32_t g, int32_t b);
+t_camera_fn		camera(int hsize, int vsize, float field_of_view);
+t_point			get_obj_point(t_object *obj);
+float			get_diameter(t_object *obj);
+t_lst_inter		*lst_sort(t_lst_inter *lst);
 
 #endif

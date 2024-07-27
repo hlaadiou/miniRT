@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:58:11 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/24 17:11:03 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/27 18:19:00 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_quadratic
 
 typedef struct s_sphere	t_sphere;
 typedef struct s_object	t_object;
+typedef struct s_attributes	t_attributes;
 
 typedef struct s_inter
 {
@@ -133,8 +134,7 @@ t_ray			_ray(t_point org, t_vector vec);
 t_point			_position(t_ray ray, float t);
 t_object		*_sphere(t_point o, float radius, t_color c);
 t_object		*_plane(t_point pt, t_vector vec, t_color c);
-t_object		*_cylinder(t_point pt, t_vector axis, float d, float max, float min, \
-							t_color c);
+t_object	*_cylinder(t_point pt, t_vector axis, t_attributes attr, t_color c);
 t_quadratic		discriminant_sp(t_ray ray, t_object *sp);
 t_inter			**intersect_sp(t_ray ray, t_object *sp);
 t_object		*_obj(void *obj, t_color color, t_types type);

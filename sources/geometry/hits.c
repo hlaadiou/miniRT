@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/25 19:50:14 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/27 16:51:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,37 @@ t_inter	*hit(t_lst_inter *lst)
 
 /*
 ** b ==> 2 * ((r.dir.x * r.org.x) + (r.dir.z * r.org.z))
-** c = (r.org.x * r.org.x) + (r.org.z * r.org.z) - (powf(cy->cy->diameter, 2) / 4.0f)
+** c = (r.org.x * r.org.x) + (r.org.z * r.org.z) - \
+						(powf(cy->cy->diameter, 2) / 4.0f)
 ** a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z)
 */
+
+t_inter	**ft_local_intersect_3(float *t1, float *t2, t_inter ***inter)
+{
+	float	tmp;
+
+	tmp = 0.0f;
+	(*inter) = ft_malloc(sizeof(t_inter *) * 2);
+	if ((*t1) < 0 && (*t2) < 0)
+		return (NULL);
+	(*inter)[0] = ft_malloc(sizeof(t_inter));
+	(*inter)[1] = ft_malloc(sizeof(t_inter));
+	(*inter)[0]->obj = NULL;
+	(*inter)[1]->obj = NULL;
+	if ((*t1) > (*t2))
+	{
+		tmp = (*t1);
+		(*t1) = (*t2);
+		(*t2) = tmp;
+	}
+	return ((*inter));
+}
+
+int	check_intersection(t_object *cy, t_ray r, float t)
+{
+	return (cy->cy->min < (r.org.y + (t * r.dir.y)) && \
+			(r.org.y + (t * r.dir.y)) < cy->cy->max);
+}
 
 t_inter	**ft_local_intersect_2(float a, t_object *cy, float c, t_ray r)
 {
@@ -49,27 +77,14 @@ t_inter	**ft_local_intersect_2(float a, t_object *cy, float c, t_ray r)
 							sqrt_discriminant) / (2 * a);
 	t2 = (-2 * ((r.dir.x * r.org.x) + (r.dir.z * r.org.z)) + \
 							sqrt_discriminant) / (2 * a);
-	inter = ft_malloc(sizeof(t_inter *) * 2);
-	if (t1 < 0 && t2 < 0)
+	if (ft_local_intersect_3(&t1, &t2, &inter) == NULL)
 		return (NULL);
-	inter[0] = ft_malloc(sizeof(t_inter));
-	inter[1] = ft_malloc(sizeof(t_inter));
-	inter[0]->obj = NULL;
-	inter[1]->obj = NULL;
-	if (t1 > t2)
-	{
-		sqrt_discriminant = t1;
-		t1 = t2;
-		t2 = sqrt_discriminant;
-	}
-	sqrt_discriminant = r.org.y + (t1 * r.dir.y);
-	if (cy->cy->min < sqrt_discriminant && sqrt_discriminant < cy->cy->max)
+	if (check_intersection(cy, r, t1))
 	{
 		inter[0]->t = t1;
 		inter[0]->obj = cy;
 	}
-	sqrt_discriminant = r.org.y + (t2 * r.dir.y);
-	if (cy->cy->min < sqrt_discriminant && sqrt_discriminant < cy->cy->max)
+	if (check_intersection(cy, r, t2))
 	{
 		inter[1]->t = t2;
 		inter[1]->obj = cy;

@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/25 20:34:02 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/27 17:55:15 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@
 // 	float		min;
 // 	float		max;
 // }	t_cylinder;
-t_object	*_cylinder(t_point pt, t_vector axis, float d, \
-						float max, float min, t_color c)
+
+t_object	*_cylinder(t_point pt, t_vector axis, t_attributes attr, t_color c)
 {
 	t_cylinder	*cy;
 
 	cy = (t_cylinder *)ft_malloc(sizeof(t_cylinder));
 	if (!cy)
 		return (NULL);
-	*cy = (t_cylinder){pt, axis, d, min, max};
+	*cy = (t_cylinder){pt, axis, attr.d, attr.min, attr.max};
 	return (_obj(cy, c, CYLINDER));
 }
 
@@ -61,31 +61,33 @@ t_inter	**intersect_pl(t_ray ray, t_object *plane)
 	return (inter);
 }
 
+void	ft_inter_caps_init(t_inter ***inter)
+{
+	(*inter) = ft_malloc(sizeof(t_inter *) * 2);
+	(*inter)[0] = ft_malloc(sizeof(t_inter));
+	(*inter)[1] = ft_malloc(sizeof(t_inter));
+	(*inter)[0]->obj = NULL;
+	(*inter)[1]->obj = NULL;
+}
+
 t_inter	**intersect_caps(t_object *cy, t_ray r)
 {
 	t_inter	**inter;
 	int		count;
-	float	t;
 
-	inter = ft_malloc(sizeof(t_inter *) * 2);
+	ft_inter_caps_init(&inter);
 	count = 0;
-	inter[0] = ft_malloc(sizeof(t_inter));
-	inter[1] = ft_malloc(sizeof(t_inter));
-	inter[0]->obj = NULL;
-	inter[1]->obj = NULL;
 	if (compare_f(r.dir.y, 0))
 		return (NULL);
-	t = (cy->cy->min - r.org.y) / r.dir.y;
-	if (check_cap(r, t, cy))
+	if (check_cap(r, (cy->cy->min - r.org.y) / r.dir.y, cy))
 	{
-		inter[count]->t = t;
+		inter[count]->t = (cy->cy->min - r.org.y) / r.dir.y;
 		inter[count]->obj = cy;
 		count++;
 	}
-	t = (cy->cy->max - r.org.y) / r.dir.y;
-	if (check_cap(r, t, cy))
+	if (check_cap(r, (cy->cy->max - r.org.y) / r.dir.y, cy))
 	{
-		inter[count]->t = t;
+		inter[count]->t = (cy->cy->max - r.org.y) / r.dir.y;
 		inter[count]->obj = cy;
 		count++;
 	}
@@ -106,30 +108,4 @@ int	check_cap(t_ray r, float t, t_object *cy)
 	if (((x * x) + (z * z)) <= (powf(cy->cy->diameter, 2) / 4.0f))
 		return (1);
 	return (0);
-}
-
-t_vector	local_normal_at(t_object *cy, t_point world_point)
-{
-	t_point			object_point;
-	t_vector		normal;
-	float			dist;
-
-	object_point = mtx_tuple_prod(cy->transform, world_point);
-	dist = powf(object_point.x, 2) + powf(object_point.z, 2);
-	if (dist < powf(cy->cy->diameter / 2.0f, 2.0f) && object_point.y >= cy->cy->max - EPSILON)
-	{
-		normal = (t_vector){0, 1, 0, 1};
-		normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
-	}
-	else if (dist < powf(cy->cy->diameter / 2.0f, 2.0f) && object_point.y <= cy->cy->min + EPSILON)
-	{
-		normal = (t_vector){0, -1, 0, 1};
-		normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
-	}
-	else
-	{
-		normal = (t_vector){object_point.x, 0, object_point.z, 1};
-		normal = mtx_tuple_prod(mtx_transpose(cy->transform), normal);
-	}
-	return (normal);
 }
