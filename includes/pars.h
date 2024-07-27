@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/25 16:24:36 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/27 14:42:34 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define SP      4
 # define PL      5
 # define CY      6
+
+# define MAX_ABS_FLOAT 1000.0f
 
 # include "../lib/libft/libft.h"
 # include "miniRT.h"
@@ -138,6 +140,8 @@ int				check_camera(t_pars *conf);
 int				check_light(t_pars *conf);
 int				check_objects(t_pars *conf);
 int				check_required_elements(t_pars *conf);
+int				check_precision(char *str, size_t k);
+int				check_magnitude(char *str);
 
 float			ft_atof(char *str);
 int				valid_float(char *str);

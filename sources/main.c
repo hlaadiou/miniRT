@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   my_main.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 15:34:21 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/26 17:56:31 by azgaoua          ###   ########.fr       */
+/*   Created: 2024/07/27 13:13:01 by hlaadiou          #+#    #+#             */
+/*   Updated: 2024/07/27 13:32:02 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/miniRT.h"
-#include "includes/pars.h"
-#include "includes/geometry.h"
+#include "../includes/miniRT.h"
 
 
 int32_t	ft_pixel(int32_t r, int32_t g, int32_t b)
@@ -488,7 +486,6 @@ int	main(int ac, char **av)
 	t_scene			*scene;
 	t_camera_fn		cam;
 
-	// atexit (vv);
 	conf = create_conf(ac, av);
 	if (!conf)
 		return (1);

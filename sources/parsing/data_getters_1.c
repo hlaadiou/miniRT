@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_getters_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 16:58:13 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/25 15:24:19 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/27 14:40:40 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_object	*check_sp_data(t_pars *conf)
 
 	sp = NULL;
 	pt = parse_coordinates(conf->elements[1]);
-	if (!valid_float(conf->elements[2]))
+	if (!valid_float(conf->elements[2]) || ft_atof(conf->elements[2]) < 0.0f)
 		put_error("Invalid sphere diameter\n");
 	rgb = parse_color(conf->elements[3]);
 	pt.w = 1.0;
@@ -73,18 +73,16 @@ t_object	*check_cy_data(t_pars *conf)
 	t_point		pt;
 	t_vector	vec;
 	t_rgb255	rgb;
-
 	pt = parse_coordinates(conf->elements[1]);
 	vec = parse_coordinates(conf->elements[2]);
 	if (!normalized_range(vec))
 		put_error("The cylinder's orientation vector is not normalized\n");
-	if (!valid_float(conf->elements[3]) || !valid_float(conf->elements[4]))
+	if (!valid_float(conf->elements[3]) || !valid_float(conf->elements[4]) \
+	|| ft_atof(conf->elements[3]) < 0.0f || ft_atof(conf->elements[4]) < 0.0f)
 		put_error("Invalid cylinder diameter/height\n");
 	rgb = parse_color(conf->elements[5]);
 	cy = _cylinder(pt, vec, ft_atof(conf->elements[3]), \
-					(ft_atof(conf->elements[4]) / 2.0f), \
-						(-1 * (ft_atof(conf->elements[4]) / 2.0f)), \
-							_color01(rgb));
+					(ft_atof(conf->elements[4]) / 2.0f), (-1 * (ft_atof(conf->elements[4]) / 2.0f)), _color01(rgb)); /* to fix !! */
 	if (!cy)
 		put_error("Fatal, unable to create object\n");
 	return (cy);

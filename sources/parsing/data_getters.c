@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_getters.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 22:04:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/20 17:03:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/27 14:46:16 by hlaadiou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ t_ambient	get_ambient_data(t_pars *conf)
 
 int	normalized_range(t_vector vec)
 {
-	if (vec.x < -1.0 || vec.x > 1.0 \
-		|| vec.y < -1.0 || vec.y > 1.0 \
-		|| vec.z < -1.0 || vec.z > 1.0)
+	if (!compare_f(vec_magnitude(vec), 1.0f))
 		return (0);
 	return (1);
 }

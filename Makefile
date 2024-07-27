@@ -3,52 +3,52 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
+#    By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/07/25 14:26:26 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/07/27 14:24:55 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= miniRT
+NAME 		=	miniRT
 
-libobj 		= lib/libft/get_next_line_utils.o	\
-			lib/libft/get_next_line.o		\
-			lib/libft/ft_strdup.o			\
-			lib/libft/ft_substr.o 		\
-			lib/libft/ft_split.o			\
-			lib/libft/ft_memset.o			\
-			lib/libft/ft_bzero.o			\
-			lib/libft/ft_memcpy.o			\
-			lib/libft/ft_memmove.o 		\
-			lib/libft/ft_memchr.o			\
-			lib/libft/ft_memcmp.o			\
-			lib/libft/ft_strlen.o			\
-			lib/libft/ft_isalpha.o 		\
-			lib/libft/ft_isdigit.o		\
-			lib/libft/ft_isalnum.o		\
-			lib/libft/ft_isascii.o		\
-			lib/libft/ft_isprint.o		\
-			lib/libft/ft_toupper.o		\
-			lib/libft/ft_tolower.o		\
-			lib/libft/ft_strchr.o			\
-			lib/libft/ft_strrchr.o		\
-			lib/libft/ft_strncmp.o		\
-			lib/libft/ft_strlcpy.o		\
-			lib/libft/ft_strlcat.o		\
-			lib/libft/ft_strnstr.o		\
-			lib/libft/ft_atoi.o			\
-			lib/libft/ft_strjoin.o		\
-			lib/libft/ft_strtrim.o		\
-			lib/libft/ft_itoa.o			\
-			lib/libft/ft_strmapi.o		\
-			lib/libft/ft_striteri.o		\
-			lib/libft/ft_putchar_fd.o		\
-			lib/libft/ft_putstr_fd.o		\
-			lib/libft/ft_putendl_fd.o		\
-			lib/libft/ft_putnbr_fd.o
+libobj 		=	lib/libft/get_next_line_utils.o	\
+				lib/libft/get_next_line.o		\
+				lib/libft/ft_strdup.o			\
+				lib/libft/ft_substr.o 		\
+				lib/libft/ft_split.o			\
+				lib/libft/ft_memset.o			\
+				lib/libft/ft_bzero.o			\
+				lib/libft/ft_memcpy.o			\
+				lib/libft/ft_memmove.o 		\
+				lib/libft/ft_memchr.o			\
+				lib/libft/ft_memcmp.o			\
+				lib/libft/ft_strlen.o			\
+				lib/libft/ft_isalpha.o 		\
+				lib/libft/ft_isdigit.o		\
+				lib/libft/ft_isalnum.o		\
+				lib/libft/ft_isascii.o		\
+				lib/libft/ft_isprint.o		\
+				lib/libft/ft_toupper.o		\
+				lib/libft/ft_tolower.o		\
+				lib/libft/ft_strchr.o			\
+				lib/libft/ft_strrchr.o		\
+				lib/libft/ft_strncmp.o		\
+				lib/libft/ft_strlcpy.o		\
+				lib/libft/ft_strlcat.o		\
+				lib/libft/ft_strnstr.o		\
+				lib/libft/ft_atoi.o			\
+				lib/libft/ft_strjoin.o		\
+				lib/libft/ft_strtrim.o		\
+				lib/libft/ft_itoa.o			\
+				lib/libft/ft_strmapi.o		\
+				lib/libft/ft_striteri.o		\
+				lib/libft/ft_putchar_fd.o		\
+				lib/libft/ft_putstr_fd.o		\
+				lib/libft/ft_putendl_fd.o		\
+				lib/libft/ft_putnbr_fd.o
 
-SRCS		=	my_main.c \
+SRCS		=	sources/main.c \
 				sources/parsing/ambient_lightning.c \
 				sources/parsing/atof.c \
 				sources/parsing/camera.c \
