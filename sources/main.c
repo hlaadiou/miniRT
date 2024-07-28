@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:13:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/28 12:43:16 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 14:38:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,23 @@ void	ft_hook(void *param)
 
 int	ft_mlx(mlx_t **mlx, mlx_image_t **image)
 {
-	int	w;
-	int	h;
-
-	w = WIDTH;
-	h = HEIGHT;
-	if (!((*mlx) = mlx_init(w, h, "miniRT", false))) // NORM ERROR !
+	(*mlx) = mlx_init(WIDTH, HEIGHT, "miniRT", false);
+	if (!(*mlx))
 	{
-		puts(mlx_strerror(mlx_errno)); // Not allowed !
+		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
 		return (EXIT_FAILURE);
 	}
-	if (!((*image) = mlx_new_image(*mlx, w, h))) // NORM ERROR !
+	(*image) = mlx_new_image(*mlx, WIDTH, HEIGHT);
+	if (!(*image))
 	{
 		mlx_close_window(*mlx);
-		puts(mlx_strerror(mlx_errno));
+		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
 		return (EXIT_FAILURE);
 	}
 	if (mlx_image_to_window((*mlx), (*image), 0, 0) == -1)
 	{
 		mlx_close_window(*mlx);
-		puts(mlx_strerror(mlx_errno));
+		ft_putstr_fd(mlx_strerror(mlx_errno), 2);
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

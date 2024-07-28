@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/16 21:18:07 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 14:35:16 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void							ft_putnbr_fd(int n, int fd);
 char							*ft_substr(char const *s, unsigned int start, \
 									size_t len);
 void							ft_putendl_fd(char *s, int fd);
-void							ft_putstr_fd(char *s, int fd);
+void							ft_putstr_fd(const char *s, int fd);
 void							ft_putchar_fd(char c, int fd);
 void							ft_striteri(char *s,
 									void (*f)(unsigned int, char*));

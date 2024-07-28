@@ -6,13 +6,13 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 12:18:14 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/11 16:54:18 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 14:35:28 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(const char *s, int fd)
 {
 	unsigned int	j;
 
