@@ -6,13 +6,13 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:13:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/28 14:38:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 15:26:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b)
+int	ft_pixel(int r, int g, int b)
 {
 	return (r << 24 | g << 16 | b << 8 | 0xFF);
 }

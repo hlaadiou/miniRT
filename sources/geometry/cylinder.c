@@ -6,21 +6,11 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/27 17:55:15 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 15:22:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
-//5 params
-// typedef struct s_cylinder
-// {
-// 	t_point		center;
-// 	t_vector	axis;
-// 	float		diameter;
-// 	float		min;
-// 	float		max;
-// }	t_cylinder;
 
 t_object	*_cylinder(t_point pt, t_vector axis, t_attributes attr, t_color c)
 {

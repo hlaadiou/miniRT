@@ -6,25 +6,25 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 18:12:23 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/28 12:28:29 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 15:24:32 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_color	normalize_color(t_color colorValue)
+t_color	normalize_color(t_color color_value)
 {
 	float	max_val;
 
-	max_val = fmax(colorValue.r, fmax(colorValue.g, colorValue.b));
+	max_val = fmax(color_value.r, fmax(color_value.g, color_value.b));
 	if (max_val > 1)
 	{
-		colorValue.r = colorValue.r / max_val;
-		colorValue.g = colorValue.g / max_val;
-		colorValue.b = colorValue.b / max_val;
-		return (colorValue);
+		color_value.r = color_value.r / max_val;
+		color_value.g = color_value.g / max_val;
+		color_value.b = color_value.b / max_val;
+		return (color_value);
 	}
-	return (colorValue);
+	return (color_value);
 }
 
 void	render(t_camera_fn c, t_scene *w, mlx_image_t **image)

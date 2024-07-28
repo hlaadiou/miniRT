@@ -6,47 +6,47 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/07/28 12:28:05 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/07/28 15:16:27 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	miniRT
 
-libobj 		=	lib/libft/get_next_line_utils.o	\
-				lib/libft/get_next_line.o		\
-				lib/libft/ft_strdup.o			\
-				lib/libft/ft_substr.o 		\
-				lib/libft/ft_split.o			\
-				lib/libft/ft_memset.o			\
-				lib/libft/ft_bzero.o			\
-				lib/libft/ft_memcpy.o			\
-				lib/libft/ft_memmove.o 		\
-				lib/libft/ft_memchr.o			\
-				lib/libft/ft_memcmp.o			\
-				lib/libft/ft_strlen.o			\
-				lib/libft/ft_isalpha.o 		\
-				lib/libft/ft_isdigit.o		\
-				lib/libft/ft_isalnum.o		\
-				lib/libft/ft_isascii.o		\
-				lib/libft/ft_isprint.o		\
-				lib/libft/ft_toupper.o		\
-				lib/libft/ft_tolower.o		\
-				lib/libft/ft_strchr.o			\
-				lib/libft/ft_strrchr.o		\
-				lib/libft/ft_strncmp.o		\
-				lib/libft/ft_strlcpy.o		\
-				lib/libft/ft_strlcat.o		\
-				lib/libft/ft_strnstr.o		\
-				lib/libft/ft_atoi.o			\
-				lib/libft/ft_strjoin.o		\
-				lib/libft/ft_strtrim.o		\
-				lib/libft/ft_itoa.o			\
-				lib/libft/ft_strmapi.o		\
-				lib/libft/ft_striteri.o		\
-				lib/libft/ft_putchar_fd.o		\
-				lib/libft/ft_putstr_fd.o		\
-				lib/libft/ft_putendl_fd.o		\
-				lib/libft/ft_putnbr_fd.o
+LIBFT_SRCS 	=	lib/libft/get_next_line_utils.c	\
+				lib/libft/get_next_line.c		\
+				lib/libft/ft_strdup.c			\
+				lib/libft/ft_substr.c 		\
+				lib/libft/ft_split.c			\
+				lib/libft/ft_memset.c			\
+				lib/libft/ft_bzero.c			\
+				lib/libft/ft_memcpy.c			\
+				lib/libft/ft_memmove.c 		\
+				lib/libft/ft_memchr.c			\
+				lib/libft/ft_memcmp.c			\
+				lib/libft/ft_strlen.c			\
+				lib/libft/ft_isalpha.c 		\
+				lib/libft/ft_isdigit.c		\
+				lib/libft/ft_isalnum.c		\
+				lib/libft/ft_isascii.c		\
+				lib/libft/ft_isprint.c		\
+				lib/libft/ft_toupper.c		\
+				lib/libft/ft_tolower.c		\
+				lib/libft/ft_strchr.c			\
+				lib/libft/ft_strrchr.c		\
+				lib/libft/ft_strncmp.c		\
+				lib/libft/ft_strlcpy.c		\
+				lib/libft/ft_strlcat.c		\
+				lib/libft/ft_strnstr.c		\
+				lib/libft/ft_atoi.c			\
+				lib/libft/ft_strjoin.c		\
+				lib/libft/ft_strtrim.c		\
+				lib/libft/ft_itoa.c			\
+				lib/libft/ft_strmapi.c		\
+				lib/libft/ft_striteri.c		\
+				lib/libft/ft_putchar_fd.c		\
+				lib/libft/ft_putstr_fd.c		\
+				lib/libft/ft_putendl_fd.c		\
+				lib/libft/ft_putnbr_fd.c
 
 SRCS		=	sources/main.c \
 				sources/parsing/ambient_lightning.c \
@@ -98,9 +98,10 @@ SRCS		=	sources/main.c \
 				sources/rt_mathematics/reflect.c
 
 OBJS 		= 	$(SRCS:.c=.o)
+LIBFT_OBJS	=	$(LIBFT_SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" lib/libft/libft.a
-CFLAGS		=	-Wall -Werror -Wextra  -g3 #-fsanitize=address -Ofast
+CFLAGS		=	-Wall -Werror -Wextra
 CC			=	cc
 RM			=	rm -rf
 
@@ -115,7 +116,7 @@ libft:
 %.o: 		%.c includes/miniRT.h includes/rt_mathematics.h includes/parsing.h includes/geometry.h includes/lighting.h
 			@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME) :	$(OBJS) $(libobj)
+$(NAME) :	$(OBJS) $(LIBFT_OBJS)
 			@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 clean:
@@ -129,5 +130,4 @@ fclean:		clean
 
 re:			fclean all
 
-# .PHONY:		all clean fclean re libmlx
-
+.PHONY:		clean libmlx libft

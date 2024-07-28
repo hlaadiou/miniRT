@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:59:11 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/27 20:44:06 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 14:52:20 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 
 # include "../lib/libft/libft.h"
 # include "miniRT.h"
-# include <limits.h>
 
 typedef struct s_collector
 {
@@ -75,13 +74,6 @@ typedef struct s_obj_lst
 	struct s_obj_lst	*next;
 	struct s_obj_lst	*prev;
 }	t_obj_lst;
-
-// TO REMOVE
-typedef struct s_world
-{
-	t_light		light;
-	t_obj_lst	*obj_lst;
-}				t_world;
 
 typedef struct s_scene
 {

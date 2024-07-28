@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:15:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/28 14:34:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 14:50:45 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <limits.h>
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "rt_mathematics.h"
