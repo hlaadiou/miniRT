@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 10:03:30 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/28 15:22:44 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 18:31:58 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,10 @@ int	check_cap(t_ray r, float t, t_object *cy)
 	float	x;
 	float	z;
 
+	(void)(cy);
 	x = r.org.x + (t * r.dir.x);
 	z = r.org.z + (t * r.dir.z);
-	if (((x * x) + (z * z)) <= (powf(cy->cy->diameter, 2) / 4.0f))
+	if (((x * x) + (z * z)) <= (powf(cy->cy->diameter / 2.0f, 2)))
 		return (1);
 	return (0);
 }

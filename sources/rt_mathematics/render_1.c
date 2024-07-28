@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 18:11:06 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/28 17:37:59 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 19:48:17 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,21 +88,19 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 	t_comps	*comps;
 
 	comps_init(&comps, inter, ray);
-	if (dot_product(comps->normalv, comps->eyev) < 0 && \
-			fabs(dot_product(comps->normalv, comps->eyev)) > 0.5f) /* critical part in the caps inside of a cylinder!! */
+	if (dot_product(comps->normalv, comps->eyev) < 0)/* critical part in the caps inside of a cylinder!! */
 	{
 		comps->inside = 1;
 		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
 	}
 	else
 		comps->inside = 0;
-	if (((comps->obj->type == SPHERE && \
-			(comps->obj->sp->radius * comps->t) >= 3.0f) || \
-								(comps->obj->type == CYLINDER && \
-			((comps->obj->cy->diameter / 2) * comps->t) >= 3.0f)) && \
-														comps->inside == 0)
+	if (comps->obj->type == SPHERE)
 		comps->point = add_tuples(comps->point, \
-						multiply_tuple_scalar(EPSILON, comps->normalv));
+			multiply_tuple_scalar(EPSILON, comps->normalv));
+	else if (comps->obj->type == CYLINDER)
+		comps->point = add_tuples(comps->point, \
+			multiply_tuple_scalar(EPSL_CY, comps->normalv));
 	else
 		comps->point = add_tuples(comps->point, \
 							multiply_tuple_scalar(0.00001f, comps->normalv));

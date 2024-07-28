@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/28 11:46:24 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 19:47:25 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define RT_MATHEMATICS_H
 
 # define EPSILON 0.001f
+# define EPSL_CY 0.0f
+# define EPSL_SP 0.001f
 
 /*
  * USER DEFINED DATA TYPES
