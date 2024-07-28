@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 15:52:17 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/17 01:00:29 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 15:39:54 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,6 @@ void	ft_camera(char *line, t_pars **pars)
 
 	tab = str_split(line, " \t\r\f\n\v");
 	if (ft_tab_size(tab) != 4)
-	{
-		ft_putstr_fd("Error\nWrong number of specific informations\n", 2);
-		exit(1);
-	}
+		put_error("Wrong number of specific informations\n");
 	ft_lstadd_back(pars, ft_lstnew(tab[0], tab, 2));
 }

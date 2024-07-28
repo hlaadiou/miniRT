@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:52:59 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/03/30 02:26:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 15:42:19 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	plane_pars(char *line, t_pars **pars)
 
 	tab = str_split(line, " \t\r\f\n\v");
 	if (ft_tab_size(tab) != 4)
-	{
-		ft_putstr_fd("Error\nwrong number of specific informations\n", 2);
-		exit(0);
-	}
+		put_error("wrong number of specific informations\n");
 	new = ft_lstnew(tab[0], tab, 5);
 	ft_lstadd_back(pars, new);
 }

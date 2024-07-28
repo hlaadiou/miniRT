@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 01:02:55 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/27 18:06:40 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 15:42:00 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ int	ft_pars_loop(char *line, t_pars **pars)
 				ft_strchr(" \t\r", line[2]) != NULL)
 		cylinder_pars(line, pars);
 	else
-	{
-		ft_putstr_fd("Error\nWrong identifier\n", 2);
-		exit(1);
-	}
+		put_error("Wrong identifier\n");
 	return (0);
 }
 
@@ -60,10 +57,7 @@ void	ft_pars(char *av, t_pars **pars)
 		}
 	}
 	else
-	{
-		ft_putstr_fd("Error\nCannot open file\n", 2);
-		exit(1);
-	}
+		put_error("Cannot open file\n");
 	close(fd);
 	return ;
 }

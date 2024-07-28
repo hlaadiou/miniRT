@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 17:17:27 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/27 18:07:26 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 15:43:17 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	put_error(char *str)
 {
 	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(str, 2);
+	ft_free_collector(ft_collector());
 	exit(EXIT_FAILURE);
 }
 
