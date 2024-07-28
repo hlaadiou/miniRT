@@ -6,7 +6,7 @@
 #    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/07/27 20:43:38 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/07/28 12:28:05 by azgaoua          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,11 +49,6 @@ libobj 		=	lib/libft/get_next_line_utils.o	\
 				lib/libft/ft_putnbr_fd.o
 
 SRCS		=	sources/main.c \
-				sources/main_1.c \
-				sources/main_2.c \
-				sources/main_3.c \
-				sources/main_4.c \
-				sources/main_5.c \
 				sources/parsing/ambient_lightning.c \
 				sources/parsing/atof.c \
 				sources/parsing/progress_bar.c \
@@ -87,6 +82,11 @@ SRCS		=	sources/main.c \
 				sources/rt_mathematics/mtx.c \
 				sources/rt_mathematics/mtx_1.c \
 				sources/rt_mathematics/points.c \
+				sources/rt_mathematics/render_1.c \
+				sources/rt_mathematics/render_2.c \
+				sources/rt_mathematics/render_3.c \
+				sources/rt_mathematics/render_4.c \
+				sources/rt_mathematics/render_5.c \
 				sources/rt_mathematics/rotation.c \
 				sources/rt_mathematics/scaling.c \
 				sources/rt_mathematics/transformation.c \

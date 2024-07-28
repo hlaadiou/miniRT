@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_1.c                                           :+:      :+:    :+:   */
+/*   render_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 18:11:06 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/27 20:45:50 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 12:28:25 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 t_ray	ray_for_pixel(t_camera_fn c, int px, int py)
 {
@@ -89,7 +89,7 @@ t_comps	*prepare_computations(t_inter *inter, t_ray ray)
 
 	comps_init(&comps, inter, ray);
 	if (dot_product(comps->normalv, comps->eyev) < 0 && \
-			fabs(dot_product(comps->normalv, comps->eyev)) > 0.5f)
+			fabs(dot_product(comps->normalv, comps->eyev)) > 0.5f) /* critical part in the caps inside of a cylinder!! */
 	{
 		comps->inside = 1;
 		comps->normalv = multiply_tuple_scalar(-1, comps->normalv);
