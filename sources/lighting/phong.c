@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 18:19:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/27 18:00:31 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 17:41:15 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ t_color	illuminate(t_comps *comps, t_scene *world, int in_shadow)
 	if (in_shadow || compare_f(world->light.brightness, 0))
 		return (ph.ambient);
 	light_dot_normal = dot_product(ph.l, ph.n);
-	if ((light_dot_normal < 0 && comps->inside == 0) || \
-		(comps->obj->type == PLANE && comps->inside != 0))
+	if ((light_dot_normal > 0 && comps->inside != 0) || \
+		(comps->obj->type == PLANE && comps->inside != 0) || \
+		(light_dot_normal < 0 && comps->inside == 0))
 		return (ph.ambient);
 	if (light_dot_normal < 0)
 		light_dot_normal = -light_dot_normal;
