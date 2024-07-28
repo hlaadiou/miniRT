@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 14:22:43 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/17 17:34:20 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/28 11:43:56 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**ft_split(char const *s, char c)
 	i = 0;
 	if (!s)
 		return (NULL);
-	sp = ft_malloc(sizeof(char*) * lignes(s, c));
+	sp = ft_malloc(sizeof(char *) * lignes(s, c));
 	if (!sp)
 		return (0);
 	while (*s)
@@ -73,4 +73,3 @@ char	**ft_split(char const *s, char c)
 	sp[i] = NULL;
 	return (sp);
 }
-
