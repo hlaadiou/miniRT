@@ -3,50 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
+#    By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/10 16:30:07 by hlaadiou          #+#    #+#              #
-#    Updated: 2024/07/28 15:16:27 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/07/29 12:15:33 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		=	miniRT
-
-LIBFT_SRCS 	=	lib/libft/get_next_line_utils.c	\
-				lib/libft/get_next_line.c		\
-				lib/libft/ft_strdup.c			\
-				lib/libft/ft_substr.c 		\
-				lib/libft/ft_split.c			\
-				lib/libft/ft_memset.c			\
-				lib/libft/ft_bzero.c			\
-				lib/libft/ft_memcpy.c			\
-				lib/libft/ft_memmove.c 		\
-				lib/libft/ft_memchr.c			\
-				lib/libft/ft_memcmp.c			\
-				lib/libft/ft_strlen.c			\
-				lib/libft/ft_isalpha.c 		\
-				lib/libft/ft_isdigit.c		\
-				lib/libft/ft_isalnum.c		\
-				lib/libft/ft_isascii.c		\
-				lib/libft/ft_isprint.c		\
-				lib/libft/ft_toupper.c		\
-				lib/libft/ft_tolower.c		\
-				lib/libft/ft_strchr.c			\
-				lib/libft/ft_strrchr.c		\
-				lib/libft/ft_strncmp.c		\
-				lib/libft/ft_strlcpy.c		\
-				lib/libft/ft_strlcat.c		\
-				lib/libft/ft_strnstr.c		\
-				lib/libft/ft_atoi.c			\
-				lib/libft/ft_strjoin.c		\
-				lib/libft/ft_strtrim.c		\
-				lib/libft/ft_itoa.c			\
-				lib/libft/ft_strmapi.c		\
-				lib/libft/ft_striteri.c		\
-				lib/libft/ft_putchar_fd.c		\
-				lib/libft/ft_putstr_fd.c		\
-				lib/libft/ft_putendl_fd.c		\
-				lib/libft/ft_putnbr_fd.c
 
 SRCS		=	sources/main.c \
 				sources/parsing/ambient_lightning.c \
@@ -97,8 +61,8 @@ SRCS		=	sources/main.c \
 				sources/rt_mathematics/normalize.c \
 				sources/rt_mathematics/reflect.c
 
+INCS		=	includes/miniRT.h includes/rt_mathematics.h includes/pars.h includes/geometry.h includes/lighting.h
 OBJS 		= 	$(SRCS:.c=.o)
-LIBFT_OBJS	=	$(LIBFT_SRCS:.c=.o)
 LIBMLX		=	./lib/MLX42
 LIBS		=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" lib/libft/libft.a
 CFLAGS		=	-Wall -Werror -Wextra
@@ -108,25 +72,25 @@ RM			=	rm -rf
 all :		libmlx libft $(NAME)
 
 libmlx:
-			@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+			cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 libft:
-			@make -C ./lib/libft
+			make -C ./lib/libft
 
-%.o: 		%.c includes/miniRT.h includes/rt_mathematics.h includes/parsing.h includes/geometry.h includes/lighting.h
-			@$(CC) $(CFLAGS) -c $< -o $@
+%.o: 		%.c $(INCS)
+			$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME) :	$(OBJS) $(LIBFT_OBJS)
-			@$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
+$(NAME) :	$(OBJS) lib/libft/libft.a $(LIBMLX)/build/libmlx42.a
+			$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
 clean:
-			@make clean -C ./lib/libft
-			@$(RM) $(OBJS)
-			@$(RM) $(LIBMLX)/build
+			make clean -C ./lib/libft
+			$(RM) $(OBJS)
 
 fclean:		clean
-			@make fclean -C ./lib/libft
-			@$(RM) $(NAME)
+			make fclean -C ./lib/libft
+			$(RM) $(LIBMLX)/build
+			$(RM) $(NAME)
 
 re:			fclean all
 

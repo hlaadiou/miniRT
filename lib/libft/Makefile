@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+         #
+#    By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/16 08:06:59 by azgaoua           #+#    #+#              #
-#    Updated: 2024/03/15 01:31:06 by azgaoua          ###   ########.fr        #
+#    Updated: 2024/07/29 10:12:54 by hlaadiou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,17 +59,15 @@ CC_FLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 %.o : %.c libft.h
-	@$(CC) $(CC_FLAGS) -c $<
+	$(CC) $(CC_FLAGS) -c $<
 
 $(NAME): $(OBJS)
-	@echo "-------> making Libft <-------"
-	@ar rc $(NAME) $(OBJS)
-	@echo "-------> Libft Done <-------"
+	ar rc $(NAME) $(OBJS)
 
 clean:
-	@rm -rf $(OBJS) $(OBJ_BNS)
+	rm -rf $(OBJS) $(OBJ_BNS)
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -rf $(NAME)
 
 re : fclean all
