@@ -6,15 +6,14 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 20:17:40 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/27 18:04:09 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/29 14:51:40 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/pars.h"
 
-/* counts the number of the chars in argument
+/* counts the number of the chars inargument
 while ignoring the leading zeros */
-
 int	ft_real_len(char *str)
 {
 	size_t	count;
@@ -85,7 +84,7 @@ int	check_magnitude(char *str)
 {
 	if (fabsf(ft_atof(str)) > MAX_ABS_FLOAT)
 	{
-		ft_putstr_fd("Unsupported magnitude: ", 2);
+		ft_putstr_fd("Error\nUnsupported magnitude: ", 2);
 		ft_putstr_fd("Value exceeds maximum allowed magnitude of 1000!\n", 2);
 		return (0);
 	}
@@ -103,7 +102,7 @@ int	check_precision(char *str, size_t k)
 		i--;
 	if ((i - k + 1) > 5)
 	{
-		ft_putstr_fd("Unsupported precision: ", 2);
+		ft_putstr_fd("Error\nUnsupported precision: ", 2);
 		ft_putstr_fd("The fractional part shouldn't exceed 5 digits!\n", 2);
 		return (0);
 	}

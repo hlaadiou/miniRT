@@ -6,13 +6,12 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:46:44 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/26 17:56:47 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/29 14:26:53 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-/* generates an object type from sphere/cylinder/plan */
 t_object	*_obj(void *obj, t_color c, t_types type)
 {
 	t_object	*o;

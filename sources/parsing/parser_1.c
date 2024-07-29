@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 17:17:27 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/28 15:43:17 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/29 13:58:09 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ t_rgb255	parse_color(char *str)
 	return (rgb);
 }
 
-// t_pars needs to freed in case of error as well as object list and scene
 t_scene	*parse_scene(t_pars *conf)
 {
 	t_scene		*scene;

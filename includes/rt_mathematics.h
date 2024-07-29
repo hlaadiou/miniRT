@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_mathematics.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 13:36:31 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/29 12:43:25 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:43:12 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # define EPSILON 0.001f
 # define EPSL_CY 0.0f
-# define EPSL_SP 0.001f
 
 /*
  * USER DEFINED DATA TYPES

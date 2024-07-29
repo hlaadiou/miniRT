@@ -6,14 +6,13 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 11:26:14 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/20 16:39:05 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/29 14:27:44 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
 /* CREATES AN ARRAY OF TWO INTERSECTIONS OR RETURNS NULL IF NONE ARE FOUND */
-/* PROBABLY USELESS | NEEDS PEER REVIEW | */
 t_inter	**_intersection(t_roots roots, t_object *obj)
 {
 	t_inter	**inter;
@@ -47,7 +46,6 @@ t_point	_position(t_ray ray, float t)
 	return (add_tuples(ray.org, multiply_tuple_scalar(t, ray.dir)));
 }
 
-/* We assume that the obj is a SPHERE */
 t_quadratic	discriminant_sp(t_ray ray, t_object *sp)
 {
 	t_vector	sp_to_ray;
@@ -61,7 +59,6 @@ t_quadratic	discriminant_sp(t_ray ray, t_object *sp)
 	return (quad);
 }
 
-/* We assume that the obj is a SPHERE */
 t_inter	**intersect_sp(t_ray ray, t_object *sp)
 {
 	t_inter			**inter;
