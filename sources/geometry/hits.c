@@ -96,7 +96,7 @@ t_inter	**local_intersect(t_object *cy, t_ray r)
 	float	discriminant;
 
 	a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z);
-	if (fabs(a) < 0 || fabs(r.dir.y) < 0)
+	if (compare_f(a, 0) || compare_f(r.dir.y, 0))
 		return (NULL);
 	b = 2 * ((r.dir.x * r.org.x) + (r.dir.z * r.org.z));
 	c = (r.org.x * r.org.x) + (r.org.z * r.org.z) - (powf(cy->cy->diameter, \
