@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 18:13:30 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/28 16:37:50 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/30 21:20:42 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ int	is_shadowed(t_scene *w, t_point p)
 	r = _ray(p, vec_normalize(v));
 	lst = intersect_world(w, r);
 	h = hit(lst);
-	if (h != NULL && (compare_ff(fabs(h->t - distance), 0)))
-		return (1);
-	if (h != NULL && (h->t < distance))
+	if (h != NULL && ((h->t < distance) || \
+			compare_ff(fabs(h->t - distance), 0)))
 		return (1);
 	return (0);
 }
