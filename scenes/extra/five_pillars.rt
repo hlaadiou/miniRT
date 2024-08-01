@@ -1,0 +1,27 @@
+# AMBIENT LIGHTNING
+# Ratio [0.0 , 1.0] | RGB [0 , 255]
+
+A   0.3    255,255,255
+
+# CAMERA
+# View Point (x, y, z) | Orientation Vec (x, y, z) : [-1, 1] | FOV [0, 180]
+
+C   0,0,-15  		                   0,0,1			                45
+
+# LIGHT
+# Light Point (x, y, z) | Brightness [0.0, 1.0] | RGB [0, 255]
+
+L  -10,4,-10					1.0				255,255,255
+
+# PLANES
+# Plane point (x, y, z) | Normal Vec (x, y, z) : [-1, 1] | RGB [0, 255]
+pl 0,6,0                        0,-1,0                      255,255,0
+pl 0,-6,0                        0,1,0                      3,191,17
+
+# CYLINDERS
+# Cy Center (x, y, z) 	| Axis Vec (x, y, z) : [-1, 1] | Diameter | Height | RGB [0, 255]
+cy  6,0,3                           0,1,0                   2         14     201,201,201
+cy -6,0,3                           0,1,0                   2         14     201,201,201
+cy -15,0,20                         0,1,0                   2         14     201,201,201
+cy  15,0,20                         0,1,0                   2         14     201,201,201
+cy  0,0,15                          0,1,0                   2         14     201,201,201

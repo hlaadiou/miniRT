@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 17:34:52 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/20 16:49:27 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:02:51 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,9 @@ int	check_al(t_pars *conf)
 		conf = conf->next;
 	}
 	if (!counter)
-		return (ft_putstr_fd("Error\nAmbient lighting not defined\n", 2), 0);
+		return (put_error("Ambient lighting not defined\n"), 0);
 	else if (counter > 1)
-		return (ft_putstr_fd("Error\nAmbient lighting defined many times\n", \
-																		2), 0);
+		return (put_error("Ambient lighting defined many times\n"), 0);
 	else
 		return (1);
 }
@@ -44,9 +43,9 @@ int	check_camera(t_pars *conf)
 		conf = conf->next;
 	}
 	if (!counter)
-		return (ft_putstr_fd("Error\nCamera not defined\n", 2), 0);
+		return (put_error("Camera not defined\n"), 0);
 	else if (counter > 1)
-		return (ft_putstr_fd("Error\nCamera defined more than once\n", 2), 0);
+		return (put_error("Camera defined more than once\n"), 0);
 	else
 		return (1);
 }
@@ -63,9 +62,9 @@ int	check_light(t_pars *conf)
 		conf = conf->next;
 	}
 	if (!counter)
-		return (ft_putstr_fd("Error\nLight not defined\n", 2), 0);
+		return (put_error("Light not defined\n"), 0);
 	else if (counter > 1)
-		return (ft_putstr_fd("Error\nLight defined more than once\n", 2), 0);
+		return (put_error("Light defined more than once\n"), 0);
 	else
 		return (1);
 }
@@ -83,8 +82,8 @@ int	check_objects(t_pars *conf)
 		conf = conf->next;
 	}
 	if (!counter)
-		return (ft_putstr_fd \
-				("Error\nScene should contain at least one object\n", 2), 0);
+		return (put_error \
+				("Scene should contain at least one object\n"), 0);
 	else
 		return (counter);
 }

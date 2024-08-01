@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 15:53:04 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/30 21:36:11 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/31 14:43:22 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_inter	*hit(t_lst_inter *lst)
 }
 
 /*
-** b ==> 2 * ((r.dir.x * r.org.x) + (r.dir.z * r.org.z))
+** a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z)
+** b = 2 * ((r.dir.x * r.org.x) + (r.dir.z * r.org.z))
 ** c = (r.org.x * r.org.x) + (r.org.z * r.org.z) - \
 						(powf(cy->cy->diameter, 2) / 4.0f)
-** a = (r.dir.x * r.dir.x) + (r.dir.z * r.dir.z)
 */
 
 t_inter	**ft_local_intersect_3(float *t1, float *t2, t_inter ***inter)

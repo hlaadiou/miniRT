@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlaadiou <hlaadiou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 09:45:32 by azgaoua           #+#    #+#             */
-/*   Updated: 2024/07/29 12:08:50 by hlaadiou         ###   ########.fr       */
+/*   Updated: 2024/07/31 18:52:46 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <string.h>
 # include <stdlib.h>
 # include "../../includes/pars.h"
 

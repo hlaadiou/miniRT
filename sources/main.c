@@ -6,7 +6,7 @@
 /*   By: azgaoua <azgaoua@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/27 13:13:01 by hlaadiou          #+#    #+#             */
-/*   Updated: 2024/07/29 14:46:41 by azgaoua          ###   ########.fr       */
+/*   Updated: 2024/07/31 20:43:32 by azgaoua          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,6 @@ t_camera_fn	camera(int hsize, int vsize, float field_of_view)
 	return (c);
 }
 
-void	vv(void)
-{
-	system("leaks miniRT");
-}
-
 int	main(int ac, char **av)
 {
 	mlx_image_t		*image;
@@ -89,7 +84,6 @@ int	main(int ac, char **av)
 	t_scene			*scene;
 	t_camera_fn		cam;
 
-	atexit(vv);
 	conf = create_conf(ac, av);
 	if (!conf)
 		return (1);

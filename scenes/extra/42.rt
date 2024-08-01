@@ -1,7 +1,7 @@
 # AMBIENT LIGHTNING
 # Ratio [0.0 , 1.0] | RGB [0 , 255]
 
-A   0     255,255,255
+A   0.3     255,255,255
 
 # CAMERA
 # View Point (x, y, z) | Orientation Vec (x, y, z) : [-1, 1] | FOV [0, 180]
